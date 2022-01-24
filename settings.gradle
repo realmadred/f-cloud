@@ -1,0 +1,6 @@
+rootProject.name = 'f-cloud'
+include 'api'
+include 'common'
+include 'service'
+include 'gateway'
+
