@@ -1,16 +1,34 @@
 plugins {
-//    id 'java'
+    id 'java'
+    id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+    id 'org.springframework.boot' version '2.6.3'
+}
+
+ext {
+    set('springCloudAlibabaVersion', "2021.1")
+    set('springCloudVersion', "2021.0.0")
 }
 
 allprojects {
     apply plugin: 'java'
+
     group 'com.f'
     version '1.0.0'
+
+    // 设置编译和运行的jre兼容版本
+    sourceCompatibility = '1.8'
+    targetCompatibility = '1.8'
+
+    configurations {
+        compileOnly {
+            extendsFrom annotationProcessor
+        }
+    }
+
     repositories {
         mavenLocal()
         maven {
             url 'https://repo.huaweicloud.com/repository/maven/'
-            name 'huawei'
         }
     }
     dependencies {
@@ -23,5 +41,39 @@ allprojects {
     }
 }
 
-repositories {
+// 应用于所有依赖的子项目
+subprojects {
+    // 应用插件
+    apply plugin: "org.springframework.boot"
+    apply plugin: "io.spring.dependency-management"
+
+    // spring boot构建任务
+    springBoot {
+        buildInfo()
+    }
+
+    dependencyManagement {
+        // 导入maven依赖管理的bom
+        imports {
+            mavenBom 'org.apache.commons:commons-lang3:3.1'
+            mavenBom "com.alibaba.cloud:spring-cloud-alibaba-dependencies:${springCloudAlibabaVersion}"
+            mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+        }
+    }
+
+    /**
+    * 为所有模块指定公共的依赖
+    * 注意这里有些默认不用再指定版本了，已经由上面的dependencyManagement管理了
+    */
+    dependencies {
+        annotationProcessor "org.springframework.boot:spring-boot-configuration-processor"
+        annotationProcessor "org.projectlombok:lombok"
+        compileOnly "org.springframework.boot:spring-boot-configuration-processor"
+        compileOnly "org.projectlombok:lombok"
+        implementation "org.apache.commons:commons-lang3"
+        testAnnotationProcessor "org.projectlombok:lombok"
+        testCompileOnly "org.projectlombok:lombok"
+        testImplementation "org.springframework.boot:spring-boot-starter-test"
+    }
 }
+
