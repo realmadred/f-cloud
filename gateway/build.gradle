@@ -1,10 +1,18 @@
 dependencies {
     implementation(project(':api'))
+    implementation(project(':common:common-core'))
+    implementation "org.apache.commons:commons-lang3"
 //    implementation 'org.springframework.boot:spring-boot-starter-security'
     implementation 'org.springframework.cloud:spring-cloud-starter-gateway'
     implementation 'com.alibaba.cloud:spring-cloud-starter-alibaba-nacos-discovery'
     implementation 'com.alibaba.cloud:spring-cloud-starter-alibaba-nacos-config'
+    implementation 'io.jsonwebtoken:jjwt'
 //    implementation 'com.alibaba.cloud:spring-cloud-starter-alibaba-sentinel'
 //    implementation 'com.alibaba.cloud:spring-cloud-alibaba-sentinel-gateway'
 //    implementation 'com.alibaba.csp:sentinel-datasource-nacos'
+}
+
+// spring boot构建任务
+springBoot {
+    buildInfo()
 }

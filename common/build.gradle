@@ -1,6 +1,4 @@
 jar.enabled(true)
 
 dependencies {
-    implementation(project(':api'))
-    implementation "org.apache.commons:commons-lang3"
 }

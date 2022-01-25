@@ -1,2 +1,13 @@
 dependencies {
+    implementation project(':api')
+    implementation 'org.apache.commons:commons-lang3'
+    implementation 'com.google.guava:guava'
+    implementation 'com.fasterxml.jackson.core:jackson-databind'
+    compileOnly('org.springframework.boot:spring-boot') {
+        exclude group: 'org.springframework.boot', module: 'spring-boot-starter-logging'
+        exclude group: 'org.apache.tomcat.embed', module: 'tomcat-embed-websocket'
+    }
+    compileOnly 'org.springframework:spring-core'
+    compileOnly 'com.baomidou:mybatis-plus-extension'
+    implementation group: 'org.slf4j', name: 'slf4j-api', version: '1.7.33'
 }
