@@ -1,0 +1,19 @@
+spring:
+  application:
+    # 应用名称
+    name: gateway
+  profiles:
+    # 环境配置
+    active: dev
+  main:
+    allow-circular-references: true
+    allow-bean-definition-overriding: true
+  cloud:
+    nacos:
+      config:
+        # 配置中心地址
+        server-addr: 127.0.0.1:8848
+        # 命名空间
+        namesapce: dev
+        # 配置文件格式
+        file-extension: yaml

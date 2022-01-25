@@ -1,0 +1,12 @@
+#server:
+#  port: 8080
+#
+## Spring
+#spring:
+#  cloud:
+#    nacos:
+#      discovery:
+#        # 服务注册地址
+#        server-addr: 127.0.0.1:8848
+#        # 命名空间
+#        namesapce: dev
