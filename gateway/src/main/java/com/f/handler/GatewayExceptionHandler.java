@@ -3,6 +3,7 @@ package com.f.handler;
 import com.f.base.Result;
 import com.f.enums.ResultEnum;
 import com.f.utils.GatewayUtils;
+import lombok.Data;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.web.reactive.error.ErrorWebExceptionHandler;
@@ -23,8 +24,8 @@ import reactor.core.publisher.Mono;
 @Order(-5)
 @Configuration
 @Slf4j
+@Data
 public class GatewayExceptionHandler implements ErrorWebExceptionHandler {
-
 
     /**
      * 异常处理

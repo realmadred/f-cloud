@@ -7,13 +7,13 @@ spring:
     active: dev
   main:
     allow-circular-references: true
-    allow-bean-definition-overriding: true
   cloud:
     nacos:
       config:
+        group: gateway
+        username: nacos
+        password: nacos
         # 配置中心地址
         server-addr: 127.0.0.1:8848
-        # 命名空间
-        namesapce: dev
         # 配置文件格式
-        file-extension: yaml
+        file-extension: yml

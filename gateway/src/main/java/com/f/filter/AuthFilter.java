@@ -1,6 +1,6 @@
 package com.f.filter;
 
-import com.f.config.GatewayProperties;
+import com.f.config.MyGatewayProperties;
 import com.f.constant.Constant;
 import com.f.utils.GatewayUtils;
 import com.f.utils.JwtUtils;
@@ -27,8 +27,7 @@ import reactor.core.publisher.Mono;
 @Slf4j
 public class AuthFilter implements GlobalFilter, Ordered {
 
-    private final GatewayProperties gatewayProperties;
-
+    private final MyGatewayProperties gatewayProperties;
 
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
