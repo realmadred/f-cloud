@@ -43,12 +43,11 @@ public class GatewayExceptionHandler implements ErrorWebExceptionHandler {
         }
 
         Result<Void> result = Result.fail(ResultEnum.ERROR);
-
         if (throwable instanceof NotFoundException) {
             result = Result.fail(ResultEnum.NOT_FOUND);
         } else if (throwable instanceof ResponseStatusException) {
             ResponseStatusException responseStatusException = (ResponseStatusException) throwable;
-            result = Result.fail(ResultEnum.COMMON.getCode(), responseStatusException.getMessage());
+            result = Result.fail(responseStatusException.getStatus().value(), responseStatusException.getMessage());
         }
 
         log.error("uri:{},异常:{}", exchange.getRequest().getPath(), throwable.getMessage());
