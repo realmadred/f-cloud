@@ -1,60 +1,32 @@
 #server:
 #  port: 8080
+#  # 启用压缩
+#  compression:
+#    enabled: true
+#    mime-types: application/json
+#  http2:
+#    enabled: true
+#  # 优雅关机
+#  shutdown: graceful
 #
 ## Spring
 #spring:
 #  cloud:
 #    nacos:
 #      discovery:
-#        # 服务注册地址
+#        username: nacos
+#        password: nacos
 #        server-addr: 127.0.0.1:8848
-#        # 命名空间
-#        namesapce: dev
-
+#        namespace: dev
+#    gateway:
+#      discovery:
+#        locator:
+#          lowerCaseServiceId: true
+#          enabled: true
 #f:
 #  gateway:
+#    name: dev
 #    notAuthUris:
-#      - /order/login
-#      - /order/getKey
-
-#spring:
-#  cloud:
-#    gateway:
-#      routes:
-#        # 订单
-#        - id: order
-#          uri: lb://order
-#          predicates:
-#            - Path=/order/**
-#          filters:
-#            - StripPrefix=1
-#        # 系统模块
-#        - id: sys
-#          uri: lb://sys
-#          predicates:
-#            - Path=/sys/**
-#          filters:
-#            - StripPrefix=1
-#        # 文件服务
-#        - id: file
-#          uri: lb://file
-#          predicates:
-#            - Path=/file/**
-#          filters:
-#            - StripPrefix=1
-#        # 支付服务
-#        - id: pay
-#          uri: lb://pay
-#          predicates:
-#            - Path=/pay/**
-#          filters:
-#            - StripPrefix=1
-#        # 文件服务
-#        - id: message
-#          uri: lb://message
-#          predicates:
-#            - Path=/file/**
-#          filters:
-#            - StripPrefix=1
-
-
+#      - /auth/login
+#      - /auth/getKey
+#      - /sys/app/version

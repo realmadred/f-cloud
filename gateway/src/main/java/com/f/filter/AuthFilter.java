@@ -34,11 +34,10 @@ public class AuthFilter implements GlobalFilter, Ordered {
         ServerHttpRequest request = exchange.getRequest();
         ServerHttpRequest.Builder mutate = request.mutate();
 
-        // 跳过不需要验证的路径
         if (gatewayProperties.getNotAuthUris().contains(request.getURI().getPath())) {
             return chain.filter(exchange);
         }
-        String token = getToken(request);
+        String token = request.getHeaders().getFirst(Constant.TOKEN);
         if (StringUtils.isEmpty(token)) {
             return GatewayUtils.responseToLogin(exchange.getResponse());
         }
@@ -60,15 +59,9 @@ public class AuthFilter implements GlobalFilter, Ordered {
         return chain.filter(exchange.mutate().request(mutate.build()).build());
     }
 
-    /**
-     * 获取请求token
-     */
-    private String getToken(ServerHttpRequest request) {
-        return request.getHeaders().getFirst(Constant.TOKEN);
-    }
-
     @Override
     public int getOrder() {
+        // 数值越小越先执行 pre
         return -100;
     }
 }
