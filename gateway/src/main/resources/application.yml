@@ -20,10 +20,6 @@
 #spring:
 #  cloud:
 #    gateway:
-#      discovery:
-#        locator:
-#          lowerCaseServiceId: true
-#          enabled: true
 #      routes:
 #        # 订单
 #        - id: order

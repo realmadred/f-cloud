@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.f.mapper.sys.SysMenuMapper">
+
+    <select id="selectMenuByUserId" resultType="com.f.entity.sys.SysMenu">
+        SELECT sm.id,sm.pid,sm.pids,sm.name,sm.title,sm.url,sm.component,sm.is_frame,
+               sm.link,sm.is_keep_alive,sm.is_affix,sm.redirect,sm.perms,sm.icon,sm.type,sm.level,
+               sm.sort,sm.status,sm.remarks,sm.create_id,sm.create_time,sm.create_name,sm.update_id,
+               sm.update_time,sm.update_name,sm.sub_count FROM sys_menu sm
+        WHERE sm.is_delete = 0
+          <if test="type != null">
+              AND sm.type = #{type}
+          </if>
+          AND EXISTS(
+                SELECT srm.id FROM sys_roles_menus srm JOIN sys_users_roles sur ON srm.role_id = sur.role_id
+                    AND sur.user_id = #{userId} AND srm.menu_id = sm.id
+            )
+    </select>
+
+    <select id="selectPermsByUserId" resultType="java.lang.String">
+        SELECT sm.perms FROM sys_menu sm WHERE sm.is_delete = 0 AND sm.type = 2
+        AND EXISTS(
+            SELECT srm.id FROM sys_roles_menus srm JOIN sys_users_roles sur ON srm.role_id = sur.role_id
+            AND sur.user_id = #{userId} and srm.menu_id = sm.id
+        )
+    </select>
+</mapper>

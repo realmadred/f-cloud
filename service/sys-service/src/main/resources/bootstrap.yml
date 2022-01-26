@@ -1,0 +1,24 @@
+spring:
+  application:
+    # 应用名称
+    name: sys
+  profiles:
+    # 环境配置
+    active: dev
+  main:
+    allow-circular-references: true
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+    default-property-inclusion: non_null
+  cloud:
+    nacos:
+      config:
+        group: sys
+        username: nacos
+        password: nacos
+        namespace: dev
+        # 配置中心地址
+        server-addr: 127.0.0.1:8848
+        # 配置文件格式
+        file-extension: yml

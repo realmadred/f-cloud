@@ -59,8 +59,9 @@ subprojects {
             dependencySet(group: 'com.baomidou', version: '3.4.3.4') {
                 entry 'mybatis-plus-extension'
                 entry 'mybatis-plus-boot-starter'
+                entry 'mybatis-plus-boot-starter'
             }
-            dependencySet(group: 'com.alicp.jetcache', version: '2.6.0') {
+            dependencySet(group: 'com.alicp.jetcache', version: '2.6.2') {
                 entry 'jetcache-starter-redis-lettuce'
             }
             dependencySet(group: 'com.lmax', version: '3.4.4') {
