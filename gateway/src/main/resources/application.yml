@@ -14,5 +14,51 @@
 #f:
 #  gateway:
 #    notAuthUris:
-#      - /auth/login
-#      - /auth/getKey
+#      - /order/login
+#      - /order/getKey
+
+#spring:
+#  cloud:
+#    gateway:
+#      discovery:
+#        locator:
+#          lowerCaseServiceId: true
+#          enabled: true
+#      routes:
+#        # 订单
+#        - id: order
+#          uri: lb://order
+#          predicates:
+#            - Path=/order/**
+#          filters:
+#            - StripPrefix=1
+#        # 系统模块
+#        - id: sys
+#          uri: lb://sys
+#          predicates:
+#            - Path=/sys/**
+#          filters:
+#            - StripPrefix=1
+#        # 文件服务
+#        - id: file
+#          uri: lb://file
+#          predicates:
+#            - Path=/file/**
+#          filters:
+#            - StripPrefix=1
+#        # 支付服务
+#        - id: pay
+#          uri: lb://pay
+#          predicates:
+#            - Path=/pay/**
+#          filters:
+#            - StripPrefix=1
+#        # 文件服务
+#        - id: message
+#          uri: lb://message
+#          predicates:
+#            - Path=/file/**
+#          filters:
+#            - StripPrefix=1
+
+
