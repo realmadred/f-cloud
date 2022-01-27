@@ -74,6 +74,9 @@ public class CacheTemplate {
     @CreateCache(name = "common", expire = 30, cacheType = CacheType.REMOTE)
     private Cache<String, Object> commonCache;
 
+    @CreateCache(name = "local", expire = 3, localLimit = 8096, cacheType = CacheType.LOCAL)
+    private Cache<String, Object> localCache;
+
     @PreDestroy
     public void destroy() {
         connect.close();

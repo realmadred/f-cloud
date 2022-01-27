@@ -1,9 +1,14 @@
 package com.f.filter;
 
+import com.f.cache.CacheTemplate;
 import com.f.config.MyGatewayProperties;
 import com.f.constant.Constant;
+import com.f.enums.ResultEnum;
+import com.f.exception.BaseException;
 import com.f.utils.GatewayUtils;
 import com.f.utils.JwtUtils;
+import com.github.benmanes.caffeine.cache.AsyncLoadingCache;
+import com.github.benmanes.caffeine.cache.Caffeine;
 import io.jsonwebtoken.Claims;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -15,6 +20,9 @@ import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.stereotype.Component;
 import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
+
+import javax.annotation.PostConstruct;
+import java.util.concurrent.TimeUnit;
 
 /**
  * 网关鉴权
@@ -28,6 +36,16 @@ import reactor.core.publisher.Mono;
 public class AuthFilter implements GlobalFilter, Ordered {
 
     private final MyGatewayProperties gatewayProperties;
+    private final CacheTemplate cacheTemplate;
+    private AsyncLoadingCache<String, Long> jidCache;
+
+    @PostConstruct
+    public void init() {
+        jidCache = Caffeine.newBuilder()
+                .maximumSize(8096)
+                .expireAfterWrite(5, TimeUnit.SECONDS)
+                .buildAsync(key -> cacheTemplate.sync().exists(key));
+    }
 
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
@@ -45,18 +63,25 @@ public class AuthFilter implements GlobalFilter, Ordered {
         if (claims == null) {
             return GatewayUtils.responseToLogin(exchange.getResponse());
         }
-        String userKey = JwtUtils.getUserKey(claims);
+        String jid = JwtUtils.getJid(claims);
         String userid = JwtUtils.getUserId(claims);
         String username = JwtUtils.getUserName(claims);
-        if (StringUtils.isEmpty(userid) || StringUtils.isEmpty(username)) {
+        if (StringUtils.isAnyEmpty(userid, username, jid)) {
             return GatewayUtils.responseToLogin(exchange.getResponse());
         }
 
-        // 设置用户信息到请求
-        GatewayUtils.addHeader(mutate, Constant.USER_KEY, userKey);
-        GatewayUtils.addHeader(mutate, Constant.USER_ID, userid);
-        GatewayUtils.addHeader(mutate, Constant.USER_NAME, username);
-        return chain.filter(exchange.mutate().request(mutate.build()).build());
+        // 判断是否退出登录了
+        return Mono.fromFuture(jidCache.get(jid)).flatMap(v -> {
+            if (Constant.ONE == v) {
+                return Mono.error(() -> BaseException.of(ResultEnum.UNAUTHORIZED));
+            } else {
+                // 设置用户信息到请求
+                GatewayUtils.addHeader(mutate, Constant.JWT_ID, jid);
+                GatewayUtils.addHeader(mutate, Constant.USER_ID, userid);
+                GatewayUtils.addHeader(mutate, Constant.USER_NAME, username);
+                return chain.filter(exchange.mutate().request(mutate.build()).build());
+            }
+        });
     }
 
     @Override

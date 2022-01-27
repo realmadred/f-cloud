@@ -16,6 +16,8 @@
 
 package com.f.cache;
 
+import com.alicp.jetcache.anno.config.EnableCreateCacheAnnotation;
+import com.alicp.jetcache.anno.config.EnableMethodCache;
 import com.alicp.jetcache.autoconfigure.LettuceFactory;
 import com.alicp.jetcache.autoconfigure.RedisLettuceAutoConfiguration;
 import io.lettuce.core.RedisClient;
@@ -29,6 +31,8 @@ import org.springframework.context.annotation.DependsOn;
  * @author liuf
  * @date 2021/12/7 15:42
  */
+@EnableMethodCache(basePackages = "com.f")
+@EnableCreateCacheAnnotation
 @Configuration
 public class CacheConfig {
 

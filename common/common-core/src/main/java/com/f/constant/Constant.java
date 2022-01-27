@@ -13,8 +13,9 @@ public class Constant {
      */
     public static final String USER_ID = "id";
     public static final String USER_NAME = "name";
-    public static final String USER_KEY = "key";
+    public static final String JWT_ID = "jid";
     public static final String TOKEN = "token";
+    public static final String JWT_SECRET = "r4XzJ_Q9T@CyL*8GWFO";
 
     /**
      * 是否
