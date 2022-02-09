@@ -20,6 +20,7 @@ import com.f.base.BaseEntity;
 import com.f.constant.Constant;
 import com.f.vo.sys.SysUserVo;
 import lombok.NonNull;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.time.LocalDateTime;
@@ -41,7 +42,7 @@ public final class ServiceUtils {
     /**
      * 加盟工具
      */
-    private static final PasswordEncoder PASSWORD_ENCODER = ApplicationContextUtils.getBean(PasswordEncoder.class);
+    private static final PasswordEncoder PASSWORD_ENCODER = new BCryptPasswordEncoder();
 
     private static final SysUserVo ANONYMOUS = new SysUserVo();
 

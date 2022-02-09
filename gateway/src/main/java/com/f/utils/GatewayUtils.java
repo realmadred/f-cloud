@@ -8,9 +8,6 @@ import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.http.server.reactive.ServerHttpResponse;
 import reactor.core.publisher.Mono;
 
-import java.io.UnsupportedEncodingException;
-import java.net.URLDecoder;
-import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 
 /**
@@ -113,34 +110,6 @@ public final class GatewayUtils {
     }
 
     /**
-     * 内容编码
-     *
-     * @param str 内容
-     * @return 编码后的内容
-     */
-    public static String urlEncode(String str) {
-        try {
-            return URLEncoder.encode(str, StandardCharsets.UTF_8.name());
-        } catch (UnsupportedEncodingException e) {
-            return str;
-        }
-    }
-
-    /**
-     * 内容解码
-     *
-     * @param str 内容
-     * @return 解码后的内容
-     */
-    public static String urlDecode(String str) {
-        try {
-            return URLDecoder.decode(str, StandardCharsets.UTF_8.name());
-        } catch (UnsupportedEncodingException e) {
-            return str;
-        }
-    }
-
-    /**
      * 添加请求头
      *
      * @param builder ServerHttpRequest
@@ -151,7 +120,7 @@ public final class GatewayUtils {
         if (value == null) {
             return;
         }
-        builder.header(name, GatewayUtils.urlEncode(value));
+        builder.header(name, CommonUtils.urlEncode(value));
     }
 
     /**

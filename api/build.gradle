@@ -2,9 +2,9 @@ jar.enabled(true)
 
 dependencies {
     compileOnly 'org.mapstruct:mapstruct'
-    annotationProcessor 'org.mapstruct:mapstruct'
-    testAnnotationProcessor 'org.mapstruct:mapstruct'
+    annotationProcessor 'org.mapstruct:mapstruct-processor'
     testCompileOnly 'org.mapstruct:mapstruct'
+    testAnnotationProcessor 'org.mapstruct:mapstruct-processor'
     compileOnly 'org.hibernate.validator:hibernate-validator'
     compileOnly 'com.baomidou:mybatis-plus-extension'
     compileOnly 'com.fasterxml.jackson.core:jackson-annotations'

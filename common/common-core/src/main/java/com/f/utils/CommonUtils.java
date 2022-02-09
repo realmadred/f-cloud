@@ -27,7 +27,11 @@ import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.util.CollectionUtils;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+import java.net.URLEncoder;
 import java.nio.ByteBuffer;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -219,6 +223,34 @@ public final class CommonUtils {
      */
     public static <T extends BaseTreeDto<T>> List<T> flatTree(List<T> tree) {
         return flatTree(tree, null);
+    }
+
+    /**
+     * 内容编码
+     *
+     * @param str 内容
+     * @return 编码后的内容
+     */
+    public static String urlEncode(String str) {
+        try {
+            return URLEncoder.encode(str, StandardCharsets.UTF_8.name());
+        } catch (UnsupportedEncodingException e) {
+            return str;
+        }
+    }
+
+    /**
+     * 内容解码
+     *
+     * @param str 内容
+     * @return 解码后的内容
+     */
+    public static String urlDecode(String str) {
+        try {
+            return URLDecoder.decode(str, StandardCharsets.UTF_8.name());
+        } catch (UnsupportedEncodingException e) {
+            return str;
+        }
     }
 
     private CommonUtils() {

@@ -12,8 +12,8 @@
 	<Appenders>
 		<!--全部日志-->
 		<RollingRandomAccessFile name="allFiles"
-                                 fileName="${LOG_HOME}/gateway.log"
-                                 filePattern="${LOG_HOME}/back/gateway-%d{yyyyMMdd}-%i.log.gz">
+                                 fileName="${LOG_HOME}/sys.log"
+                                 filePattern="${LOG_HOME}/back/sys-%d{yyyyMMdd}-%i.log.gz">
             <!--PatternLayout，日志输出的格式-->
             <PatternLayout>
                 <Pattern>${ALL_PATTERN}</Pattern>
@@ -34,8 +34,8 @@
 
 		<!--错误日志-->
 		<RollingRandomAccessFile name="errorFiles"
-								 fileName="${LOG_HOME}/gateway-error.log"
-								 filePattern="${LOG_HOME}/back/gateway-error-%d{yyyyMMdd}-%i.log.gz">
+								 fileName="${LOG_HOME}/sys-error.log"
+								 filePattern="${LOG_HOME}/back/sys-error-%d{yyyyMMdd}-%i.log.gz">
             <!--Filters，决定日志事件能否被输出：ACCEPT(接受)，DENY(拒绝)，NEUTRAL(中立)；
             onMatch-该级别及以上，onMismatch-该级别以下-->
             <ThresholdFilter level="ERROR" onMatch="ACCEPT" onMismatch="DENY"/>

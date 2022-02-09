@@ -2,6 +2,7 @@ dependencies {
     implementation(project(':api'))
     implementation(project(':common:common-core'))
     implementation(project(':common:common-cache'))
+    implementation 'org.mapstruct:mapstruct'
     implementation "com.alicp.jetcache:jetcache-starter-redis-lettuce"
     implementation "org.apache.commons:commons-lang3"
     implementation "com.lmax:disruptor"

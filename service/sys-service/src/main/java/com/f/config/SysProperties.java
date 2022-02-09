@@ -18,7 +18,8 @@ package com.f.config;
 
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.stereotype.Component;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
+import org.springframework.context.annotation.Configuration;
 
 import java.util.Set;
 
@@ -29,8 +30,9 @@ import java.util.Set;
  * @date 2021/12/15 17:04
  */
 @Data
-@Component
-@ConfigurationProperties(prefix = "sys")
+@Configuration
+@RefreshScope
+@ConfigurationProperties(prefix = "f")
 public class SysProperties {
 
     /**

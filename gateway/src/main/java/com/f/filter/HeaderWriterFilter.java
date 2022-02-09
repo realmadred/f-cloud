@@ -25,11 +25,11 @@ public class HeaderWriterFilter implements HttpHeadersFilter, Ordered {
     @Override
     public HttpHeaders filter(HttpHeaders headers, ServerWebExchange exchange) {
         // 增加安全性的请求头
-        headers.add("X-XSS-Protection", "1; mode=block");
-        headers.add("X-Frame-Options", "deny");
-        headers.add("x-content-type-options", "nosniff");
-        headers.add("referrer-policy", "no-referrer-when-downgrade");
-        headers.add("permissions-policy", "interest-cohort=()");
+//        headers.add("X-XSS-Protection", "1; mode=block");
+//        headers.add("X-Frame-Options", "deny");
+//        headers.add("x-content-type-options", "nosniff");
+//        headers.add("referrer-policy", "origin");
+//        headers.add("permissions-policy", "interest-cohort=()");
         // content-security-policy: 待定
         return headers;
     }

@@ -55,6 +55,7 @@ subprojects {
             }
             dependencySet(group: 'org.mapstruct', version: '1.4.2.Final') {
                 entry 'mapstruct'
+                entry 'mapstruct-processor'
             }
             dependencySet(group: 'com.baomidou', version: '3.4.3.4') {
                 entry 'mybatis-plus-extension'
