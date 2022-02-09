@@ -16,6 +16,7 @@
 
 package com.f.security;
 
+import com.f.cache.CacheTemplate;
 import com.f.config.SysProperties;
 import com.f.dto.DataDto;
 import com.f.utils.AesUtils;
@@ -23,8 +24,12 @@ import com.f.utils.Json;
 import com.f.utils.ServiceUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.http.HttpMethod;
+import org.springframework.stereotype.Component;
 
+import javax.annotation.Resource;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
@@ -42,9 +47,14 @@ import java.nio.charset.StandardCharsets;
  */
 @Slf4j
 @RequiredArgsConstructor
+@Component
 public class AesFilter implements Filter {
 
     private final SysProperties sysProperties;
+
+    @Resource
+    @Lazy
+    private CacheTemplate cacheTemplate;
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
@@ -53,7 +63,7 @@ public class AesFilter implements Filter {
             if (sysProperties.getAuth().getAesUris().contains(httpRequest.getRequestURI())) {
                 RequestWrapper requestWrapper = (RequestWrapper) request;
                 final DataDto tokenDataDto = Json.parse(new String(requestWrapper.getBody()), DataDto.class);
-                requestWrapper.setBody(AesUtils.decrypt(tokenDataDto.getData(), ServiceUtils.getSysUser().getKey()).getBytes(StandardCharsets.UTF_8));
+                requestWrapper.setBody(AesUtils.decrypt(tokenDataDto.getData(), getAesKey()).getBytes(StandardCharsets.UTF_8));
                 chain.doFilter(requestWrapper, response);
                 return;
             }
@@ -61,4 +71,11 @@ public class AesFilter implements Filter {
         chain.doFilter(request, response);
     }
 
+    private String getAesKey() {
+        final String jid = ServiceUtils.getSysUser().getJid();
+        if (StringUtils.isBlank(jid)) {
+            return StringUtils.EMPTY;
+        }
+        return cacheTemplate.sync().get(ServiceUtils.getAesRedisKey(jid));
+    }
 }

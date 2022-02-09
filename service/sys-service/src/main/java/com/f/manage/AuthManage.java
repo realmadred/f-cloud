@@ -104,17 +104,15 @@ public class AuthManage implements IAuthManage {
         log.info("登录成功");
         final SysUserVo userVo = SysUserConverter.INSTANCE.e2v(sysUser);
         // 生成token
-        final String token = IdUtils.uuid();
+        final long jid = IdUtils.id();
         // Jwt存储信息
         Map<String, Object> claimsMap = new HashMap<>(8);
-        claimsMap.put(Constant.JWT_ID, IdUtils.id());
-        claimsMap.put(Constant.TOKEN, token);
+        claimsMap.put(Constant.JWT_ID, jid);
         claimsMap.put(Constant.USER_ID, userVo.getId());
         claimsMap.put(Constant.USER_NAME, userVo.getName());
         userVo.setToken(createToken(claimsMap));
-        userVo.setKey(key);
         cacheTemplate.reactive().del(tokenDataDto.getToken()).subscribe();
-        cacheTemplate.reactive().setex(token, sysProperties.getAuth().getTokenExpire(), key).subscribe();
+        cacheTemplate.reactive().setex(ServiceUtils.getAesRedisKey(String.valueOf(jid)), sysProperties.getAuth().getTokenExpire(), key).subscribe();
         return Result.success(userVo);
     }
 

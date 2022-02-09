@@ -12,7 +12,7 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
  * @date 2022/1/26 15:25
  */
 @SpringBootApplication(scanBasePackages = "com.f")
-@MapperScan(basePackages = {"com.f.mapper.*"})
+@MapperScan(basePackages = {"com.f.mapper.sys"})
 @EnableDiscoveryClient
 public class SysApplication {
 

@@ -23,6 +23,7 @@ import lombok.NonNull;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -39,6 +40,7 @@ public final class ServiceUtils {
      * 加盟盐
      */
     private static final String SALT = "yu_aW7!9L#p$czo_1G";
+
     /**
      * 加盟工具
      */
@@ -57,7 +59,14 @@ public final class ServiceUtils {
      * @return 系统用户
      */
     public static SysUserVo getSysUser() {
-        return ANONYMOUS;
+        final HttpServletRequest request = WebUtils.getCurrentRequest();
+        final String userName = request.getHeader(Constant.USER_NAME);
+        final String userId = WebUtils.getCurrentRequest().getHeader(Constant.USER_ID);
+        final SysUserVo sysUserVo = new SysUserVo();
+        sysUserVo.setId(LambdaUtils.getOrElse(userId, Long::parseLong, ANONYMOUS.getId()));
+        sysUserVo.setJid(WebUtils.getCurrentRequest().getHeader(Constant.JWT_ID));
+        sysUserVo.setName(Optional.ofNullable(userName).orElse(ANONYMOUS.getName()));
+        return sysUserVo;
     }
 
     /**
@@ -67,7 +76,17 @@ public final class ServiceUtils {
      * @date 2022年1月12日
      */
     public static long getUserId() {
-        return Optional.ofNullable(getSysUser()).map(SysUserVo::getId).orElse(0L);
+        return Optional.ofNullable(WebUtils.getCurrentRequest().getHeader(Constant.USER_ID)).map(Long::parseLong).orElse(ANONYMOUS.getId());
+    }
+
+    /**
+     * 获取aes redis key
+     *
+     * @return 用户id
+     * @date 2022年1月12日
+     */
+    public static String getAesRedisKey(String jid) {
+        return Constant.JWT_ID + jid;
     }
 
     /**

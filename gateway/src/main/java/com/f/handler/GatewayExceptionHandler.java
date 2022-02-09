@@ -3,6 +3,7 @@ package com.f.handler;
 import com.f.base.Result;
 import com.f.enums.ResultEnum;
 import com.f.utils.GatewayUtils;
+import io.jsonwebtoken.JwtException;
 import lombok.Data;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
@@ -45,6 +46,8 @@ public class GatewayExceptionHandler implements WebExceptionHandler {
         Result<Void> result = Result.fail(ResultEnum.ERROR);
         if (throwable instanceof NotFoundException) {
             result = Result.fail(ResultEnum.NOT_FOUND);
+        } else if (throwable instanceof JwtException) {
+            result = Result.fail(ResultEnum.UNAUTHORIZED);
         } else if (throwable instanceof ResponseStatusException) {
             ResponseStatusException responseStatusException = (ResponseStatusException) throwable;
             result = Result.fail(responseStatusException.getStatus().value(), responseStatusException.getMessage());

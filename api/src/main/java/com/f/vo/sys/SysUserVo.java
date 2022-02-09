@@ -42,14 +42,19 @@ public class SysUserVo implements Serializable {
     private String name;
 
     /**
-     * 手机
+     * jid
      */
-    private String phone;
+    private String jid;
 
     /**
      * 邮箱
      */
     private String email;
+
+    /**
+     * 手机
+     */
+    private String phone;
 
     /**
      * 头像
@@ -65,9 +70,4 @@ public class SysUserVo implements Serializable {
      * token
      */
     private String token;
-
-    /**
-     * aes key
-     */
-    private String key;
 }
