@@ -61,7 +61,7 @@ public class AesFilter implements Filter {
         HttpServletRequest httpRequest = (HttpServletRequest) request;
         if (HttpMethod.POST.matches(httpRequest.getMethod()) || HttpMethod.PUT.matches(httpRequest.getMethod())) {
             if (sysProperties.getAuth().getAesUris().contains(httpRequest.getRequestURI())) {
-                RequestWrapper requestWrapper = (RequestWrapper) request;
+                RequestWrapper requestWrapper = new RequestWrapper(httpRequest) ;
                 final DataDto tokenDataDto = Json.parse(new String(requestWrapper.getBody()), DataDto.class);
                 requestWrapper.setBody(AesUtils.decrypt(tokenDataDto.getData(), getAesKey()).getBytes(StandardCharsets.UTF_8));
                 chain.doFilter(requestWrapper, response);
