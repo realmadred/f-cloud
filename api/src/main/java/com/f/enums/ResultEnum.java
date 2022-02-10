@@ -19,6 +19,8 @@ package com.f.enums;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
+import java.util.Arrays;
+
 /**
  * @author liuf
  * @date 2021年12月3日
@@ -52,6 +54,11 @@ public enum ResultEnum {
      * 服务异常
      */
     ERROR(500, "服务异常，请稍后再试"),
+
+    /**
+     * 超时
+     */
+    GATEWAY_TIMEOUT(504, "请求超时，请稍后再试"),
 
     /**
      * 登录失败
@@ -90,4 +97,8 @@ public enum ResultEnum {
      * 消息
      */
     private final String msg;
+
+    public static ResultEnum by(int code){
+        return Arrays.stream(values()).filter(r -> r.code == code).findFirst().orElse(null);
+    }
 }

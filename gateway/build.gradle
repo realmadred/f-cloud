@@ -8,6 +8,7 @@ dependencies {
 //    implementation 'org.springframework.boot:spring-boot-starter-security'
     implementation 'org.springframework.cloud:spring-cloud-starter-gateway'
     implementation 'org.springframework.cloud:spring-cloud-loadbalancer'
+    implementation 'org.springframework:spring-context-support'
     implementation 'org.springframework.boot:spring-boot-starter-log4j2'
     // 解决bootstrap 配置无法读取问题
     implementation 'org.springframework.cloud:spring-cloud-starter-bootstrap'

@@ -28,7 +28,7 @@ public class HeaderWriterFilter implements HttpHeadersFilter, Ordered {
         headers.add("X-XSS-Protection", "1; mode=block");
         headers.add("X-Frame-Options", "deny");
         headers.add("x-content-type-options", "nosniff");
-        headers.add("referrer-policy", "origin");
+        headers.add("referrer-policy", "same-origin");
         headers.add("permissions-policy", "interest-cohort=()");
         // content-security-policy: 待定
         return headers;

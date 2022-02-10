@@ -50,7 +50,9 @@ public class GatewayExceptionHandler implements WebExceptionHandler {
             result = Result.fail(ResultEnum.UNAUTHORIZED);
         } else if (throwable instanceof ResponseStatusException) {
             ResponseStatusException responseStatusException = (ResponseStatusException) throwable;
-            result = Result.fail(responseStatusException.getStatus().value(), responseStatusException.getMessage());
+            final ResultEnum resultEnum = ResultEnum.by(responseStatusException.getStatus().value());
+            result = resultEnum == null ? Result.fail(responseStatusException.getStatus().value(), throwable.getMessage()) :
+                    Result.fail(resultEnum);
         }
 
         log.error("uri:{},异常:{}", exchange.getRequest().getPath(), throwable.getMessage());

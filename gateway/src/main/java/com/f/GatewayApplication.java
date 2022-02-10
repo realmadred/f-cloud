@@ -11,8 +11,8 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
  * @author liuf
  * @date 2022/1/25 11:37
  */
-@SpringBootApplication(exclude = {DataSourceAutoConfiguration.class })
-@EnableDiscoveryClient
+@SpringBootApplication(exclude = {DataSourceAutoConfiguration.class})
+@EnableDiscoveryClient(autoRegister = false)
 public class GatewayApplication {
 
     public static void main(String[] args) {
