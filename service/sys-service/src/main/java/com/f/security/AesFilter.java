@@ -66,6 +66,14 @@ public class AesFilter implements Filter {
                 requestWrapper.setBody(AesUtils.decrypt(tokenDataDto.getData(), getAesKey()).getBytes(StandardCharsets.UTF_8));
                 chain.doFilter(requestWrapper, response);
                 return;
+            }else if (!sysProperties.getLog().getExcludeParams().contains(httpRequest.getRequestURI())) {
+                chain.doFilter(new RequestWrapper(httpRequest), response);
+                return;
+            }
+        }else if (HttpMethod.DELETE.matches(httpRequest.getMethod())){
+            if (!sysProperties.getLog().getExcludeParams().contains(httpRequest.getRequestURI())) {
+                chain.doFilter(new RequestWrapper(httpRequest), response);
+                return;
             }
         }
         chain.doFilter(request, response);

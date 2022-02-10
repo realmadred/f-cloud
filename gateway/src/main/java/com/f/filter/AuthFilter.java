@@ -3,8 +3,6 @@ package com.f.filter;
 import com.f.cache.CacheTemplate;
 import com.f.config.MyGatewayProperties;
 import com.f.constant.Constant;
-import com.f.enums.ResultEnum;
-import com.f.exception.BaseException;
 import com.f.utils.GatewayUtils;
 import com.f.utils.JwtUtils;
 import com.github.benmanes.caffeine.cache.AsyncLoadingCache;
@@ -73,7 +71,7 @@ public class AuthFilter implements GlobalFilter, Ordered {
         // 判断是否退出登录了
         return Mono.fromFuture(jidCache.get(jid)).flatMap(v -> {
             if (Constant.ONE == v) {
-                return Mono.error(() -> BaseException.of(ResultEnum.UNAUTHORIZED));
+                return GatewayUtils.responseToLogin(exchange.getResponse());
             } else {
                 // 设置用户信息到请求
                 GatewayUtils.addHeader(mutate, Constant.JWT_ID, jid);

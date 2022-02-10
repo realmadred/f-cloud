@@ -113,7 +113,8 @@ public class AuthInterceptor implements HandlerInterceptor {
                     .setRequestIp(WebUtils.getIp(request))
                     .setErrorDetail(exception);
             LogDisruptor.publishEvent(sysLog);
-        } catch (Exception ignored) {
+        } catch (Exception e) {
+            log.error("log error", e);
         }
     }
 
