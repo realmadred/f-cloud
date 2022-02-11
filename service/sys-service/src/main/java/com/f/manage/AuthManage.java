@@ -77,7 +77,11 @@ public class AuthManage implements IAuthManage {
 
     @Override
     public Result<Void> logout() {
-        cacheTemplate.reactiveObject().del(ServiceUtils.getSysUser().getToken()).subscribe();
+        final String jid = ServiceUtils.getJid();
+        if (StringUtils.isNotBlank(jid)) {
+            cacheTemplate.reactiveObject().del(ServiceUtils.getAesRedisKey(jid)).subscribe();
+            cacheTemplate.reactiveObject().setex(jid, sysProperties.getAuth().getTokenExpire(), StringUtils.EMPTY).subscribe();
+        }
         return Result.success();
     }
 

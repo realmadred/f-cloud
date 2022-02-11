@@ -7,10 +7,6 @@ spring:
     active: dev
   main:
     allow-circular-references: true
-  jackson:
-    date-format: yyyy-MM-dd HH:mm:ss
-    time-zone: GMT+8
-    default-property-inclusion: non_null
   cloud:
     nacos:
       config:

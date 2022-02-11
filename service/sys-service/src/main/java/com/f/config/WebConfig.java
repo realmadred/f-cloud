@@ -21,8 +21,11 @@ import com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.inner.PaginationInnerInterceptor;
 import com.f.security.AuthInterceptor;
 import com.f.utils.ApplicationContextUtils;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 import lombok.RequiredArgsConstructor;
 import org.hibernate.validator.HibernateValidator;
+import org.springframework.boot.autoconfigure.jackson.Jackson2ObjectMapperBuilderCustomizer;
 import org.springframework.boot.autoconfigure.jackson.JacksonProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -32,6 +35,8 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 /**
  * web项目公共配置类
@@ -45,6 +50,22 @@ import javax.validation.ValidatorFactory;
 public class WebConfig implements WebMvcConfigurer {
 
     private final JacksonProperties jacksonProperties;
+
+    /**
+     * 初始jackson 日期反序列化
+     *
+     * @return Jackson2ObjectMapperBuilderCustomizer
+     */
+    @Bean
+    public Jackson2ObjectMapperBuilderCustomizer jackson2ObjectMapperBuilderCustomizer() {
+        return builder -> {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern(jacksonProperties.getDateFormat());
+            //返回时间数据序列化
+            builder.serializerByType(LocalDateTime.class, new LocalDateTimeSerializer(formatter));
+            //接收时间数据反序列化
+            builder.deserializerByType(LocalDateTime.class, new LocalDateTimeDeserializer(formatter));
+        };
+    }
 
     /**
      * validator 快速失败配置

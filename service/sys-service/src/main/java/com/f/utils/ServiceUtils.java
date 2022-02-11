@@ -80,6 +80,16 @@ public final class ServiceUtils {
     }
 
     /**
+     * 获取当前登录用户id
+     *
+     * @return 用户id
+     * @date 2022年1月12日
+     */
+    public static String getJid() {
+        return WebUtils.getCurrentRequest().getHeader(Constant.JWT_ID);
+    }
+
+    /**
      * 获取aes redis key
      *
      * @return 用户id
