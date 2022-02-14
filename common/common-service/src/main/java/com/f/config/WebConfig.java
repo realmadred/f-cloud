@@ -16,6 +16,7 @@
 
 package com.f.config;
 
+import com.f.security.InnerInterceptor;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 import lombok.RequiredArgsConstructor;
@@ -24,6 +25,7 @@ import org.springframework.boot.autoconfigure.jackson.Jackson2ObjectMapperBuilde
 import org.springframework.boot.autoconfigure.jackson.JacksonProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import javax.validation.Validation;
@@ -44,6 +46,7 @@ import java.time.format.DateTimeFormatter;
 public class WebConfig implements WebMvcConfigurer {
 
     private final JacksonProperties jacksonProperties;
+    private final InnerInterceptor innerInterceptor;
 
     /**
      * 初始jackson 日期反序列化
@@ -74,5 +77,10 @@ public class WebConfig implements WebMvcConfigurer {
                 .failFast(true)
                 .buildValidatorFactory();
         return validatorFactory.getValidator();
+    }
+
+    @Override
+    public void addInterceptors(InterceptorRegistry registry) {
+        registry.addInterceptor(innerInterceptor).order(1);
     }
 }

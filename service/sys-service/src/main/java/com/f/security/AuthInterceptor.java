@@ -26,7 +26,6 @@ import com.f.thread.ThreadLocalContext;
 import com.f.utils.IdUtils;
 import com.f.utils.Json;
 import com.f.utils.ServiceUtils;
-import com.f.utils.WebUtils;
 import com.f.vo.sys.SysUserVo;
 import com.google.common.base.Joiner;
 import lombok.RequiredArgsConstructor;
@@ -86,7 +85,7 @@ public class AuthInterceptor implements HandlerInterceptor {
         if (perms.contains(uri + Constant.SLASH + method.toLowerCase())) {
             return true;
         }
-        WebUtils.responseForbidden(response);
+        ServiceUtils.responseForbidden(response);
         return false;
     }
 
@@ -110,7 +109,7 @@ public class AuthInterceptor implements HandlerInterceptor {
                     .setRequestUri(requestUri)
                     .setType(exception == null ? SysLogTypeEnum.INFO.getType() : SysLogTypeEnum.ERROR.getType())
                     .setParams(getParams(request))
-                    .setRequestIp(WebUtils.getIp(request))
+                    .setRequestIp(ServiceUtils.getIp(request))
                     .setErrorDetail(exception);
             LogDisruptor.publishEvent(sysLog);
         } catch (Exception e) {

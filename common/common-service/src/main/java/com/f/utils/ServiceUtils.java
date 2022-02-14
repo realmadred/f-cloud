@@ -17,13 +17,22 @@
 package com.f.utils;
 
 import com.f.base.BaseEntity;
+import com.f.base.Result;
 import com.f.constant.Constant;
+import com.f.enums.ResultEnum;
 import com.f.vo.sys.SysUserVo;
+import com.google.common.base.Strings;
 import lombok.NonNull;
+import lombok.SneakyThrows;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
+import javax.servlet.ServletOutputStream;
+import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -40,6 +49,9 @@ public final class ServiceUtils {
      * 加盟盐
      */
     private static final String SALT = "yu_aW7!9L#p$czo_1G";
+    private static final byte[] UNAUTHORIZED = Json.jsonBytes(Result.fail(ResultEnum.UNAUTHORIZED));
+    private static final byte[] FORBIDDEN = Json.jsonBytes(Result.fail(ResultEnum.FORBIDDEN));
+    private static final byte[] INNER_FORBIDDEN = Json.jsonBytes(Result.fail(ResultEnum.INNER_FORBIDDEN));
 
     /**
      * 加盟工具
@@ -59,12 +71,12 @@ public final class ServiceUtils {
      * @return 系统用户
      */
     public static SysUserVo getSysUser() {
-        final HttpServletRequest request = WebUtils.getCurrentRequest();
+        final HttpServletRequest request = getCurrentRequest();
         final String userName = request.getHeader(Constant.USER_NAME);
-        final String userId = WebUtils.getCurrentRequest().getHeader(Constant.USER_ID);
+        final String userId = getCurrentRequest().getHeader(Constant.USER_ID);
         final SysUserVo sysUserVo = new SysUserVo();
         sysUserVo.setId(LambdaUtils.getOrElse(userId, Long::parseLong, ANONYMOUS.getId()));
-        sysUserVo.setJid(WebUtils.getCurrentRequest().getHeader(Constant.JWT_ID));
+        sysUserVo.setJid(getCurrentRequest().getHeader(Constant.JWT_ID));
         sysUserVo.setName(Optional.ofNullable(userName).orElse(ANONYMOUS.getName()));
         return sysUserVo;
     }
@@ -76,7 +88,7 @@ public final class ServiceUtils {
      * @date 2022年1月12日
      */
     public static long getUserId() {
-        return Optional.ofNullable(WebUtils.getCurrentRequest().getHeader(Constant.USER_ID)).map(Long::parseLong).orElse(ANONYMOUS.getId());
+        return Optional.ofNullable(getCurrentRequest().getHeader(Constant.USER_ID)).map(Long::parseLong).orElse(ANONYMOUS.getId());
     }
 
     /**
@@ -86,7 +98,7 @@ public final class ServiceUtils {
      * @date 2022年1月12日
      */
     public static String getJid() {
-        return WebUtils.getCurrentRequest().getHeader(Constant.JWT_ID);
+        return getCurrentRequest().getHeader(Constant.JWT_ID);
     }
 
     /**
@@ -203,6 +215,131 @@ public final class ServiceUtils {
      */
     public static boolean matches(String password, String encodedPassword) {
         return PASSWORD_ENCODER.matches(SALT + password, encodedPassword);
+    }
+
+    /**
+     * 返回去登录json
+     *
+     * @param response res
+     */
+    public static void responseToLogin(ServletResponse response) {
+        responseJson(response, UNAUTHORIZED);
+    }
+
+    /**
+     * 返回没有权限
+     *
+     * @param response res
+     * @date 2022年1月13日
+     */
+    public static void responseForbidden(ServletResponse response) {
+        responseJson(response, FORBIDDEN);
+    }
+
+    /**
+     * 返回非法访问
+     *
+     * @param response res
+     * @date 2022年2月14日
+     */
+    public static void responseInnerForbidden(ServletResponse response) {
+        responseJson(response, INNER_FORBIDDEN);
+    }
+
+    /**
+     * 返回json
+     *
+     * @param response res
+     * @param bytes    数据
+     */
+    @SneakyThrows
+    public static void responseJson(ServletResponse response, byte[] bytes) {
+        response.setContentType(Constant.APPLICATION_JSON);
+        try (ServletOutputStream outputStream = response.getOutputStream()) {
+            outputStream.write(bytes);
+        }
+    }
+
+    /**
+     * 返回json
+     *
+     * @param response res
+     * @param object   数据
+     */
+    public static void responseJson(ServletResponse response, Object object) {
+        responseJson(response, Json.jsonBytes(object));
+    }
+
+    /**
+     * 获取当前请求上下文
+     *
+     * @return 请求上下文
+     * @date 2022年2月12日
+     */
+    public static ServletRequestAttributes currentRequestAttributes() {
+        return (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
+    }
+
+    /**
+     * 获取当前请求
+     *
+     * @return 请求
+     * @date 2022年2月12日
+     */
+    public static HttpServletRequest getCurrentRequest() {
+        return currentRequestAttributes().getRequest();
+    }
+
+    /**
+     * 获取当前响应
+     *
+     * @return 请求响应
+     * @date 2022年2月12日
+     */
+    public static HttpServletResponse getCurrentResponse() {
+        return currentRequestAttributes().getResponse();
+    }
+
+    /**
+     * 获取Ip地址
+     *
+     * @param request 请求
+     * @return 真实ip
+     * @date 2022年2月14日
+     */
+    public static String getIp(HttpServletRequest request) {
+        if (request == null) {
+            return "";
+        }
+
+        String ip = request.getHeader("X-Real-IP");
+        if (isBlankOrUnknownIp(ip)) {
+            ip = request.getHeader("x-forwarded-for");
+        }
+
+        if (isBlankOrUnknownIp(ip)) {
+            ip = request.getHeader("Proxy-Client-IP");
+        }
+
+        if (isBlankOrUnknownIp(ip)) {
+            ip = request.getHeader("WL-Proxy-Client-IP");
+        }
+
+        if (isBlankOrUnknownIp(ip)) {
+            ip = request.getRemoteAddr();
+        }
+
+        //多次反向代理后会有多个ip值，第一个ip才是真实ip
+        int index = ip.indexOf(",");
+        if (index > -1) {
+            return ip.substring(0, index);
+        } else {
+            return ip;
+        }
+    }
+
+    private static boolean isBlankOrUnknownIp(final String ip) {
+        return Strings.isNullOrEmpty(ip) || "unknown".equalsIgnoreCase(ip);
     }
 
     private ServiceUtils() {

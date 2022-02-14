@@ -17,6 +17,6 @@ public class SysConfig implements WebMvcConfigurer {
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(ApplicationContextUtils.getBean(AuthInterceptor.class));
+        registry.addInterceptor(ApplicationContextUtils.getBean(AuthInterceptor.class)).order(10);
     }
 }

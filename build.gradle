@@ -32,6 +32,10 @@ allprojects {
             url 'https://repo.huaweicloud.com/repository/maven/'
         }
     }
+
+    tasks.withType(JavaCompile) {
+        options.encoding = "UTF-8"
+    }
 }
 
 // 应用于所有依赖的子项目

@@ -18,7 +18,7 @@ package com.f.security;
 
 import com.f.config.ServiceProperties;
 import com.f.constant.Constant;
-import com.f.utils.WebUtils;
+import com.f.utils.ServiceUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.lang.NonNull;
@@ -55,7 +55,7 @@ public class InnerInterceptor implements HandlerInterceptor {
             return true;
         }
 
-        WebUtils.responseInnerForbidden(response);
+        ServiceUtils.responseInnerForbidden(response);
         return false;
     }
 }

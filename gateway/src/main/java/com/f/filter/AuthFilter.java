@@ -49,9 +49,10 @@ public class AuthFilter implements GlobalFilter, Ordered {
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
         ServerHttpRequest request = exchange.getRequest();
         ServerHttpRequest.Builder mutate = request.mutate();
-
+        // 内部访问id
+        GatewayUtils.addHeader(mutate, Constant.INNER_HEADER, gatewayProperties.getInnerId());
         if (gatewayProperties.getNotAuthUris().contains(request.getURI().getPath())) {
-            return chain.filter(exchange);
+            return chain.filter(exchange.mutate().request(mutate.build()).build());
         }
         String token = request.getHeaders().getFirst(Constant.TOKEN);
         if (StringUtils.isEmpty(token)) {

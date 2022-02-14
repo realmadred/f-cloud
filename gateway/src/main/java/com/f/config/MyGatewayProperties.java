@@ -21,4 +21,8 @@ public class MyGatewayProperties {
 
     private Set<String> notAuthUris;
     private String name;
+    /**
+     * 内部访问id
+     */
+    private String innerId;
 }
