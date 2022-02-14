@@ -1,6 +1,4 @@
 dependencies {
-    implementation(project(':api'))
-    implementation(project(':common:common-core'))
     implementation(project(':common:common-service'))
     implementation 'org.mapstruct:mapstruct'
     implementation "org.apache.commons:commons-lang3"

@@ -1,7 +1,5 @@
 dependencies {
-    implementation(project(':api'))
-    implementation(project(':common:common-core'))
-    implementation 'org.slf4j:slf4j-api'
+    api(project(':common:common-core'))
     compileOnly 'com.baomidou:mybatis-plus-extension'
     compileOnly "org.springframework.boot:spring-boot-starter-validation"
     compileOnly 'org.springframework.boot:spring-boot-starter-web'

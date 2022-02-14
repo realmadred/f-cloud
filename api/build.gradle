@@ -1,4 +1,4 @@
-jar.enabled(true)
+//jar.enabled(true)
 
 dependencies {
     compileOnly 'org.mapstruct:mapstruct'

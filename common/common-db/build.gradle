@@ -1,6 +1,4 @@
 dependencies {
-    implementation(project(':api'))
-    implementation(project(':common:common-core'))
-    implementation(project(':common:common-service'))
-    implementation "com.baomidou:mybatis-plus-boot-starter"
+    api(project(':common:common-service'))
+    api "com.baomidou:mybatis-plus-boot-starter"
 }
