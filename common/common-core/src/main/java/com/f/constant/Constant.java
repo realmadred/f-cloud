@@ -18,6 +18,11 @@ public class Constant {
     public static final String JWT_SECRET = "r4XzJ_Q9T@CyL*8GWFO";
 
     /**
+     * 内部访问 请求头
+     */
+    public static final String INNER_HEADER = "iid";
+
+    /**
      * 是否
      */
     public static final int YES = 1;

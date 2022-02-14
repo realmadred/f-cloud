@@ -25,7 +25,7 @@ import com.f.converter.sys.SysMenuConverter;
 import com.f.dto.sys.SysMenuDto;
 import com.f.entity.sys.SysMenu;
 import com.f.mapper.sys.SysMenuMapper;
-import com.f.service.base.BaseServiceImpl;
+import com.f.service.BaseServiceImpl;
 import com.f.utils.CommonUtils;
 import com.f.utils.IdUtils;
 import com.f.utils.ServiceUtils;

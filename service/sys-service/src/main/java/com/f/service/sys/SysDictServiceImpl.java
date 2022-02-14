@@ -26,7 +26,7 @@ import com.f.entity.sys.SysDict;
 import com.f.entity.sys.SysDictDetail;
 import com.f.mapper.sys.SysDictDetailMapper;
 import com.f.mapper.sys.SysDictMapper;
-import com.f.service.base.BaseServiceImpl;
+import com.f.service.BaseServiceImpl;
 import com.f.utils.IdUtils;
 import com.f.utils.ServiceUtils;
 import com.google.common.base.Strings;

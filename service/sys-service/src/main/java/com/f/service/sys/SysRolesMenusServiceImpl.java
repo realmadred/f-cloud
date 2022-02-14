@@ -21,7 +21,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.f.base.Result;
 import com.f.dto.sys.SysRolesMenusDto;
 import com.f.entity.sys.SysRolesMenus;
-import com.f.mapper.injector.MyBaseMapper;
+import com.f.injector.MyBaseMapper;
 import com.f.utils.IdUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

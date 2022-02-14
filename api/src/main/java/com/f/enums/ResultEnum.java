@@ -83,7 +83,12 @@ public enum ResultEnum {
     /**
      * 通用提醒
      */
-    COMMON(999, "未知警告");
+    COMMON(999, "未知警告"),
+
+    /**
+     * 不是内部访问来源
+     */
+    INNER_FORBIDDEN(1000, "非法访问");
 
     /**
      * 状态码

@@ -22,7 +22,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.f.base.PageRequest;
 import com.f.entity.sys.SysUser;
 import com.f.mapper.sys.SysUserMapper;
-import com.f.service.base.BaseServiceImpl;
+import com.f.service.BaseServiceImpl;
 import com.f.utils.ServiceUtils;
 import com.google.common.base.Strings;
 import org.springframework.stereotype.Service;
