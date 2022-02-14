@@ -1,9 +1,9 @@
 dependencies {
     implementation(project(':api'))
     implementation(project(':common:common-core'))
-    implementation "org.apache.commons:commons-lang3"
+    implementation 'org.slf4j:slf4j-api'
     compileOnly 'com.baomidou:mybatis-plus-extension'
-    implementation "org.springframework.boot:spring-boot-starter-validation"
-    implementation 'org.springframework.boot:spring-boot-starter-web'
-    implementation 'com.alibaba.cloud:spring-cloud-starter-alibaba-nacos-config'
+    compileOnly "org.springframework.boot:spring-boot-starter-validation"
+    compileOnly 'org.springframework.boot:spring-boot-starter-web'
+    compileOnly 'org.springframework.cloud:spring-cloud-context'
 }

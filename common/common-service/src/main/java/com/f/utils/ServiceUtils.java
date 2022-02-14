@@ -21,11 +21,11 @@ import com.f.base.Result;
 import com.f.constant.Constant;
 import com.f.enums.ResultEnum;
 import com.f.vo.sys.SysUserVo;
-import com.google.common.base.Strings;
 import lombok.NonNull;
 import lombok.SneakyThrows;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.util.StringUtils;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
@@ -339,7 +339,7 @@ public final class ServiceUtils {
     }
 
     private static boolean isBlankOrUnknownIp(final String ip) {
-        return Strings.isNullOrEmpty(ip) || "unknown".equalsIgnoreCase(ip);
+        return !StringUtils.hasText(ip) || "unknown".equalsIgnoreCase(ip);
     }
 
     private ServiceUtils() {
