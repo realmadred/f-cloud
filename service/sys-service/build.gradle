@@ -13,5 +13,9 @@ dependencies {
     implementation 'com.alibaba.cloud:spring-cloud-starter-alibaba-nacos-discovery'
     implementation 'com.alibaba.cloud:spring-cloud-starter-alibaba-nacos-config'
     implementation 'io.jsonwebtoken:jjwt'
-    implementation 'com.squareup.okhttp3:okhttp'
+    implementation 'org.springframework.cloud:spring-cloud-starter-openfeign'
+    implementation 'io.github.openfeign:feign-okhttp'
+    implementation 'org.springframework.cloud:spring-cloud-loadbalancer'
+    // 负载均衡缓存 Caffeine
+    implementation 'org.springframework:spring-context-support'
 }

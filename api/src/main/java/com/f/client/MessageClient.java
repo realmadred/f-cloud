@@ -13,23 +13,44 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.f.service;
+package com.f.client;
+
+import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.stereotype.Component;
+import org.springframework.web.bind.annotation.PostMapping;
 
 /**
- * 消息服务接口
- *
+ * 消息client
+ * path 为公共路径
  * @author liuf
- * @date 2022/2/15 17:09
+ * @date 2022/2/15 17:56
  */
-public interface MessageService {
+@FeignClient(value = "message", path = "/message", fallback = MessageClient.Fallback.class)
+public interface MessageClient {
 
     /**
      * 发送邮件
      */
+    @PostMapping("/sendEmail")
     void sendEmail();
 
     /**
      * 发送短信
      */
+    @PostMapping("/sendSms")
     void sendSms();
+
+    @Component
+    class Fallback implements MessageClient {
+
+        @Override
+        public void sendEmail() {
+            System.out.println("sendEmail Fallback");
+        }
+
+        @Override
+        public void sendSms() {
+            System.out.println("sendSms Fallback");
+        }
+    }
 }

@@ -51,3 +51,26 @@
 #    inetutils:
 #      preferredNetworks:
 #        - 192.168
+
+
+#feign:
+#  compression:
+#    request:
+#      enabled: true
+#      mime-types: application/json
+#      min-request-size: 1024
+#    response:
+#      enabled: true
+#      mime-types: application/json
+#      min-request-size: 1024
+#  client:
+#    config:
+#      default:
+#        connectTimeout: 5000
+#        readTimeout: 5000
+#        # NONE BASIC HEADERS FULL
+#        loggerLevel: basic
+#  httpclient:
+#    enabled: false
+#  okhttp:
+#    enabled: true

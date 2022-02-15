@@ -13,37 +13,31 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.f.controller.app;
+package com.f.security;
 
-import com.f.base.Result;
-import com.f.client.MessageClient;
+import com.f.config.ServiceProperties;
+import com.f.constant.Constant;
+import feign.RequestInterceptor;
+import feign.RequestTemplate;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
+import org.springframework.context.annotation.Configuration;
 
 /**
- * app 接口
+ * feign 内部调用拦截器
  *
  * @author liuf
- * @date 2021/12/3 14:51
+ * @date 2022年2月15日
  */
-@RestController
-@RequestMapping("/app")
+@ConditionalOnClass(RequestInterceptor.class)
+@Configuration
 @RequiredArgsConstructor
-public class AppController {
+public class InnerFeignInterceptor implements RequestInterceptor {
 
-    private final MessageClient messageClient;
+    private final ServiceProperties serviceProperties;
 
-    /**
-     * 获取app最新版本
-     *
-     * @return 字符串
-     */
-    @GetMapping("/version")
-    public Result<String> version() {
-        messageClient.sendEmail();
-        return Result.success("1.0.0");
+    @Override
+    public void apply(RequestTemplate requestTemplate) {
+        requestTemplate.header(Constant.INNER_HEADER, serviceProperties.getId());
     }
-
 }

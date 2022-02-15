@@ -13,33 +13,41 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.f.controller.app;
+package com.f.controller;
 
-import com.f.base.Result;
+import com.f.service.MessageService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * app 接口
+ * 系统接口
  *
  * @author liuf
- * @date 2022/02/14 14:51
+ * @date 2021/12/3 14:47
  */
 @RestController
-@RequestMapping("/app")
+@RequestMapping("/message")
 @RequiredArgsConstructor
-public class AppController {
+public class MessageController {
+
+    private final MessageService messageService;
 
     /**
-     * 获取app最新版本
-     *
-     * @return 字符串
+     * 发送邮件
      */
-    @GetMapping("/version")
-    public Result<String> version() {
-        return Result.success("1.0.0");
+    @PostMapping("/sendEmail")
+    public void sendEmail() {
+        System.out.println(1/0);
+        messageService.sendEmail();
     }
 
+    /**
+     * 发送短信
+     */
+    @PostMapping("/sendSms")
+    public void sendSms() {
+        messageService.sendSms();
+    }
 }

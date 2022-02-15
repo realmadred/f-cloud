@@ -18,6 +18,7 @@ package com.f;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.openfeign.EnableFeignClients;
 
 /**
  * 系统服务启动 @EnableDiscoveryClient 默认会启用
@@ -27,6 +28,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  */
 @SpringBootApplication(scanBasePackages = "com.f")
 @MapperScan(basePackages = {"com.f.mapper.sys"})
+@EnableFeignClients(basePackages = "com.f.client")
 public class SysApplication {
 
     public static void main(String[] args) {

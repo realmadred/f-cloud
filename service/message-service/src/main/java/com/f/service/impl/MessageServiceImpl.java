@@ -16,6 +16,8 @@
 package com.f.service.impl;
 
 import com.f.service.MessageService;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Service;
 
 /**
  * 消息服务
@@ -23,5 +25,17 @@ import com.f.service.MessageService;
  * @author liuf
  * @date 2022/2/15 17:10
  */
+@Slf4j
+@Service
 public class MessageServiceImpl implements MessageService {
+
+    @Override
+    public void sendEmail() {
+        log.info("sendEmail");
+    }
+
+    @Override
+    public void sendSms() {
+        log.info("sendSms");
+    }
 }
