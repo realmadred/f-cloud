@@ -132,7 +132,7 @@ public class SnowflakeIdWorker {
      */
     private void waitNextTime() {
         long newest = getNewestTimestamp();
-        while (lastTimestamp >= newest) {
+        if (lastTimestamp >= newest) {
             try {
                 Thread.sleep(Math.max(1, lastTimestamp - newest));
                 newest = getNewestTimestamp();
@@ -152,7 +152,7 @@ public class SnowflakeIdWorker {
         if (lastTimestamp == newest) {
             return;
         }
-        while (lastTimestamp > newest) {
+        if (lastTimestamp > newest) {
             try {
                 Thread.sleep(lastTimestamp - newest);
                 newest = getNewestTimestamp();
