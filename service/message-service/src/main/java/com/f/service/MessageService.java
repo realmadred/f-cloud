@@ -13,36 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.f.service.sys;
-
-import com.f.entity.sys.SysDictDetail;
-import com.f.service.base.BaseService;
-
-import java.util.List;
+package com.f.service;
 
 /**
- * <p>
- * 数据字典详情 服务类
- * </p>
+ * 消息服务接口
  *
  * @author liuf
- * @date 2022-01-18
+ * @date 2022/2/15 17:09
  */
-public interface SysDictDetailService extends BaseService<SysDictDetail> {
-
-    /**
-     * 根据字典id查询字典详情列表
-     *
-     * @param dictId 字典id
-     * @return 字典列表
-     */
-    List<SysDictDetail> detailByDictId(Long dictId);
-
-    /**
-     * 根据字典id查询字典详情列表
-     *
-     * @param code 字典code
-     * @return 字典列表
-     */
-    List<SysDictDetail> detailByCode(String code);
+public interface MessageService {
 }
