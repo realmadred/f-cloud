@@ -39,7 +39,6 @@ public class MessageController {
      */
     @PostMapping("/sendEmail")
     public void sendEmail() {
-        System.out.println(1/0);
         messageService.sendEmail();
     }
 

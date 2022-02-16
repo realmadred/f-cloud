@@ -18,4 +18,6 @@ dependencies {
     implementation 'org.springframework.cloud:spring-cloud-loadbalancer'
     // 负载均衡缓存 Caffeine
     implementation 'org.springframework:spring-context-support'
+    implementation 'com.alibaba.cloud:spring-cloud-starter-alibaba-sentinel'
+    implementation 'com.alibaba.csp:sentinel-datasource-nacos'
 }
