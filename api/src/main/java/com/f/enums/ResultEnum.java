@@ -50,6 +50,11 @@ public enum ResultEnum {
     NOT_FOUND(404, "未找到接口"),
 
     /**
+     * 请求太频繁
+     */
+    SENTINEL_BLOCK(429, "请求太频繁"),
+
+    /**
      * 服务异常
      */
     ERROR(500, "服务异常，请稍后再试"),

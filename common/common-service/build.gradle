@@ -5,4 +5,5 @@ dependencies {
     compileOnly 'org.springframework.boot:spring-boot-starter-web'
     compileOnly 'org.springframework.cloud:spring-cloud-context'
     compileOnly 'io.github.openfeign:feign-core'
+    compileOnly 'com.alibaba.csp:sentinel-spring-webmvc-adapter'
 }

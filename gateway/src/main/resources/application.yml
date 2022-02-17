@@ -74,3 +74,30 @@
 #    enabled: false
 #  okhttp:
 #    enabled: true
+# Sentinel 网关流控默认的粒度是 route 维度以及自定义 API 分组维度，默认不支持 URL 粒度。若通过 Spring Cloud Alibaba 接入，
+# 请将 spring.cloud.sentinel.filter.enabled 配置项置为 false（若在网关流控控制台上看到了 URL 资源，就是此配置项没有置为 false）。
+#spring:
+#  cloud:
+#    sentinel:
+#      filter:
+#        enabled: false
+#      transport:
+#        # 客户端的端口
+#        port: 8718
+#        dashboard: 192.168.147.7:8080
+
+
+#spring:
+#  cloud:
+#    sentinel:
+#      datasource:
+#        gw:
+#          nacos:
+#            server-addr: 192.168.147.7:8848
+#            namespace: dev
+#            username: nacos
+#            password: nacos
+#            data-id: sentinel-gw-flow.json
+#            group-id: DEFAULT_GROUP
+#            data-type: json
+#            rule-type: gw-flow

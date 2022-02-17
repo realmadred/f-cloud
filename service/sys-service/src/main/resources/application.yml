@@ -8,7 +8,7 @@
 #            namespace: dev
 #            username: nacos
 #            password: nacos
-#            data-id: sentinel-degrade
+#            data-id: sentinel-degrade.json
 #            group-id: DEFAULT_GROUP
 #            data-type: json
 #            rule-type: degrade
@@ -18,7 +18,7 @@
 #            namespace: dev
 #            username: nacos
 #            password: nacos
-#            data-id: sentinel-flow
+#            data-id: sentinel-flow.json
 #            group-id: DEFAULT_GROUP
 #            data-type: json
 #            rule-type: flow
@@ -28,7 +28,7 @@
 #            namespace: dev
 #            username: nacos
 #            password: nacos
-#            data-id: sentinel-system
+#            data-id: sentinel-system.json
 #            group-id: DEFAULT_GROUP
 #            data-type: json
 #            rule-type: system

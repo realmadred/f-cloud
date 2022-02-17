@@ -51,6 +51,7 @@ public final class ServiceUtils {
     private static final byte[] UNAUTHORIZED = Json.jsonBytes(Result.fail(ResultEnum.UNAUTHORIZED));
     private static final byte[] FORBIDDEN = Json.jsonBytes(Result.fail(ResultEnum.FORBIDDEN));
     private static final byte[] INNER_FORBIDDEN = Json.jsonBytes(Result.fail(ResultEnum.INNER_FORBIDDEN));
+    private static final byte[] SENTINEL_BLOCK = Json.jsonBytes(Result.fail(ResultEnum.SENTINEL_BLOCK));
 
     /**
      * 加盟工具
@@ -243,6 +244,16 @@ public final class ServiceUtils {
      */
     public static void responseInnerForbidden(ServletResponse response) {
         responseJson(response, INNER_FORBIDDEN);
+    }
+
+    /**
+     * 请求太频繁
+     *
+     * @param response res
+     * @date 2022年2月17日
+     */
+    public static void responseSentinelBlock(ServletResponse response) {
+        responseJson(response, SENTINEL_BLOCK);
     }
 
     /**
