@@ -15,7 +15,7 @@ spring:
         password: nacos
         namespace: dev
         # 配置中心地址
-        server-addr: 192.168.147.7:8848
+        server-addr: 192.168.137.7:8848
         # 配置文件格式
         file-extension: yml
         # 共享配置

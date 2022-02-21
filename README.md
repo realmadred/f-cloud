@@ -6,7 +6,11 @@
 ### 使用技术
 - spring boot 2.6
 - spring cloud alibaba
-- mybatis
+- spring cloud Gateway
+- nacos 
+- sentinel
+- jwt
+- mybatis-plus
 - redis
 - jetcache
 - validation
