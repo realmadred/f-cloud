@@ -17,6 +17,7 @@ package com.f.handler;
 
 import com.alibaba.csp.sentinel.adapter.gateway.sc.callback.BlockRequestHandler;
 import com.f.base.Result;
+import com.f.enums.ResultEnum;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
@@ -33,14 +34,13 @@ import reactor.core.publisher.Mono;
 @Component
 public class SentinelBlockHandler implements BlockRequestHandler {
 
-    private static final String DEFAULT_BLOCK_MSG_PREFIX = "Blocked by Sentinel";
+    private static final Result<Void> SENTINEL_BLOCK = Result.fail(ResultEnum.SENTINEL_BLOCK);
 
     @Override
     public Mono<ServerResponse> handleRequest(ServerWebExchange exchange, Throwable ex) {
         return ServerResponse.status(HttpStatus.TOO_MANY_REQUESTS)
                 .contentType(MediaType.APPLICATION_JSON)
-                .bodyValue(Result.fail(HttpStatus.TOO_MANY_REQUESTS.value(),
-                        DEFAULT_BLOCK_MSG_PREFIX));
+                .bodyValue(SENTINEL_BLOCK);
     }
 
 }

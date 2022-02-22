@@ -1,0 +1,23 @@
+spring:
+  application:
+    # 应用名称
+    name: file
+  profiles:
+    # 环境配置
+    active: dev
+  main:
+    allow-circular-references: true
+  cloud:
+    nacos:
+      config:
+        group: f
+        username: nacos
+        password: nacos
+        namespace: dev
+        # 配置中心地址
+        server-addr: 192.168.137.7:8848
+        # 配置文件格式
+        file-extension: yml
+        # 共享配置
+        shared-configs:
+          - service.${spring.cloud.nacos.config.file-extension}

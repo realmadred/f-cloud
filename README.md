@@ -23,6 +23,12 @@
 - service 服务实现包含dao
 - gateway 网关
 
+### 使用端口
+- gateway 8080
+- sys 18080
+- message 18081
+- file 18082
+
 ### 集成前端项目
 
 - <a target="_blank" href="https://gitee.com/realmadridlf/f-vue-cloud.git">f-vue-cloud</a>
