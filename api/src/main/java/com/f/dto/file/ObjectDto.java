@@ -13,43 +13,25 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.f.config;
+package com.f.dto.file;
 
 import lombok.Data;
-import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.cloud.context.config.annotation.RefreshScope;
-import org.springframework.context.annotation.Configuration;
+import lombok.EqualsAndHashCode;
 
 /**
- * 应用配置
+ * 对象
  *
  * @author liuf
- * @date 2022/02/15 17:04
+ * @date 2022/2/22 21:12
  */
+@EqualsAndHashCode(callSuper = true)
 @Data
-@Configuration
-@RefreshScope
-@ConfigurationProperties(prefix = "f")
-public class FileProperties {
+public class ObjectDto extends BucketDto {
+
+    private static final long serialVersionUID = -7803339769794403487L;
 
     /**
-     * accessKey
+     * 文件后缀(.jpg)
      */
-    private String accessKey;
-
-    /**
-     * accessSecret
-     */
-    private String accessSecret;
-
-    /**
-     * minIoUrl
-     */
-    private String minIoUrl;
-
-    /**
-     * region
-     */
-    private String region;
-
+    private String suffix;
 }

@@ -13,43 +13,26 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.f.config;
+package com.f.dto.file;
 
 import lombok.Data;
-import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.cloud.context.config.annotation.RefreshScope;
-import org.springframework.context.annotation.Configuration;
+import lombok.EqualsAndHashCode;
+
+import java.io.InputStream;
 
 /**
- * 应用配置
+ * 上传对象
  *
  * @author liuf
- * @date 2022/02/15 17:04
+ * @date 2022/2/22 21:12
  */
+@EqualsAndHashCode(callSuper = true)
 @Data
-@Configuration
-@RefreshScope
-@ConfigurationProperties(prefix = "f")
-public class FileProperties {
+public class PutObjectDto extends ObjectDto {
 
-    /**
-     * accessKey
-     */
-    private String accessKey;
+    private static final long serialVersionUID = -7803339769794403487L;
 
-    /**
-     * accessSecret
-     */
-    private String accessSecret;
-
-    /**
-     * minIoUrl
-     */
-    private String minIoUrl;
-
-    /**
-     * region
-     */
-    private String region;
-
+    private InputStream stream;
+    private long objectSize;
+    private int partSize = -1;
 }

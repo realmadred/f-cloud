@@ -89,6 +89,9 @@ subprojects {
             dependencySet(group: 'io.minio', version: '8.3.6') {
                 entry 'minio'
             }
+            dependencySet(group: 'com.squareup.okhttp3', version: '4.9.3') {
+                entry 'okhttp'
+            }
             dependencySet(group: 'org.apache.logging.log4j', version: "${log4j2Version}") {
                 entry 'log4j-api'
                 entry 'log4j-core'

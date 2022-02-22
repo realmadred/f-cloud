@@ -13,43 +13,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.f.config;
+package com.f.dto.file;
 
 import lombok.Data;
-import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.cloud.context.config.annotation.RefreshScope;
-import org.springframework.context.annotation.Configuration;
+
+import java.io.Serializable;
 
 /**
- * 应用配置
+ * 存储桶
  *
  * @author liuf
- * @date 2022/02/15 17:04
+ * @date 2022/2/22 21:12
  */
 @Data
-@Configuration
-@RefreshScope
-@ConfigurationProperties(prefix = "f")
-public class FileProperties {
+public class BucketDto implements Serializable {
 
-    /**
-     * accessKey
-     */
-    private String accessKey;
+    private static final long serialVersionUID = 5313001994197759890L;
 
-    /**
-     * accessSecret
-     */
-    private String accessSecret;
-
-    /**
-     * minIoUrl
-     */
-    private String minIoUrl;
-
-    /**
-     * region
-     */
+    private String bucket;
     private String region;
-
 }

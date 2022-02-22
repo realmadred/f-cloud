@@ -15,6 +15,12 @@
  */
 package com.f.service;
 
+import com.f.dto.file.GetObjectDto;
+import com.f.dto.file.PreUrlObjectDto;
+import com.f.dto.file.PutObjectDto;
+
+import java.io.InputStream;
+
 /**
  * 文件服务
  *
@@ -22,4 +28,30 @@ package com.f.service;
  * @date 2022/2/22 14:17
  */
 public interface FileService {
+
+    /**
+     * 上传
+     *
+     * @param putObjectDto 上传对象
+     * @return 路径
+     * @date 2022年2月22日
+     */
+    String putObject(PutObjectDto putObjectDto);
+
+    /**
+     * 预上传url生成
+     *
+     * @param preUrlObjectDto dto
+     * @return url
+     */
+    String getPreSignedObjectUrl(PreUrlObjectDto preUrlObjectDto);
+
+    /**
+     * 下载
+     *
+     * @param getObjectDto 对象
+     * @return 文件流
+     * @date 2022年2月22日
+     */
+    InputStream getObject(GetObjectDto getObjectDto);
 }
