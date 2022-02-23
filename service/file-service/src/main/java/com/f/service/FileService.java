@@ -73,7 +73,7 @@ public interface FileService {
      * @param preUrlObjectDto dto
      * @return url
      */
-    List<String> getPreSignedObjectUrlList(PreUrlPutObjectDto preUrlObjectDto);
+    List<String> getPreSignedPutObjectUrlList(PreUrlPutObjectDto preUrlObjectDto);
 
     /**
      * 下载

@@ -15,6 +15,7 @@
  */
 package com.f.controller;
 
+import com.f.base.Result;
 import com.f.dto.file.GetObjectDto;
 import com.f.dto.file.PreUrlGetObjectDto;
 import com.f.dto.file.PreUrlPutObjectDto;
@@ -23,7 +24,7 @@ import com.f.service.FileService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
@@ -50,9 +51,9 @@ public class FileController {
      * @return 路径
      * @date 2022年2月23日
      */
-    @PostMapping("/putMultipartFile")
-    public String putMultipartFile(PutObjectDto putObjectDto, @RequestParam("file") MultipartFile file) {
-        return fileService.putMultipartFile(putObjectDto, file);
+    @PutMapping("/putMultipartFile")
+    public Result<String> putMultipartFile(PutObjectDto putObjectDto, @RequestParam("file") MultipartFile file) {
+        return Result.success(fileService.putMultipartFile(putObjectDto, file));
     }
 
     /**
@@ -62,9 +63,9 @@ public class FileController {
      * @return 路径
      * @date 2022年2月23日
      */
-    @PostMapping("/putObject")
-    public String putObject(PutObjectDto putObjectDto) {
-        return fileService.putObject(putObjectDto);
+    @PutMapping("/putObject")
+    public Result<String> putObject(PutObjectDto putObjectDto) {
+        return Result.success(fileService.putObject(putObjectDto));
     }
 
     /**
@@ -73,9 +74,9 @@ public class FileController {
      * @param preUrlObjectDto dto
      * @return url
      */
-    @GetMapping("/getPreSignedObjectUrl")
-    public String getPreSignedObjectUrl(PreUrlPutObjectDto preUrlObjectDto) {
-        return fileService.getPreSignedPutObjectUrl(preUrlObjectDto);
+    @GetMapping("/getPreSignedPutObjectUrl")
+    public Result<String> getPreSignedPutObjectUrl(PreUrlPutObjectDto preUrlObjectDto) {
+        return Result.success(fileService.getPreSignedPutObjectUrl(preUrlObjectDto));
     }
 
     /**
@@ -85,8 +86,8 @@ public class FileController {
      * @return url
      */
     @GetMapping("/getPreSignedGetObjectUrl")
-    public String getPreSignedGetObjectUrl(PreUrlGetObjectDto preUrlGetObjectDto) {
-        return fileService.getPreSignedGetObjectUrl(preUrlGetObjectDto);
+    public Result<String> getPreSignedGetObjectUrl(PreUrlGetObjectDto preUrlGetObjectDto) {
+        return Result.success(fileService.getPreSignedGetObjectUrl(preUrlGetObjectDto));
     }
 
     /**
@@ -95,9 +96,9 @@ public class FileController {
      * @param preUrlObjectDto dto
      * @return url
      */
-    @GetMapping("/getPreSignedObjectUrlList")
-    public List<String> getPreSignedObjectUrlList(PreUrlPutObjectDto preUrlObjectDto) {
-        return fileService.getPreSignedObjectUrlList(preUrlObjectDto);
+    @GetMapping("/getPreSignedPutObjectUrlList")
+    public Result<List<String>> getPreSignedPutObjectUrlList(PreUrlPutObjectDto preUrlObjectDto) {
+        return Result.success(fileService.getPreSignedPutObjectUrlList(preUrlObjectDto));
     }
 
     /**

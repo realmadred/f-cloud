@@ -22,6 +22,7 @@ import com.f.dto.file.PreUrlGetObjectDto;
 import com.f.dto.file.PreUrlPutObjectDto;
 import com.f.dto.file.PutObjectDto;
 import com.f.service.FileService;
+import com.f.utils.FileUtils;
 import com.f.utils.IdUtils;
 import io.minio.GetObjectArgs;
 import io.minio.GetObjectResponse;
@@ -102,8 +103,8 @@ public class FileServiceImpl implements FileService {
         return minioClient.getPresignedObjectUrl(GetPresignedObjectUrlArgs.builder()
                 .bucket(preUrlObjectDto.getBucket())
                 .object(getName(preUrlObjectDto.getSuffix()))
-                .expiry(preUrlObjectDto.getExpiry())
-                .method(Method.POST)
+                .expiry(FileUtils.getExpiry(preUrlObjectDto.getExpiry()))
+                .method(Method.PUT)
                 .build());
     }
 
@@ -113,13 +114,13 @@ public class FileServiceImpl implements FileService {
         return minioClient.getPresignedObjectUrl(GetPresignedObjectUrlArgs.builder()
                 .bucket(preUrlGetObjectDto.getBucket())
                 .object(preUrlGetObjectDto.getName())
-                .expiry(preUrlGetObjectDto.getExpiry())
+                .expiry(FileUtils.getExpiry(preUrlGetObjectDto.getExpiry()))
                 .method(Method.GET)
                 .build());
     }
 
     @Override
-    public List<String> getPreSignedObjectUrlList(PreUrlPutObjectDto preUrlObjectDto) {
+    public List<String> getPreSignedPutObjectUrlList(PreUrlPutObjectDto preUrlObjectDto) {
         final int size = preUrlObjectDto.getSize();
         List<String> list = new ArrayList<>(size);
         for (int i = 0; i < size; i++) {

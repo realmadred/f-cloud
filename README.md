@@ -16,6 +16,7 @@
 - validation
 - mapstruct
 - disruptor
+- minIO
 
 ### 软件架构
 - api 接口、实体定义
