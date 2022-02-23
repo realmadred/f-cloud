@@ -19,16 +19,16 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 /**
- * 预签名上传对象
+ * 预签名下载路径
  *
  * @author liuf
- * @date 2022/2/22 21:12
+ * @date 2022/2/23 11:12
  */
 @EqualsAndHashCode(callSuper = true)
 @Data
-public class PreUrlObjectDto extends ObjectDto {
+public class PreUrlGetObjectDto extends GetObjectDto {
 
-    private static final long serialVersionUID = 918899104226950822L;
+    private static final long serialVersionUID = 1596607898866991291L;
 
     /**
      * 有效期秒

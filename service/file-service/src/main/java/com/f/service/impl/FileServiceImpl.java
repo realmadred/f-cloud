@@ -16,8 +16,10 @@
 package com.f.service.impl;
 
 import com.f.config.FileProperties;
+import com.f.constant.Constant;
 import com.f.dto.file.GetObjectDto;
-import com.f.dto.file.PreUrlObjectDto;
+import com.f.dto.file.PreUrlGetObjectDto;
+import com.f.dto.file.PreUrlPutObjectDto;
 import com.f.dto.file.PutObjectDto;
 import com.f.service.FileService;
 import com.f.utils.IdUtils;
@@ -32,13 +34,16 @@ import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import okhttp3.HttpUrl;
+import org.apache.commons.lang3.StringUtils;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.PostConstruct;
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
-import java.util.concurrent.TimeUnit;
 
 /**
  * 文件服务实现
@@ -64,12 +69,6 @@ public class FileServiceImpl implements FileService {
                     .region(fileProperties.getRegion())
                     .build();
             log.info("init minioClient");
-            final PreUrlObjectDto preUrlObjectDto = new PreUrlObjectDto();
-            preUrlObjectDto.setBucket("image");
-            preUrlObjectDto.setSuffix(".jpg");
-            preUrlObjectDto.setExpiry((int) TimeUnit.MINUTES.toSeconds(5));
-            final String signedObjectUrl = getPreSignedObjectUrl(preUrlObjectDto);
-            log.info("init signedObjectUrl:{}", signedObjectUrl);
         }
     }
 
@@ -84,6 +83,14 @@ public class FileServiceImpl implements FileService {
         return response.object();
     }
 
+    @SneakyThrows
+    @Override
+    public String putMultipartFile(PutObjectDto putObjectDto, MultipartFile file) {
+        putObjectDto.setStream(file.getInputStream());
+        putObjectDto.setSuffix(Constant.DOT + StringUtils.substringAfterLast(Constant.DOT, file.getOriginalFilename()));
+        return putObject(putObjectDto);
+    }
+
     @NotNull
     private String getName(String suffix) {
         return IdUtils.uuid() + suffix;
@@ -91,13 +98,34 @@ public class FileServiceImpl implements FileService {
 
     @SneakyThrows
     @Override
-    public String getPreSignedObjectUrl(PreUrlObjectDto preUrlObjectDto) {
+    public String getPreSignedPutObjectUrl(PreUrlPutObjectDto preUrlObjectDto) {
         return minioClient.getPresignedObjectUrl(GetPresignedObjectUrlArgs.builder()
                 .bucket(preUrlObjectDto.getBucket())
                 .object(getName(preUrlObjectDto.getSuffix()))
                 .expiry(preUrlObjectDto.getExpiry())
                 .method(Method.POST)
                 .build());
+    }
+
+    @SneakyThrows
+    @Override
+    public String getPreSignedGetObjectUrl(PreUrlGetObjectDto preUrlGetObjectDto) {
+        return minioClient.getPresignedObjectUrl(GetPresignedObjectUrlArgs.builder()
+                .bucket(preUrlGetObjectDto.getBucket())
+                .object(preUrlGetObjectDto.getName())
+                .expiry(preUrlGetObjectDto.getExpiry())
+                .method(Method.GET)
+                .build());
+    }
+
+    @Override
+    public List<String> getPreSignedObjectUrlList(PreUrlPutObjectDto preUrlObjectDto) {
+        final int size = preUrlObjectDto.getSize();
+        List<String> list = new ArrayList<>(size);
+        for (int i = 0; i < size; i++) {
+            list.add(getPreSignedPutObjectUrl(preUrlObjectDto));
+        }
+        return list;
     }
 
     @SneakyThrows

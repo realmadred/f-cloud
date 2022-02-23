@@ -16,10 +16,13 @@
 package com.f.service;
 
 import com.f.dto.file.GetObjectDto;
-import com.f.dto.file.PreUrlObjectDto;
+import com.f.dto.file.PreUrlGetObjectDto;
+import com.f.dto.file.PreUrlPutObjectDto;
 import com.f.dto.file.PutObjectDto;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.InputStream;
+import java.util.List;
 
 /**
  * 文件服务
@@ -39,12 +42,38 @@ public interface FileService {
     String putObject(PutObjectDto putObjectDto);
 
     /**
+     * 上传
+     *
+     * @param putObjectDto 上传对象
+     * @param file 上传文件
+     * @return 路径
+     * @date 2022年2月22日
+     */
+    String putMultipartFile(PutObjectDto putObjectDto, MultipartFile file);
+
+    /**
      * 预上传url生成
      *
      * @param preUrlObjectDto dto
      * @return url
      */
-    String getPreSignedObjectUrl(PreUrlObjectDto preUrlObjectDto);
+    String getPreSignedPutObjectUrl(PreUrlPutObjectDto preUrlObjectDto);
+
+    /**
+     * 预get url生成
+     *
+     * @param preUrlGetObjectDto dto
+     * @return url
+     */
+    String getPreSignedGetObjectUrl(PreUrlGetObjectDto preUrlGetObjectDto);
+
+    /**
+     * 预上传url生成 批量
+     *
+     * @param preUrlObjectDto dto
+     * @return url
+     */
+    List<String> getPreSignedObjectUrlList(PreUrlPutObjectDto preUrlObjectDto);
 
     /**
      * 下载

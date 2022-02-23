@@ -19,16 +19,24 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 /**
- * 下载对象
+ * 预签名上传对象
  *
  * @author liuf
  * @date 2022/2/22 21:12
  */
 @EqualsAndHashCode(callSuper = true)
 @Data
-public class GetObjectDto extends BucketDto {
+public class PreUrlPutObjectDto extends ObjectDto {
 
-    private static final long serialVersionUID = 5699995899554496739L;
+    private static final long serialVersionUID = 918899104226950822L;
 
-    private String name;
+    /**
+     * 有效期秒
+     */
+    private int expiry;
+
+    /**
+     * 数量
+     */
+    private int size;
 }
