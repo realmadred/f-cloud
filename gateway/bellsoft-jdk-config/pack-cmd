@@ -1,0 +1,18 @@
+mkdir bellsoft-jdk-config && cd bellsoft-jdk-config
+
+echo "dependency-mapping" >> type
+
+echo "https://ghproxy.com/https://github.com/bell-sw/Liberica/releases/download/11.0.14.1+1/bellsoft-jdk11.0.14.1+1-linux-amd64.tar.gz" >> 16eea4e55c86ebf65862d2d70a6a8734e061a20fc48d1ba8b94c2e8df0bbf79c
+
+echo "https://ghproxy.com/https://github.com/bell-sw/Liberica/releases/download/11.0.13+8/bellsoft-jdk11.0.13+8-linux-amd64.tar.gz" >> 7f3849a0b663e644bffd48c59b7cba76a24ba6bf1e66a2f34b08c2fb4689b1e4
+
+echo "https://ghproxy.com/https://github.com/bell-sw/Liberica/releases/download/11.0.13+8/bellsoft-jre11.0.13+8-linux-amd64.tar.gz" >> 8bad208be75e67204bcc90cafc35d73506a0ec7cfc384674595003db69241965
+
+cd ..
+
+pack build gateway \
+    --path . \
+    --volume $(pwd)/bellsoft-jdk-config:/platform/bindings/bellsoft-jdk-config \
+    --env BP_JVM_VERSION=11.0.13 \
+    --env BP_JVM_TYPE=JRE \
+    --builder paketobuildpacks/builder:base

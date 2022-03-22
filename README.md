@@ -25,7 +25,7 @@
 - gateway 网关
 
 ### 使用端口
-- gateway 8080
+- gateway 8000
 - sys 18080
 - message 18081
 - file 18082

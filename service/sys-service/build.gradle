@@ -1,3 +1,6 @@
+import java.time.ZonedDateTime
+import java.time.format.DateTimeFormatter
+
 dependencies {
     implementation(project(':common:common-cache'))
     implementation(project(':common:common-db'))
@@ -20,4 +23,28 @@ dependencies {
     implementation 'org.springframework:spring-context-support'
     implementation 'com.alibaba.cloud:spring-cloud-starter-alibaba-sentinel'
     implementation 'com.alibaba.csp:sentinel-datasource-nacos'
+}
+
+apply plugin: "com.google.cloud.tools.jib"
+
+jib {
+    from {
+        image = "openjdk@sha256:39818a12ae215ab9f9463b312696696b941b59598913041f575582e67bbb917d"
+        platforms {
+            platform {
+                architecture = 'amd64'
+                os = 'linux'
+            }
+        }
+    }
+
+    to {
+        image = "registry.cn-hangzhou.aliyuncs.com/f-boot/${project.name}"
+        tags = ["${rootProject.version}"]
+    }
+
+    container {
+        ports = ["18080"]
+        creationTime = ZonedDateTime.now().format(DateTimeFormatter.ISO_DATE_TIME)
+    }
 }
