@@ -70,12 +70,8 @@ jib {
     }
 
     container {
+        jvmFlags = ['-server','-Djava.security.egd=file:/dev/./urandom"', '-Xmx1g', '-Xms1g']
         ports = ["8000"]
         creationTime = ZonedDateTime.now().format(DateTimeFormatter.ISO_DATE_TIME)
     }
 }
-
-// spring boot构建任务
-//springBoot {
-//    buildInfo()
-//}

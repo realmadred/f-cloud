@@ -18,6 +18,7 @@ package com.f.cache;
 import com.alicp.jetcache.Cache;
 import com.alicp.jetcache.anno.CacheType;
 import com.alicp.jetcache.anno.CreateCache;
+import com.f.thread.NamedThreadFactory;
 import io.lettuce.core.RedisClient;
 import io.lettuce.core.api.StatefulRedisConnection;
 import io.lettuce.core.api.async.RedisAsyncCommands;
@@ -25,9 +26,13 @@ import io.lettuce.core.api.reactive.RedisReactiveCommands;
 import io.lettuce.core.api.sync.RedisCommands;
 import lombok.Getter;
 import lombok.experimental.Accessors;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
+import java.util.concurrent.ScheduledThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 
 /**
  * 缓存方法
@@ -38,6 +43,7 @@ import javax.annotation.PreDestroy;
 @Component
 @Accessors(fluent = true)
 @Getter
+@Slf4j
 public class CacheTemplate {
 
     private final RedisClient redisClient;
@@ -68,6 +74,11 @@ public class CacheTemplate {
         this.syncObject = objectConnection.sync();
         this.asyncObject = objectConnection.async();
         this.reactiveObject = objectConnection.reactive();
+    }
+
+    @PostConstruct
+    public void pingRedis() {
+        new ScheduledThreadPoolExecutor(1, new NamedThreadFactory("redis-ping")).scheduleAtFixedRate(() -> log.debug("ping:{}", sync.ping()), 15, 150, TimeUnit.SECONDS);
     }
 
     @CreateCache(name = "common", expire = 30, cacheType = CacheType.REMOTE)

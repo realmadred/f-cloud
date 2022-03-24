@@ -40,4 +40,5 @@ public class CacheConfig {
     public LettuceFactory redisClient() {
         return new LettuceFactory("remote.default", RedisClient.class);
     }
+
 }

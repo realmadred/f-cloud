@@ -40,3 +40,16 @@ docker push registry.cn-hangzhou.aliyuncs.com/f-boot/gateway:1.0.0
 ```shell
 gradle jibDockerBuild
 ```
+
+###7.删除空悬镜像
+<none>:<none>这些坏坏的镜像也叫dangling images，空悬镜像。
+```shell
+docker rmi $(docker images -f "dangling=true" -q)
+```
+
+###8.解决docker部署应用和宿主机社区不一致问题
+``` yaml
+volumes:
+  - /etc/timezone:/etc/timezone
+  - /etc/localtime:/etc/localtime
+```

@@ -1,5 +1,17 @@
 version : '3.9'
 services:
+  nacos:
+    image: nacos/nacos-server:v2.0.4
+    ports:
+      - "8848:8848"
+    networks:
+      - feng
+    restart: always
+    volumes:
+      - /etc/timezone:/etc/timezone
+      - /etc/localtime:/etc/localtime
+    env_file:
+      - ./nacos_server.env
   sentinel:
     image: bladex/sentinel-dashboard:1.8.0
     ports:
@@ -19,6 +31,12 @@ services:
         "-jar",
         "app.jar"
     ]
+    restart: always
+    volumes:
+      - /etc/timezone:/etc/timezone
+      - /etc/localtime:/etc/localtime
+    depends_on:
+      - nacos
   gateway:
     image: registry.cn-hangzhou.aliyuncs.com/f-boot/gateway:1.0.0
     ports:
@@ -28,6 +46,11 @@ services:
     networks:
       - feng
     restart: always
+    volumes:
+      - /etc/timezone:/etc/timezone
+      - /etc/localtime:/etc/localtime
+    env_file:
+      - ./cloud_nacos.env
   sys:
     image: registry.cn-hangzhou.aliyuncs.com/f-boot/sys-service:1.0.0
     ports:
@@ -37,6 +60,11 @@ services:
     networks:
       - feng
     restart: always
+    volumes:
+      - /etc/timezone:/etc/timezone
+      - /etc/localtime:/etc/localtime
+    env_file:
+      - ./cloud_nacos.env
   message:
     image: registry.cn-hangzhou.aliyuncs.com/f-boot/message-service:1.0.0
     ports:
@@ -46,6 +74,11 @@ services:
     networks:
       - feng
     restart: always
+    volumes:
+      - /etc/timezone:/etc/timezone
+      - /etc/localtime:/etc/localtime
+    env_file:
+      - ./cloud_nacos.env
 
 networks:
   feng:
