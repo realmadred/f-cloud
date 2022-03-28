@@ -1,5 +1,38 @@
 version : '3.9'
 services:
+  minio:
+    image: minio/minio
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    networks:
+      - feng
+    restart: always
+    volumes:
+      - /home/feng/minio/disk1:/disk1
+      - /home/feng/minio/disk2:/disk2
+      - /home/feng/minio/disk3:/disk3
+      - /home/feng/minio/disk4:/disk4
+      - /etc/timezone:/etc/timezone
+      - /etc/localtime:/etc/localtime
+    environment:
+      - MINIO_ROOT_USER=feng
+      - MINIO_ROOT_PASSWORD=F6yXaV4ZbuIPACgprUQ38jEw9nKhWNJo
+    command: server /disk{1...4} --console-address ":9001"
+  redis:
+    image: redis:6.2.6
+    ports:
+      - "16379:6379"
+    networks:
+      - feng
+    restart: always
+    volumes:
+      - /home/feng/redis/data:/data
+      - ./redis/redis.conf:/usr/local/etc/redis/redis.conf
+    entrypoint: [
+        "redis-server",
+        "/usr/local/etc/redis/redis.conf",
+    ]
   nacos:
     image: nacos/nacos-server:v2.0.4
     ports:
@@ -43,6 +76,7 @@ services:
       - "8000:8000"
     depends_on:
       - sentinel
+      - redis
     networks:
       - feng
     restart: always
@@ -57,6 +91,7 @@ services:
       - "18080"
     depends_on:
       - sentinel
+      - redis
     networks:
       - feng
     restart: always
@@ -71,6 +106,7 @@ services:
       - "18081"
     depends_on:
       - sentinel
+      - redis
     networks:
       - feng
     restart: always
@@ -79,6 +115,21 @@ services:
       - /etc/localtime:/etc/localtime
     env_file:
       - ./cloud_nacos.env
-
+  file:
+    image: registry.cn-hangzhou.aliyuncs.com/f-boot/file-service:1.0.0
+    ports:
+      - "18082"
+    depends_on:
+      - sentinel
+      - redis
+      - minio
+    networks:
+      - feng
+    restart: always
+    volumes:
+      - /etc/timezone:/etc/timezone
+      - /etc/localtime:/etc/localtime
+    env_file:
+      - ./cloud_nacos.env
 networks:
   feng:

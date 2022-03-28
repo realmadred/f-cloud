@@ -19,6 +19,36 @@ dependencies {
 apply plugin: "com.google.cloud.tools.jib"
 
 jib {
+    pluginExtensions {
+        pluginExtension {
+            implementation = 'com.google.cloud.tools.jib.gradle.extension.layerfilter.JibLayerFilterExtension'
+            configuration {
+                filters {
+                    filter {
+                        glob = '/app/libs/spring-*.jar'
+                        toLayer = 'spring'
+                    }
+                    filter {
+                        glob = '/app/libs/netty-*.jar'
+                        toLayer = 'netty'
+                    }
+                    filter {
+                        glob = '/app/libs/sentinel-*.jar'
+                        toLayer = 'sentinel'
+                    }
+                    filter {
+                        glob = '/app/libs/nacos-*.jar'
+                        toLayer = 'nacos'
+                    }
+                    filter {
+                        glob = '/app/libs/*-plain.jar'
+                        toLayer = 'plain'
+                    }
+                }
+            }
+        }
+    }
+
     from {
         image = "openjdk@sha256:39818a12ae215ab9f9463b312696696b941b59598913041f575582e67bbb917d"
         platforms {
@@ -35,6 +65,7 @@ jib {
     }
 
     container {
+        jvmFlags = ['-server','-Djava.security.egd=file:/dev/./urandom"', '-Xmx512m', '-Xms512m']
         ports = ["18081"]
         creationTime = ZonedDateTime.now().format(DateTimeFormatter.ISO_DATE_TIME)
     }
