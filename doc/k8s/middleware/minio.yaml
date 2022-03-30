@@ -1,0 +1,113 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: minio
+  namespace: feng
+  labels:
+    app: minio
+spec:
+  selector:
+    app: minio
+  type: NodePort
+  ports:
+    - name: http
+      protocol: TCP
+      port: 9000
+      targetPort: 9000
+      nodePort: 30900
+    - name: console
+      protocol: TCP
+      port: 9001
+      targetPort: 9001
+      nodePort: 30901
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: minio
+  namespace: feng
+  labels:
+    app: minio
+spec:
+  selector:
+    matchLabels:
+      app: minio
+  revisionHistoryLimit: 5
+  replicas: 1
+  progressDeadlineSeconds: 60
+  template:
+    metadata:
+      labels:
+        app: minio
+    spec:
+      terminationGracePeriodSeconds: 10
+      containers:
+        - name: minio
+          image: quay.io/minio/minio:RELEASE.2022-03-24T00-43-44Z
+          imagePullPolicy: IfNotPresent
+          ports:
+            - name: minio
+              containerPort: 9000
+              protocol: TCP
+            - name: console
+              containerPort: 9001
+              protocol: TCP
+          command:
+            - server
+            - /disk{1...2}
+            - --console-address
+            - ":9001"
+          resources:
+            limits:
+              memory: 512Mi
+              cpu: '1'
+          env:
+            - MINIO_ROOT_USER=feng
+            - MINIO_ROOT_PASSWORD=F6yXaV4ZbuIPACgprUQ38jEw9nKhWNJo
+          volumeMounts:
+            - name: disk1
+              mountPath: /disk1
+            - name: disk2
+              mountPath: /disk2
+      volumes:
+        - name: disk1
+          persistentVolumeClaim:
+            claimName: minio-disk1
+        - name: disk2
+          persistentVolumeClaim:
+            claimName: minio-disk2
+
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: minio-disk1
+  namespace: feng
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 2Gi
+  # 申领可以通过为 storageClassName 属性设置 StorageClass 的名称来请求特定的存储类。
+  # 只有所请求的类的 PV 卷，即 storageClassName 值与 PVC 设置相同的 PV 卷，
+  # 才能绑定到 PVC 申领。
+  storageClassName: gluster-storageclass
+
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: minio-disk2
+  namespace: feng
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 2Gi
+  # 申领可以通过为 storageClassName 属性设置 StorageClass 的名称来请求特定的存储类。
+  # 只有所请求的类的 PV 卷，即 storageClassName 值与 PVC 设置相同的 PV 卷，
+  # 才能绑定到 PVC 申领。
+  storageClassName: gluster-storageclass

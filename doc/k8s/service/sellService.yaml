@@ -2,13 +2,13 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: pay
+  name: sell
   namespace: feng
   labels:
-    app: pay
+    app: sell
 spec:
   selector:
-    app: pay
+    app: sell
   ports:
     - name: http
       protocol: TCP
@@ -18,14 +18,14 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: pay
+  name: sell
   namespace: feng
   labels:
-    app: pay
+    app: sell
 spec:
   selector:
     matchLabels:
-      app: pay
+      app: sell
   revisionHistoryLimit: 10
   replicas: 1
   progressDeadlineSeconds: 300
@@ -37,16 +37,16 @@ spec:
   template:
     metadata:
       labels:
-        app: pay
+        app: sell
     spec:
       terminationGracePeriodSeconds: 30
       containers:
-        - name: pay
-          image: registry.cn-hangzhou.aliyuncs.com/f-boot/pay:1.0.0
+        - name: sell
+          image: registry.cn-hangzhou.aliyuncs.com/f-boot/sell:1.0.0
           imagePullPolicy: IfNotPresent
           ports:
-            - name: pay
-              containerPort: 18085
+            - name: sell
+              containerPort: 18083
               protocol: TCP
           resources:
             limits:
@@ -54,7 +54,7 @@ spec:
               cpu: '1'
           env:
             - name: PROFILE
-              value: prod
+              value: pro
             # 指定时区
             - name: TZ
               value: Asia/Shanghai
@@ -84,9 +84,23 @@ spec:
                   name: nacos
                   key: group
           volumeMounts:
-            - name: pay-log
-              mountPath: ./logs
+            - name: sell-log
+              mountPath: /logs
       volumes:
-        - name: pay-log
+        - name: sell-log
           persistentVolumeClaim:
-            claimName: pay-log
+            claimName: sell-log
+
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: sell-log
+  namespace: feng
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+  storageClassName: gluster-storageclass

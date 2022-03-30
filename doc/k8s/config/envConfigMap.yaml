@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: boot-env
+  namespace: feng
+data:
+  # 直接作为环境变量引入
+  #           envFrom:
+  #            - configMapRef:
+  #                name: env
+  # 类属性键；每一个键都映射到一个简单的值
+  PROFILE: pro
+  TZ: Asia/Shanghai
+  NACOS_NAMESPACE: pro
+  NACOS_SERVER_ADDR: nacos:8848
+  NACOS_GROUP: f
+
+immutable: true

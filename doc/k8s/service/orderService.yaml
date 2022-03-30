@@ -54,7 +54,7 @@ spec:
               cpu: '1'
           env:
             - name: PROFILE
-              value: prod
+              value: pro
             # 指定时区
             - name: TZ
               value: Asia/Shanghai
@@ -85,8 +85,22 @@ spec:
                   key: group
           volumeMounts:
             - name: order-log
-              mountPath: ./logs
+              mountPath: /logs
       volumes:
         - name: order-log
           persistentVolumeClaim:
             claimName: order-log
+
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: order-log
+  namespace: feng
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+  storageClassName: gluster-storageclass

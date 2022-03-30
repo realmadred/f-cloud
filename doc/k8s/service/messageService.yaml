@@ -2,13 +2,13 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: file
+  name: message
   namespace: feng
   labels:
-    app: file
+    app: message
 spec:
   selector:
-    app: file
+    app: message
   ports:
     - name: http
       protocol: TCP
@@ -18,14 +18,14 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: file
+  name: message
   namespace: feng
   labels:
-    app: file
+    app: message
 spec:
   selector:
     matchLabels:
-      app: file
+      app: message
   revisionHistoryLimit: 10
   replicas: 1
   progressDeadlineSeconds: 300
@@ -37,16 +37,16 @@ spec:
   template:
     metadata:
       labels:
-        app: file
+        app: message
     spec:
       terminationGracePeriodSeconds: 30
       containers:
-        - name: file
-          image: registry.cn-hangzhou.aliyuncs.com/f-boot/file:1.0.0
+        - name: message
+          image: registry.cn-hangzhou.aliyuncs.com/f-boot/message:1.0.0
           imagePullPolicy: IfNotPresent
           ports:
-            - name: file
-              containerPort: 18082
+            - name: message
+              containerPort: 18081
               protocol: TCP
           resources:
             limits:
@@ -54,7 +54,7 @@ spec:
               cpu: '1'
           env:
             - name: PROFILE
-              value: prod
+              value: pro
             # 指定时区
             - name: TZ
               value: Asia/Shanghai
@@ -84,9 +84,23 @@ spec:
                   name: nacos
                   key: group
           volumeMounts:
-            - name: file-log
-              mountPath: ./logs
+            - name: message-log
+              mountPath: /logs
       volumes:
-        - name: file-log
+        - name: message-log
           persistentVolumeClaim:
-            claimName: file-log
+            claimName: message-log
+
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: message-log
+  namespace: feng
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+  storageClassName: gluster-storageclass

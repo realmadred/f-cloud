@@ -1,0 +1,91 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: nacos
+  namespace: feng
+  labels:
+    app: nacos
+spec:
+  selector:
+    app: nacos
+  type: NodePort
+  ports:
+    - name: http
+      protocol: TCP
+      port: 8848
+      targetPort: 8848
+      nodePort: 30848
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nacos
+  namespace: feng
+  labels:
+    app: nacos
+spec:
+  selector:
+    matchLabels:
+      app: nacos
+  revisionHistoryLimit: 5
+  replicas: 1
+  progressDeadlineSeconds: 60
+  template:
+    metadata:
+      labels:
+        app: nacos
+    spec:
+      terminationGracePeriodSeconds: 5
+      containers:
+        - name: nacos
+          image: nacos/nacos-server:v2.0.4
+          imagePullPolicy: IfNotPresent
+          ports:
+            - name: nacos
+              containerPort: 8848
+              protocol: TCP
+          resources:
+            limits:
+              memory: 1Gi
+              cpu: '1'
+          envFrom:
+            - configMapRef:
+                name: nacos-server-env
+            - secretRef:
+                name: nacos-server-secret
+
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: nacos-server-env
+  namespace: feng
+data:
+  # 类属性键；每一个键都映射到一个简单的值
+  MODE: standalone
+  SPRING_DATASOURCE_PLATFORM: mysql
+  MYSQL_SERVICE_HOST: 192.168.137.1
+  MYSQL_SERVICE_PORT: 13306
+  MYSQL_SERVICE_DB_NAME: nacos
+  MYSQL_SERVICE_DB_PARAM: characterEncoding=utf8&autoReconnect=true&useUnicode=true&useSSL=false&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true
+  JVM_XMS: 512m
+  JVM_XMX: 512m
+  JVM_XMN: 128m
+  JVM_MS: 128m
+  JVM_MMS: 128m
+  NACOS_AUTH_CACHE_ENABLE: true
+
+immutable: true
+
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: nacos-server-secret
+  namespace: feng
+type: Opaque
+data:
+  # echo -n 'nacos' | base64
+  MYSQL_SERVICE_USER: bmFjb3M=
+  MYSQL_SERVICE_PASSWORD: bmFjb3M=

@@ -1,0 +1,98 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: sentinel
+  namespace: feng
+  labels:
+    app: sentinel
+spec:
+  selector:
+    app: sentinel
+  type: NodePort
+  ports:
+    - name: http
+      protocol: TCP
+      port: 8858
+      targetPort: 8858
+      nodePort: 30858
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sentinel
+  namespace: feng
+  labels:
+    app: sentinel
+spec:
+  selector:
+    matchLabels:
+      app: sentinel
+  revisionHistoryLimit: 5
+  replicas: 1
+  progressDeadlineSeconds: 60
+  template:
+    metadata:
+      labels:
+        app: sentinel
+    spec:
+      terminationGracePeriodSeconds: 5
+      containers:
+        - name: sentinel
+          image: bladex/sentinel-dashboard:1.8.0
+          imagePullPolicy: IfNotPresent
+          ports:
+            - name: sentinel
+              containerPort: 8858
+              protocol: TCP
+          command: [ "java" ]
+          args:
+            - "-server"
+            - "-Djava.security.egd=file:/dev/./urandom"
+            - "-Dserver.port=8858"
+            - "-Dcsp.sentinel.api.port=8719"
+            - "-Dcsp.sentinel.dashboard.server=localhost:8858"
+            - "-Dproject.name=sentinel-dashboard"
+            - "-Dsentinel.dashboard.auth.username=$(USERNAME)"
+            - "-Dsentinel.dashboard.auth.password=$(PASSWORD)"
+            - "-jar"
+            - "app.jar"
+          resources:
+            limits:
+              memory: 512Mi
+              cpu: '1'
+          envFrom:
+            - configMapRef:
+                name: sentinel-conf
+            - secretRef:
+                name: sentinel-secret
+          volumeMounts:
+            - mountPath: /etc/localtime
+              name: datetime
+              readOnly: true
+      volumes:
+        - name: datetime
+          hostPath:
+            path: /etc/localtime
+
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: sentinel-conf
+  namespace: feng
+data:
+  TZ: Asia/Shanghai
+immutable: true
+
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: sentinel-secret
+  namespace: feng
+type: Opaque
+data:
+  USERNAME: bmFjb3M=
+  PASSWORD: bmFjb3M=
+
