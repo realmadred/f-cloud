@@ -60,7 +60,7 @@ spec:
           resources:
             limits:
               memory: 512Mi
-              cpu: '1'
+              cpu: 500m
           envFrom:
             - configMapRef:
                 name: sentinel-conf

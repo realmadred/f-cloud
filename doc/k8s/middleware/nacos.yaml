@@ -48,7 +48,7 @@ spec:
           resources:
             limits:
               memory: 1Gi
-              cpu: '1'
+              cpu: 500m
           envFrom:
             - configMapRef:
                 name: nacos-server-env

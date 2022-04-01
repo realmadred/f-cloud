@@ -78,61 +78,61 @@ spec:
             - name: console
               containerPort: 9001
               protocol: TCP
-          command:
+          args:
             - server
-            - /disk{1...2}
+            # 要么一个就是disk不要带数字，否则至少4个
+            - "/disk{1...4}"
             - --console-address
             - ":9001"
           resources:
             limits:
               memory: 512Mi
-              cpu: '1'
+              cpu: 500m
           env:
-            - MINIO_ROOT_USER=feng
-            - MINIO_ROOT_PASSWORD=F6yXaV4ZbuIPACgprUQ38jEw9nKhWNJo
+            - name: MINIO_ROOT_USER
+              value: feng
+            - name: MINIO_ROOT_PASSWORD
+              value: F6yXaV4ZbuIPACgprUQ38jEw9nKhWNJo
           volumeMounts:
             - name: disk1
               mountPath: /disk1
             - name: disk2
               mountPath: /disk2
-      volumes:
-        - name: disk1
-          persistentVolumeClaim:
-            claimName: minio-disk1
-        - name: disk2
-          persistentVolumeClaim:
-            claimName: minio-disk2
+            - name: disk3
+              mountPath: /disk3
+            - name: disk4
+              mountPath: /disk4
 
----
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: minio-disk1
-  namespace: feng
-spec:
-  accessModes:
-    - ReadWriteOnce
-  resources:
-    requests:
-      storage: 2Gi
-  # 申领可以通过为 storageClassName 属性设置 StorageClass 的名称来请求特定的存储类。
-  # 只有所请求的类的 PV 卷，即 storageClassName 值与 PVC 设置相同的 PV 卷，
-  # 才能绑定到 PVC 申领。
-  storageClassName: nfs-storage
-
----
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: minio-disk2
-  namespace: feng
-spec:
-  accessModes:
-    - ReadWriteOnce
-  resources:
-    requests:
-      storage: 2Gi
-  # 申领可以通过为 storageClassName 属性设置 StorageClass 的名称来请求特定的存储类。
-  # 只有所请求的类的 PV 卷，即 storageClassName 值与 PVC 设置相同的 PV 卷，
-  # 才能绑定到 PVC 申领。
-  storageClassName: nfs-storage
+  volumeClaimTemplates:
+    - metadata:
+        name: disk1
+      spec:
+        accessModes: [ "ReadWriteOnce" ]
+        storageClassName: nfs-storage
+        resources:
+          requests:
+            storage: 1Gi
+    - metadata:
+        name: disk2
+      spec:
+        accessModes: [ "ReadWriteOnce" ]
+        storageClassName: nfs-storage
+        resources:
+          requests:
+            storage: 1Gi
+    - metadata:
+        name: disk3
+      spec:
+        accessModes: [ "ReadWriteOnce" ]
+        storageClassName: nfs-storage
+        resources:
+          requests:
+            storage: 1Gi
+    - metadata:
+        name: disk4
+      spec:
+        accessModes: [ "ReadWriteOnce" ]
+        storageClassName: nfs-storage
+        resources:
+          requests:
+            storage: 1Gi
