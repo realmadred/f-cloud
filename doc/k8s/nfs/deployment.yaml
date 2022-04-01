@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nfs-client-provisioner
+  labels:
+    app: nfs-client-provisioner
+  namespace: default
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: nfs-client-provisioner
+  template:
+    metadata:
+      labels:
+        app: nfs-client-provisioner
+    spec:
+      serviceAccountName: nfs-client-provisioner
+      containers:
+        - name: nfs-client-provisioner
+          image: registry.cn-hangzhou.aliyuncs.com/open-ali/nfs-client-provisioner
+          volumeMounts:
+            - name: nfs-client-root
+              mountPath: /persistentvolumes
+          env:
+            - name: PROVISIONER_NAME
+              value: nfs-client #---nfs-provisioner的名称，以后设置的storageclass要和这个保持一致
+            - name: NFS_SERVER
+              value: 192.168.137.99 #nfs服务器的地址
+            - name: NFS_PATH
+              value: /nfs/data #nfs路径
+      volumes:
+        - name: nfs-client-root
+          nfs:
+            server: 192.168.137.99
+            path: /nfs/data #nfs路径

@@ -51,7 +51,7 @@ spec:
             - "-Djava.security.egd=file:/dev/./urandom"
             - "-Dserver.port=8858"
             - "-Dcsp.sentinel.api.port=8719"
-            - "-Dcsp.sentinel.dashboard.server=localhost:8858"
+            - "-Dcsp.sentinel.dashboard.server=sentinel.feng:8858"
             - "-Dproject.name=sentinel-dashboard"
             - "-Dsentinel.dashboard.auth.username=$(USERNAME)"
             - "-Dsentinel.dashboard.auth.password=$(PASSWORD)"
@@ -93,6 +93,6 @@ metadata:
   namespace: feng
 type: Opaque
 data:
-  USERNAME: bmFjb3M=
-  PASSWORD: bmFjb3M=
+  USERNAME: c2VudGluZWw=
+  PASSWORD: c2VudGluZWw=
 

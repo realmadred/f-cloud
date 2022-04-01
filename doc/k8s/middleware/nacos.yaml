@@ -66,7 +66,8 @@ data:
   MODE: standalone
   SPRING_DATASOURCE_PLATFORM: mysql
   MYSQL_SERVICE_HOST: 192.168.137.1
-  MYSQL_SERVICE_PORT: 13306
+  # 数字要用双引号
+  MYSQL_SERVICE_PORT: "13306"
   MYSQL_SERVICE_DB_NAME: nacos
   MYSQL_SERVICE_DB_PARAM: characterEncoding=utf8&autoReconnect=true&useUnicode=true&useSSL=false&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true
   JVM_XMS: 512m
@@ -74,7 +75,8 @@ data:
   JVM_XMN: 128m
   JVM_MS: 128m
   JVM_MMS: 128m
-  NACOS_AUTH_CACHE_ENABLE: true
+  # bool要用双引号
+  NACOS_AUTH_CACHE_ENABLE: "true"
 
 immutable: true
 

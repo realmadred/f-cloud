@@ -2,7 +2,7 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: minio
+  name: minio-node
   namespace: feng
   labels:
     app: minio
@@ -11,19 +11,41 @@ spec:
     app: minio
   type: NodePort
   ports:
-    - name: http
+    - name: http-node
       protocol: TCP
       port: 9000
       targetPort: 9000
       nodePort: 30900
-    - name: console
+    - name: console-node
       protocol: TCP
       port: 9001
       targetPort: 9001
       nodePort: 30901
 ---
+#内部无头服务
+apiVersion: v1
+kind: Service
+metadata:
+  name: minio
+  namespace: feng
+  labels:
+    app: minio
+spec:
+  selector:
+    app: minio
+  clusterIP: None
+  ports:
+    - name: http
+      protocol: TCP
+      port: 9000
+      targetPort: 9000
+    - name: console
+      protocol: TCP
+      port: 9001
+      targetPort: 9001
+---
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata:
   name: minio
   namespace: feng
@@ -34,8 +56,11 @@ spec:
     matchLabels:
       app: minio
   revisionHistoryLimit: 5
+  updateStrategy:
+    type: RollingUpdate
+  podManagementPolicy: OrderedReady
+  serviceName: redis
   replicas: 1
-  progressDeadlineSeconds: 60
   template:
     metadata:
       labels:
@@ -93,7 +118,7 @@ spec:
   # 申领可以通过为 storageClassName 属性设置 StorageClass 的名称来请求特定的存储类。
   # 只有所请求的类的 PV 卷，即 storageClassName 值与 PVC 设置相同的 PV 卷，
   # 才能绑定到 PVC 申领。
-  storageClassName: gluster-storageclass
+  storageClassName: nfs-storage
 
 ---
 apiVersion: v1
@@ -110,4 +135,4 @@ spec:
   # 申领可以通过为 storageClassName 属性设置 StorageClass 的名称来请求特定的存储类。
   # 只有所请求的类的 PV 卷，即 storageClassName 值与 PVC 设置相同的 PV 卷，
   # 才能绑定到 PVC 申领。
-  storageClassName: gluster-storageclass
+  storageClassName: nfs-storage

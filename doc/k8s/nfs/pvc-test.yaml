@@ -1,0 +1,11 @@
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: test-chaim
+spec:
+  storageClassName: nfs-storage #---需要与上面创建的storageclass的名称一致
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 1Gi #需要的资源大小根据自己的实际情况修改
