@@ -102,6 +102,13 @@ spec:
               mountPath: /disk3
             - name: disk4
               mountPath: /disk4
+            - name: datetime
+              mountPath: /etc/localtime
+              readOnly: true
+      volumes:
+        - name: datetime
+          hostPath:
+            path: /etc/localtime
 
   volumeClaimTemplates:
     - metadata:

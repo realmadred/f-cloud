@@ -71,10 +71,16 @@ spec:
           volumeMounts:
             - name: gateway-log
               mountPath: /logs
+            - name: datetime
+              mountPath: /etc/localtime
+              readOnly: true
       volumes:
         - name: gateway-log
           persistentVolumeClaim:
             claimName: gateway-log
+        - name: datetime
+          hostPath:
+            path: /etc/localtime
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim

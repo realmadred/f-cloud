@@ -12,8 +12,8 @@ spec:
   ports:
     - name: http
       protocol: TCP
-      port: 8000
-      targetPort: 8000
+      port: 18083
+      targetPort: 18083
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -42,7 +42,7 @@ spec:
       terminationGracePeriodSeconds: 30
       containers:
         - name: sell
-          image: registry.cn-hangzhou.aliyuncs.com/f-boot/sell:1.0.0
+          image: registry.cn-hangzhou.aliyuncs.com/f-boot/sell-service:1.0.0
           imagePullPolicy: IfNotPresent
           ports:
             - name: sell
@@ -86,11 +86,16 @@ spec:
           volumeMounts:
             - name: sell-log
               mountPath: /logs
+            - name: datetime
+              mountPath: /etc/localtime
+              readOnly: true
       volumes:
         - name: sell-log
           persistentVolumeClaim:
             claimName: sell-log
-
+        - name: datetime
+          hostPath:
+            path: /etc/localtime
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim

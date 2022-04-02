@@ -12,8 +12,8 @@ spec:
   ports:
     - name: http
       protocol: TCP
-      port: 8000
-      targetPort: 8000
+      port: 18082
+      targetPort: 18082
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -42,7 +42,7 @@ spec:
       terminationGracePeriodSeconds: 30
       containers:
         - name: file
-          image: registry.cn-hangzhou.aliyuncs.com/f-boot/file:1.0.0
+          image: registry.cn-hangzhou.aliyuncs.com/f-boot/file-service:1.0.0
           imagePullPolicy: IfNotPresent
           ports:
             - name: file
@@ -86,11 +86,16 @@ spec:
           volumeMounts:
             - name: file-log
               mountPath: /logs
+            - name: datetime
+              mountPath: /etc/localtime
+              readOnly: true
       volumes:
         - name: file-log
           persistentVolumeClaim:
             claimName: file-log
-
+        - name: datetime
+          hostPath:
+            path: /etc/localtime
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim

@@ -12,8 +12,8 @@ spec:
   ports:
     - name: http
       protocol: TCP
-      port: 8000
-      targetPort: 8000
+      port: 18080
+      targetPort: 18080
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -42,7 +42,7 @@ spec:
       terminationGracePeriodSeconds: 30
       containers:
         - name: sys
-          image: registry.cn-hangzhou.aliyuncs.com/f-boot/sys:1.0.0
+          image: registry.cn-hangzhou.aliyuncs.com/f-boot/sys-service:1.0.0
           imagePullPolicy: IfNotPresent
           ports:
             - name: sys
@@ -86,10 +86,16 @@ spec:
           volumeMounts:
             - name: sys-log
               mountPath: /logs
+            - name: datetime
+              mountPath: /etc/localtime
+              readOnly: true
       volumes:
         - name: sys-log
           persistentVolumeClaim:
             claimName: sys-log
+        - name: datetime
+          hostPath:
+            path: /etc/localtime
 
 ---
 apiVersion: v1
