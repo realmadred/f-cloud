@@ -13,7 +13,7 @@ kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/cont
 > 如何使用端口 80 而不是 30000-32767 范围内的随机端口），请参阅[裸机注意事项](https://kubernetes.github.io/ingress-nginx/deploy/baremetal/)。
 
 ### 3. 使用本机网络端口
-在没有可用的外部负载均衡器但不能使用 NodePorts 的设置中，可以将 Pod 配置ingress-nginx为使用它们运行的​​主机的网络，而不是专用的网络命名空间。这种方法的好处是 NGINX Ingress 控制器可以将端口 80 和 443 直接绑定到 Kubernetes 节点的网络接口，而无需 NodePort 服务强加的额外网络转换。
+在没有可用的外部负载均衡器但不能使用 NodePorts 的设置中，可以将 Pod 配置ingress-nginx为使用它们运行的主机的网络，而不是专用的网络命名空间。这种方法的好处是 NGINX Ingress 控制器可以将端口 80 和 443 直接绑定到 Kubernetes 节点的网络接口，而无需 NodePort 服务强加的额外网络转换。
 >这种方法不利用任何服务对象来公开 NGINX 入口控制器。如果ingress-nginx目标集群中存在Service，建议删除。
 ```yaml
 template:
