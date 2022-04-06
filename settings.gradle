@@ -23,4 +23,5 @@ include 'service:sys-service'
 findProject(':service:sys-service')?.name = 'sys-service'
 include 'service:sell-service'
 findProject(':service:sell-service')?.name = 'sell-service'
+include 'generator'
 
