@@ -14,29 +14,28 @@
  * limitations under the License.
  */
 
-package ${package.Mapper};
+package com.f.controller;
 
-import ${package.Entity}.${entity};
-import ${superMapperClassPackage};
-#if(${mapperAnnotation})
-import org.apache.ibatis.annotations.Mapper;
-#end
+import com.f.entity.CellCommunity;
+import com.f.service.CellCommunityService;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
- * <p>
- * $!{table.comment} Mapper 接口
- * </p>
+ * 小区  接口
  *
- * @author ${author}
- * @date ${date}
+ * @author liuf
+ * @date 2022-04-08
  */
-#if(${mapperAnnotation})
-@Mapper
-#end
-#if(${kotlin})
-interface ${table.mapperName} : ${superMapperClass}<${entity}>
-#else
-public interface ${table.mapperName} extends ${superMapperClass}<${entity}> {
+@RestController
+@RequestMapping("/cellCommunity")
+@RequiredArgsConstructor
+@Getter
+public class CellCommunityController extends BaseController<CellCommunity, CellCommunityService> {
+
+    private final CellCommunityService service;
 
 }
-#end
+

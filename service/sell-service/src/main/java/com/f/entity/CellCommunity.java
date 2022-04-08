@@ -14,29 +14,43 @@
  * limitations under the License.
  */
 
-package ${package.Mapper};
+package com.f.entity;
 
-import ${package.Entity}.${entity};
-import ${superMapperClassPackage};
-#if(${mapperAnnotation})
-import org.apache.ibatis.annotations.Mapper;
-#end
+import com.baomidou.mybatisplus.annotation.TableName;
+import com.f.base.BaseEntity;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.experimental.Accessors;
 
 /**
  * <p>
- * $!{table.comment} Mapper 接口
+ * 小区
  * </p>
  *
- * @author ${author}
- * @date ${date}
+ * @author liuf
+ * @date 2022-04-08
  */
-#if(${mapperAnnotation})
-@Mapper
-#end
-#if(${kotlin})
-interface ${table.mapperName} : ${superMapperClass}<${entity}>
-#else
-public interface ${table.mapperName} extends ${superMapperClass}<${entity}> {
+@EqualsAndHashCode(callSuper = true)
+@Data
+@Accessors(chain = true)
+@TableName("cell_community")
+public class CellCommunity extends BaseEntity {
+
+    private static final long serialVersionUID = 1L;
+
+    /**
+     * 小区名称
+     */
+    private String name;
+
+    /**
+     * 地址
+     */
+    private String address;
+
+    /**
+     * 户数
+     */
+    private Integer houseNumber;
 
 }
-#end

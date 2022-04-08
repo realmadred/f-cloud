@@ -14,29 +14,23 @@
  * limitations under the License.
  */
 
-package ${package.Mapper};
+package com.f.service.impl;
 
-import ${package.Entity}.${entity};
-import ${superMapperClassPackage};
-#if(${mapperAnnotation})
-import org.apache.ibatis.annotations.Mapper;
-#end
+import com.f.entity.CellCommunity;
+import com.f.mapper.CellCommunityMapper;
+import com.f.service.BaseServiceImpl;
+import com.f.service.CellCommunityService;
+import org.springframework.stereotype.Service;
 
 /**
  * <p>
- * $!{table.comment} Mapper 接口
+ * 小区 服务实现类
  * </p>
  *
- * @author ${author}
- * @date ${date}
+ * @author liuf
+ * @date 2022-04-08
  */
-#if(${mapperAnnotation})
-@Mapper
-#end
-#if(${kotlin})
-interface ${table.mapperName} : ${superMapperClass}<${entity}>
-#else
-public interface ${table.mapperName} extends ${superMapperClass}<${entity}> {
+@Service
+public class CellCommunityServiceImpl extends BaseServiceImpl<CellCommunityMapper, CellCommunity> implements CellCommunityService {
 
 }
-#end

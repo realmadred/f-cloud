@@ -14,29 +14,28 @@
  * limitations under the License.
  */
 
-package ${package.Mapper};
+package com.f.controller;
 
-import ${package.Entity}.${entity};
-import ${superMapperClassPackage};
-#if(${mapperAnnotation})
-import org.apache.ibatis.annotations.Mapper;
-#end
+import com.f.entity.CellOrder;
+import com.f.service.CellOrderService;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
- * <p>
- * $!{table.comment} Mapper 接口
- * </p>
+ * 订单  接口
  *
- * @author ${author}
- * @date ${date}
+ * @author liuf
+ * @date 2022-04-08
  */
-#if(${mapperAnnotation})
-@Mapper
-#end
-#if(${kotlin})
-interface ${table.mapperName} : ${superMapperClass}<${entity}>
-#else
-public interface ${table.mapperName} extends ${superMapperClass}<${entity}> {
+@RestController
+@RequestMapping("/cellOrder")
+@RequiredArgsConstructor
+@Getter
+public class CellOrderController extends BaseController<CellOrder, CellOrderService> {
+
+    private final CellOrderService service;
 
 }
-#end
+

@@ -14,29 +14,23 @@
  * limitations under the License.
  */
 
-package ${package.Mapper};
+package com.f.service.impl;
 
-import ${package.Entity}.${entity};
-import ${superMapperClassPackage};
-#if(${mapperAnnotation})
-import org.apache.ibatis.annotations.Mapper;
-#end
+import com.f.entity.CellOrder;
+import com.f.mapper.CellOrderMapper;
+import com.f.service.BaseServiceImpl;
+import com.f.service.CellOrderService;
+import org.springframework.stereotype.Service;
 
 /**
  * <p>
- * $!{table.comment} Mapper 接口
+ * 订单 服务实现类
  * </p>
  *
- * @author ${author}
- * @date ${date}
+ * @author liuf
+ * @date 2022-04-08
  */
-#if(${mapperAnnotation})
-@Mapper
-#end
-#if(${kotlin})
-interface ${table.mapperName} : ${superMapperClass}<${entity}>
-#else
-public interface ${table.mapperName} extends ${superMapperClass}<${entity}> {
+@Service
+public class CellOrderServiceImpl extends BaseServiceImpl<CellOrderMapper, CellOrder> implements CellOrderService {
 
 }
-#end

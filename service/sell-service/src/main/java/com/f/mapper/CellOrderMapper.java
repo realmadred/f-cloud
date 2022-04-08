@@ -14,29 +14,19 @@
  * limitations under the License.
  */
 
-package ${package.Mapper};
+package com.f.mapper;
 
-import ${package.Entity}.${entity};
-import ${superMapperClassPackage};
-#if(${mapperAnnotation})
-import org.apache.ibatis.annotations.Mapper;
-#end
+import com.f.entity.CellOrder;
+import com.f.injector.MyBaseMapper;
 
 /**
  * <p>
- * $!{table.comment} Mapper 接口
+ * 订单 Mapper 接口
  * </p>
  *
- * @author ${author}
- * @date ${date}
+ * @author liuf
+ * @date 2022-04-08
  */
-#if(${mapperAnnotation})
-@Mapper
-#end
-#if(${kotlin})
-interface ${table.mapperName} : ${superMapperClass}<${entity}>
-#else
-public interface ${table.mapperName} extends ${superMapperClass}<${entity}> {
+public interface CellOrderMapper extends MyBaseMapper<CellOrder> {
 
 }
-#end
