@@ -22,6 +22,7 @@ import com.baomidou.mybatisplus.generator.config.PackageConfig;
 import com.baomidou.mybatisplus.generator.config.TemplateConfig;
 import com.f.base.BaseEntity;
 import com.f.service.base.BaseService;
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -43,7 +44,7 @@ public class Generator {
     /**
      * 模块(*自己修改*)
      */
-    private static final String MODEL = "sell";
+    private static final String MODEL = "sell-service";
 
     /**
      * 数据库(*自己修改*)
@@ -52,14 +53,14 @@ public class Generator {
 
     public static void main(String[] args) {
         // 需要生成的表数组
-        final String[] tables = {"cell_community", "cell_order"};
+        final String[] tables = {"cell_order_item", "cell_order"};
 
         Map<OutputFile, String> pathInfo = getInfo();
         FastAutoGenerator.create("jdbc:mysql://127.0.0.1:13306/" + DB + "?serverTimezone=Asia/Shanghai&useSSL=false&useUnicode=true&characterEncoding=utf8&allowPublicKeyRetrieval=true",
                         "root", "feng")
                 .globalConfig(builder -> {
                     builder.author("liuf") // 设置作者
-//                            .fileOverride() // 覆盖已生成文件
+                            .fileOverride() // 覆盖已生成文件
                             .disableOpenDir()
                             .outputDir(ROOT_PATH); // 指定输出目录
                 })
@@ -84,7 +85,8 @@ public class Generator {
                 .templateConfig(template())
                 .injectionConfig(builder -> builder.beforeOutputFile((tab, map) -> tab.getImportPackages().removeIf("java.io.Serializable"::equals)))
                 .execute();
-        System.out.println("文件生成成功:" + ROOT_PATH + "service/" + MODEL + "-service");
+        String path = StringUtils.replace(ROOT_PATH, "//", "/") + "service/" + MODEL;
+        System.out.println("文件生成成功:" + StringUtils.replace(path, "/", "\\"));
     }
 
     private static Consumer<PackageConfig.Builder> packageInfo(Map<OutputFile, String> pathInfo) {
@@ -110,12 +112,12 @@ public class Generator {
 
     private static Map<OutputFile, String> getInfo() {
         Map<OutputFile, String> pathInfo = new HashMap<>(8);
-        pathInfo.put(OutputFile.mapperXml, ROOT_PATH + "service/" + MODEL + "-service" + "/src/main/resources/mapper/");
-        pathInfo.put(OutputFile.mapper, ROOT_PATH + "service/" + MODEL + "-service" + "/src/main/java/com/f/mapper/");
-        pathInfo.put(OutputFile.entity, ROOT_PATH + "service/" + MODEL + "-service" + "/src/main/java/com/f/entity/");
-        pathInfo.put(OutputFile.service, ROOT_PATH + "service/" + MODEL + "-service" + "/src/main/java/com/f/service/");
-        pathInfo.put(OutputFile.serviceImpl, ROOT_PATH + "service/" + MODEL + "-service" + "/src/main/java/com/f/service/impl/");
-        pathInfo.put(OutputFile.controller, ROOT_PATH + "service/" + MODEL + "-service" + "/src/main/java/com/f/controller/");
+        pathInfo.put(OutputFile.mapperXml, ROOT_PATH + "service/" + MODEL + "/src/main/resources/mapper/");
+        pathInfo.put(OutputFile.mapper, ROOT_PATH + "service/" + MODEL + "/src/main/java/com/f/mapper/");
+        pathInfo.put(OutputFile.entity, ROOT_PATH + "service/" + MODEL + "/src/main/java/com/f/entity/");
+        pathInfo.put(OutputFile.service, ROOT_PATH + "service/" + MODEL + "/src/main/java/com/f/service/");
+        pathInfo.put(OutputFile.serviceImpl, ROOT_PATH + "service/" + MODEL + "/src/main/java/com/f/service/impl/");
+        pathInfo.put(OutputFile.controller, ROOT_PATH + "service/" + MODEL + "/src/main/java/com/f/controller/");
         return pathInfo;
     }
 }

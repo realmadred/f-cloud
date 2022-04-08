@@ -13,19 +13,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.f.mapper.sys;
 
-import com.f.entity.sys.SysDictDetail;
-import com.f.injector.MyBaseMapper;
+package com.f.service;
+
+import com.f.entity.CellOrderItem;
+import com.f.service.base.BaseService;
 
 /**
  * <p>
- * 数据字典详情 Mapper 接口
+ * 订单明细 服务类
  * </p>
  *
  * @author liuf
- * @date 2022-01-18
+ * @date 2022-04-08
  */
-public interface SysDictDetailMapper extends MyBaseMapper<SysDictDetail> {
+public interface CellOrderItemService extends BaseService<CellOrderItem> {
 
 }

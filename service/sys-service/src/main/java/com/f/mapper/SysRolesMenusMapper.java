@@ -13,19 +13,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.f.mapper.sys;
+package com.f.mapper;
 
-import com.f.entity.sys.SysUser;
+import com.f.entity.sys.SysRolesMenus;
 import com.f.injector.MyBaseMapper;
 
 /**
  * <p>
- * 系统用户 Mapper 接口
+ * 角色菜单关系 Mapper 接口
  * </p>
  *
  * @author liuf
- * @date 2021-12-15
+ * @date 2022-01-11
  */
-public interface SysUserMapper extends MyBaseMapper<SysUser> {
+public interface SysRolesMenusMapper extends MyBaseMapper<SysRolesMenus> {
 
 }

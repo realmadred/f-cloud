@@ -19,7 +19,7 @@ package ${package.ServiceImpl};
 import ${package.Entity}.${entity};
 import ${package.Mapper}.${table.mapperName};
 import ${superServiceImplClassPackage};
-import ${package.Service}.{table.serviceName};
+import ${package.Service}.${table.serviceName};
 import org.springframework.stereotype.Service;
 
 /**

@@ -20,7 +20,7 @@ import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.f.base.PageRequest;
 import com.f.entity.sys.SysUser;
-import com.f.mapper.sys.SysUserMapper;
+import com.f.mapper.SysUserMapper;
 import com.f.service.BaseServiceImpl;
 import com.f.utils.ServiceUtils;
 import com.google.common.base.Strings;

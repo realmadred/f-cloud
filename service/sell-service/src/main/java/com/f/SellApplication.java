@@ -27,7 +27,7 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
  * @date 2022/3/02 10:25
  */
 @SpringBootApplication(scanBasePackages = "com.f")
-@MapperScan(basePackages = {"com.f.mapper.sell"})
+@MapperScan(basePackages = {"com.f.mapper"})
 @EnableFeignClients(basePackages = "com.f.client")
 public class SellApplication {
 

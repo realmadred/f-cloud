@@ -20,7 +20,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.f.base.PageRequest;
 import com.f.entity.sys.SysLog;
-import com.f.mapper.sys.SysLogMapper;
+import com.f.mapper.SysLogMapper;
 import org.springframework.stereotype.Service;
 
 /**

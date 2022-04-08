@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.f.mapper.sys;
+package com.f.mapper;
 
 import com.f.entity.sys.SysLog;
 import com.f.injector.MyBaseMapper;

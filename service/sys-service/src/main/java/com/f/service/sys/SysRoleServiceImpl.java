@@ -23,7 +23,7 @@ import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.f.base.PageRequest;
 import com.f.entity.sys.SysRole;
-import com.f.mapper.sys.SysRoleMapper;
+import com.f.mapper.SysRoleMapper;
 import com.f.service.BaseServiceImpl;
 import org.apache.logging.log4j.util.Strings;
 import org.springframework.stereotype.Service;

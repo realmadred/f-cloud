@@ -14,13 +14,13 @@ plugins {
     id 'java'
     id 'java-library' // api implementation
     id 'io.spring.dependency-management' version '1.0.11.RELEASE'
-    id 'org.springframework.boot' version '2.6.3'
+    id 'org.springframework.boot' version '2.6.6'
     id 'com.google.cloud.tools.jib' version '3.2.0' apply false
 }
 
 ext {
-    set('springCloudAlibabaVersion', "2021.1")
-    set('springCloudVersion', "2021.0.0")
+    set('springCloudAlibabaVersion', "2021.0.1.0")
+    set('springCloudVersion', "2021.0.1")
     set('log4j2Version', "2.17.1")
 }
 

@@ -13,29 +13,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.f.controller.sys;
+package com.f.mapper;
 
-import com.f.base.Result;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.f.entity.sys.SysDict;
+import com.f.injector.MyBaseMapper;
 
 /**
- * 系统接口
+ * <p>
+ * 数据字典 Mapper 接口
+ * </p>
  *
  * @author liuf
- * @date 2021/12/3 14:47
+ * @date 2022-01-18
  */
-@RestController
-@RequestMapping("/mapper")
-public class SysController {
+public interface SysDictMapper extends MyBaseMapper<SysDict> {
 
-    /**
-     * test方法
-     * @return 字符串
-     */
-    @GetMapping("/test")
-    public Result<String> test() {
-        return Result.success("hello");
-    }
 }

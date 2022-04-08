@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.f.mapper.sys.SysMenuMapper">
+<mapper namespace="com.f.mapper.SysMenuMapper">
 
     <select id="selectMenuByUserId" resultType="com.f.entity.sys.SysMenu">
         SELECT sm.id,sm.pid,sm.pids,sm.name,sm.title,sm.url,sm.component,sm.is_frame,

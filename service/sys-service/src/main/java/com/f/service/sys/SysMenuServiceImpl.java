@@ -23,7 +23,7 @@ import com.f.constant.Constant;
 import com.f.converter.sys.SysMenuConverter;
 import com.f.dto.sys.SysMenuDto;
 import com.f.entity.sys.SysMenu;
-import com.f.mapper.sys.SysMenuMapper;
+import com.f.mapper.SysMenuMapper;
 import com.f.service.BaseServiceImpl;
 import com.f.utils.CommonUtils;
 import com.f.utils.IdUtils;

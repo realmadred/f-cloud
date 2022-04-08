@@ -13,19 +13,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.f.mapper.sys;
+package com.f.mapper;
 
-import com.f.entity.sys.SysDict;
+import com.f.entity.sys.SysDictDetail;
 import com.f.injector.MyBaseMapper;
 
 /**
  * <p>
- * 数据字典 Mapper 接口
+ * 数据字典详情 Mapper 接口
  * </p>
  *
  * @author liuf
  * @date 2022-01-18
  */
-public interface SysDictMapper extends MyBaseMapper<SysDict> {
+public interface SysDictDetailMapper extends MyBaseMapper<SysDictDetail> {
 
 }

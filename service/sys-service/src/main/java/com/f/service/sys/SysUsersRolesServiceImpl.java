@@ -20,7 +20,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.f.base.Result;
 import com.f.dto.sys.SysUsersRolesDto;
 import com.f.entity.sys.SysUsersRoles;
-import com.f.mapper.sys.SysUsersRolesMapper;
+import com.f.mapper.SysUsersRolesMapper;
 import com.f.utils.IdUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

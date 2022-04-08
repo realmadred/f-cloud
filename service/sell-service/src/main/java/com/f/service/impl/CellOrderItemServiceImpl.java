@@ -13,29 +13,24 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.f.controller.sys;
 
-import com.f.base.Result;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+package com.f.service.impl;
+
+import com.f.entity.CellOrderItem;
+import com.f.mapper.CellOrderItemMapper;
+import com.f.service.BaseServiceImpl;
+import com.f.service.CellOrderItemService;
+import org.springframework.stereotype.Service;
 
 /**
- * 系统接口
+ * <p>
+ * 订单明细 服务实现类
+ * </p>
  *
  * @author liuf
- * @date 2021/12/3 14:47
+ * @date 2022-04-08
  */
-@RestController
-@RequestMapping("/mapper")
-public class SysController {
+@Service
+public class CellOrderItemServiceImpl extends BaseServiceImpl<CellOrderItemMapper, CellOrderItem> implements CellOrderItemService {
 
-    /**
-     * test方法
-     * @return 字符串
-     */
-    @GetMapping("/test")
-    public Result<String> test() {
-        return Result.success("hello");
-    }
 }

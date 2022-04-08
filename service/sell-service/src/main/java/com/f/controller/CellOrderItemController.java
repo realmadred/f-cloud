@@ -13,19 +13,29 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.f.mapper.sys;
 
-import com.f.entity.sys.SysUsersRoles;
-import com.f.injector.MyBaseMapper;
+package com.f.controller;
+
+import com.f.entity.CellOrderItem;
+import com.f.service.CellOrderItemService;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
- * <p>
- * 用户角色关系 Mapper 接口
- * </p>
+ * 订单明细  接口
  *
  * @author liuf
- * @date 2022-01-12
+ * @date 2022-04-08
  */
-public interface SysUsersRolesMapper extends MyBaseMapper<SysUsersRoles> {
+@RestController
+@RequestMapping("/cellOrderItem")
+@RequiredArgsConstructor
+@Getter
+public class CellOrderItemController extends BaseController<CellOrderItem, CellOrderItemService> {
+
+    private final CellOrderItemService service;
 
 }
+

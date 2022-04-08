@@ -17,7 +17,7 @@ package com.f.service.sys;
 
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.f.entity.sys.SysDictDetail;
-import com.f.mapper.sys.SysDictDetailMapper;
+import com.f.mapper.SysDictDetailMapper;
 import com.f.service.BaseServiceImpl;
 import org.springframework.stereotype.Service;
 
