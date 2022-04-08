@@ -24,7 +24,6 @@ import com.f.base.BaseEntity;
 import com.f.base.PageRequest;
 import com.f.constant.Constant;
 import com.f.injector.MyBaseMapper;
-import com.f.service.base.BaseService;
 import com.f.utils.CommonUtils;
 import com.f.utils.ServiceUtils;
 import lombok.SneakyThrows;

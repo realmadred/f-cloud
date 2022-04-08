@@ -20,7 +20,7 @@ import com.f.base.BaseEntity;
 import com.f.base.PageRequest;
 import com.f.base.Result;
 import com.f.dto.IdDto;
-import com.f.service.base.BaseService;
+import com.f.service.BaseService;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;

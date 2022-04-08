@@ -17,7 +17,6 @@ package com.f.service;
 
 import com.f.dto.SysDictDto;
 import com.f.entity.SysDict;
-import com.f.service.base.BaseService;
 
 /**
  * <p>

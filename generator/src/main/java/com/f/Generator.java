@@ -21,7 +21,7 @@ import com.baomidou.mybatisplus.generator.config.OutputFile;
 import com.baomidou.mybatisplus.generator.config.PackageConfig;
 import com.baomidou.mybatisplus.generator.config.TemplateConfig;
 import com.f.base.BaseEntity;
-import com.f.service.base.BaseService;
+import com.f.service.BaseService;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.HashMap;

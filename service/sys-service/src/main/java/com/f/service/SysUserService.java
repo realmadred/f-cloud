@@ -16,7 +16,6 @@
 package com.f.service;
 
 import com.f.entity.SysUser;
-import com.f.service.base.BaseService;
 
 /**
  * <p>

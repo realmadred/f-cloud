@@ -17,7 +17,6 @@
 package com.f.service;
 
 import com.f.entity.CellCommunity;
-import com.f.service.base.BaseService;
 
 /**
  * <p>

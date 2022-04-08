@@ -16,7 +16,6 @@
 package com.f.service;
 
 import com.f.entity.SysRole;
-import com.f.service.base.BaseService;
 
 import java.util.List;
 
