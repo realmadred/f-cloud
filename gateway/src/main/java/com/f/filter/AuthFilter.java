@@ -17,6 +17,7 @@ package com.f.filter;
 
 import com.f.cache.CacheTemplate;
 import com.f.config.MyGatewayProperties;
+import com.f.config.ServiceProperties;
 import com.f.constant.Constant;
 import com.f.utils.GatewayUtils;
 import com.f.utils.JwtUtils;
@@ -49,6 +50,7 @@ import java.util.concurrent.TimeUnit;
 public class AuthFilter implements GlobalFilter, Ordered {
 
     private final MyGatewayProperties gatewayProperties;
+    private final ServiceProperties serviceProperties;
     private final CacheTemplate cacheTemplate;
     private AsyncLoadingCache<String, Long> jidCache;
 
@@ -65,7 +67,7 @@ public class AuthFilter implements GlobalFilter, Ordered {
         ServerHttpRequest request = exchange.getRequest();
         ServerHttpRequest.Builder mutate = request.mutate();
         // 内部访问id
-        GatewayUtils.addHeader(mutate, Constant.INNER_HEADER, gatewayProperties.getInnerId());
+        GatewayUtils.addHeader(mutate, Constant.INNER_HEADER, serviceProperties.getId());
         if (gatewayProperties.getNotAuthUris().contains(request.getURI().getPath())) {
             return chain.filter(exchange.mutate().request(mutate.build()).build());
         }
