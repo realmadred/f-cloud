@@ -16,7 +16,7 @@
 package com.f.log;
 
 import com.baomidou.mybatisplus.core.toolkit.SystemClock;
-import com.f.entity.sys.SysLog;
+import com.f.entity.SysLog;
 import com.f.mapper.SysLogMapper;
 import com.f.thread.NamedThreadFactory;
 import com.f.utils.ApplicationContextUtils;

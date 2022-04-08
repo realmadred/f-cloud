@@ -15,7 +15,7 @@
  */
 package com.f.mapper;
 
-import com.f.entity.sys.SysDictDetail;
+import com.f.entity.SysDictDetail;
 import com.f.injector.MyBaseMapper;
 
 /**

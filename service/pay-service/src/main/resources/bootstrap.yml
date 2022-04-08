@@ -1,0 +1,23 @@
+spring:
+  application:
+    # 应用名称
+    name: pay
+  profiles:
+    # 环境配置
+    active: ${PROFILE:dev}
+  main:
+    allow-circular-references: true
+  cloud:
+    nacos:
+      config:
+        group: ${NACOS_GROUP:f}
+        username: ${NACOS_USERNAME:nacos}
+        password: ${NACOS_PASSWORD:nacos}
+        namespace: ${NACOS_NAMESPACE:dev}
+        # 配置中心地址
+        server-addr: ${NACOS_SERVER_ADDR:192.168.137.1:8848}
+        # 配置文件格式
+        file-extension: yml
+        # 共享配置
+        shared-configs:
+          - service.${spring.cloud.nacos.config.file-extension}

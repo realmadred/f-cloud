@@ -19,7 +19,7 @@ import com.f.base.BaseEntity;
 import com.f.base.Result;
 import com.f.constant.Constant;
 import com.f.enums.ResultEnum;
-import com.f.vo.sys.SysUserVo;
+import com.f.vo.SysUserVo;
 import lombok.NonNull;
 import lombok.SneakyThrows;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;

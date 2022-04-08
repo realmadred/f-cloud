@@ -11,3 +11,7 @@ dependencies {
     compileOnly 'org.springframework:spring-web'
     compileOnly 'org.springframework.cloud:spring-cloud-openfeign-core'
 }
+
+bootJar{
+    enabled(false)
+}

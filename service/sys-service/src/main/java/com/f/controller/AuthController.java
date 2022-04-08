@@ -16,10 +16,10 @@
 package com.f.controller;
 
 import com.f.base.Result;
+import com.f.dto.SysUserDto;
 import com.f.dto.TokenDataDto;
-import com.f.dto.sys.SysUserDto;
 import com.f.manage.api.IAuthManage;
-import com.f.vo.sys.SysUserVo;
+import com.f.vo.SysUserVo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;

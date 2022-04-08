@@ -17,12 +17,16 @@ package com.f.controller.sys;
 
 import com.f.base.Result;
 import com.f.controller.BaseController;
-import com.f.dto.sys.SysMenuDto;
-import com.f.entity.sys.SysMenu;
-import com.f.service.sys.SysMenuService;
+import com.f.dto.SysMenuDto;
+import com.f.entity.SysMenu;
+import com.f.service.SysMenuService;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 import java.util.Set;

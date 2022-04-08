@@ -16,9 +16,9 @@
 package com.f.manage.api;
 
 import com.f.base.Result;
+import com.f.dto.SysUserDto;
 import com.f.dto.TokenDataDto;
-import com.f.dto.sys.SysUserDto;
-import com.f.vo.sys.SysUserVo;
+import com.f.vo.SysUserVo;
 
 /**
  * 授权管理

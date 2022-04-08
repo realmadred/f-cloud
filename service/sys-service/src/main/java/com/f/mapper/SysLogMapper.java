@@ -15,7 +15,7 @@
  */
 package com.f.mapper;
 
-import com.f.entity.sys.SysLog;
+import com.f.entity.SysLog;
 import com.f.injector.MyBaseMapper;
 
 /**

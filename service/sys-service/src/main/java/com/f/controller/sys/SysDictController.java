@@ -17,11 +17,11 @@ package com.f.controller.sys;
 
 import com.f.base.Result;
 import com.f.controller.BaseController;
-import com.f.dto.sys.SysDictDto;
-import com.f.entity.sys.SysDict;
-import com.f.entity.sys.SysDictDetail;
-import com.f.service.sys.SysDictDetailService;
-import com.f.service.sys.SysDictService;
+import com.f.dto.SysDictDto;
+import com.f.entity.SysDict;
+import com.f.entity.SysDictDetail;
+import com.f.service.SysDictDetailService;
+import com.f.service.SysDictService;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.hibernate.validator.constraints.Length;

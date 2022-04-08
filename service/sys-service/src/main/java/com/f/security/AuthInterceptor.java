@@ -31,15 +31,15 @@ package com.f.security;
 
 import com.f.config.SysProperties;
 import com.f.constant.Constant;
-import com.f.entity.sys.SysLog;
+import com.f.entity.SysLog;
 import com.f.enums.sys.SysLogTypeEnum;
 import com.f.log.LogDisruptor;
-import com.f.service.sys.SysMenuService;
+import com.f.service.SysMenuService;
 import com.f.thread.ThreadLocalContext;
 import com.f.utils.IdUtils;
 import com.f.utils.Json;
 import com.f.utils.ServiceUtils;
-import com.f.vo.sys.SysUserVo;
+import com.f.vo.SysUserVo;
 import com.google.common.base.Joiner;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;

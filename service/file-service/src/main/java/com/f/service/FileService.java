@@ -15,10 +15,10 @@
  */
 package com.f.service;
 
-import com.f.dto.file.GetObjectDto;
-import com.f.dto.file.PreUrlGetObjectDto;
-import com.f.dto.file.PreUrlPutObjectDto;
-import com.f.dto.file.PutObjectDto;
+import com.f.dto.GetObjectDto;
+import com.f.dto.PreUrlGetObjectDto;
+import com.f.dto.PreUrlPutObjectDto;
+import com.f.dto.PutObjectDto;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.InputStream;

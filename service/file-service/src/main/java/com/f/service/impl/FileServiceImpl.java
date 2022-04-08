@@ -17,10 +17,10 @@ package com.f.service.impl;
 
 import com.f.config.FileProperties;
 import com.f.constant.Constant;
-import com.f.dto.file.GetObjectDto;
-import com.f.dto.file.PreUrlGetObjectDto;
-import com.f.dto.file.PreUrlPutObjectDto;
-import com.f.dto.file.PutObjectDto;
+import com.f.dto.GetObjectDto;
+import com.f.dto.PreUrlGetObjectDto;
+import com.f.dto.PreUrlPutObjectDto;
+import com.f.dto.PutObjectDto;
 import com.f.service.FileService;
 import com.f.utils.FileUtils;
 import com.f.utils.IdUtils;

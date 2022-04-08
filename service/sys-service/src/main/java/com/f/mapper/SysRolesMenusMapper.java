@@ -15,7 +15,7 @@
  */
 package com.f.mapper;
 
-import com.f.entity.sys.SysRolesMenus;
+import com.f.entity.SysRolesMenus;
 import com.f.injector.MyBaseMapper;
 
 /**

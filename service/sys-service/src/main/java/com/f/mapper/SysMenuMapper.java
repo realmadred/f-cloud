@@ -15,7 +15,7 @@
  */
 package com.f.mapper;
 
-import com.f.entity.sys.SysMenu;
+import com.f.entity.SysMenu;
 import com.f.injector.MyBaseMapper;
 import org.apache.ibatis.annotations.Param;
 

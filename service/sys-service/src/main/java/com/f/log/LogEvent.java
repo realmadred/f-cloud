@@ -15,7 +15,7 @@
  */
 package com.f.log;
 
-import com.f.entity.sys.SysLog;
+import com.f.entity.SysLog;
 import lombok.Data;
 
 import java.io.Serializable;

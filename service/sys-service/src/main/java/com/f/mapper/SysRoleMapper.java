@@ -15,7 +15,7 @@
  */
 package com.f.mapper;
 
-import com.f.entity.sys.SysRole;
+import com.f.entity.SysRole;
 import com.f.injector.MyBaseMapper;
 
 /**

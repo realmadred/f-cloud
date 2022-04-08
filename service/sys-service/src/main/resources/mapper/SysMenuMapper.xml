@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.f.mapper.SysMenuMapper">
 
-    <select id="selectMenuByUserId" resultType="com.f.entity.sys.SysMenu">
+    <select id="selectMenuByUserId" resultType="com.f.entity.SysMenu">
         SELECT sm.id,sm.pid,sm.pids,sm.name,sm.title,sm.url,sm.component,sm.is_frame,
                sm.link,sm.is_keep_alive,sm.is_affix,sm.redirect,sm.perms,sm.icon,sm.type,sm.level,
                sm.sort,sm.status,sm.remarks,sm.create_id,sm.create_time,sm.create_name,sm.update_id,
