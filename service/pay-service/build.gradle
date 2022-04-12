@@ -14,6 +14,8 @@ dependencies {
     implementation 'com.alibaba.cloud:spring-cloud-starter-alibaba-nacos-discovery'
     implementation 'com.alibaba.cloud:spring-cloud-starter-alibaba-nacos-config'
     implementation 'com.squareup.okhttp3:okhttp'
+    implementation 'com.github.wechatpay-apiv3:wechatpay-apache-httpclient'
+    implementation 'com.alipay.sdk:alipay-easysdk'
 }
 
 apply plugin: "com.google.cloud.tools.jib"

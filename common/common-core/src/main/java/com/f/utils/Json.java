@@ -17,9 +17,14 @@ package com.f.utils;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JavaType;
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
+
+import java.util.List;
+import java.util.Map;
 
 /**
  * json 工具类
@@ -32,6 +37,10 @@ import lombok.extern.slf4j.Slf4j;
 public final class Json {
 
     private final static ObjectMapper OBJECT_MAPPER = ApplicationContextUtils.getBean(ObjectMapper.class);
+
+    private static final Json.MapTypeReference MAP_TYPE = new Json.MapTypeReference();
+
+    private static final Json.ListTypeReference LIST_TYPE = new Json.ListTypeReference();
 
     /**
      * 解析json
@@ -73,6 +82,39 @@ public final class Json {
     }
 
     /**
+     * 解析json
+     *
+     * @param json json字符串
+     * @return 对象
+     */
+    @SneakyThrows
+    public static Map<String, Object> parse(String json) {
+        return OBJECT_MAPPER.readValue(json, MAP_TYPE);
+    }
+
+    /**
+     * 解析json
+     *
+     * @param json json字符串
+     * @return 对象
+     */
+    @SneakyThrows
+    public static JsonNode parseTree(String json) {
+        return OBJECT_MAPPER.readTree(json);
+    }
+
+    /**
+     * 解析json
+     *
+     * @param json json字符串
+     * @return 对象
+     */
+    @SneakyThrows
+    public static List<Object> parseList(String json) {
+        return OBJECT_MAPPER.readValue(json, LIST_TYPE);
+    }
+
+    /**
      * 对象转json
      *
      * @param value json对象
@@ -92,6 +134,23 @@ public final class Json {
     @SneakyThrows
     public static byte[] jsonBytes(Object value) {
         return OBJECT_MAPPER.writeValueAsBytes(value);
+    }
+
+    /**
+     * 创建ObjectNode
+     *
+     * @return ObjectNode
+     */
+    public static ObjectNode getObjectNode() {
+        return OBJECT_MAPPER.createObjectNode();
+    }
+
+    private static class MapTypeReference extends TypeReference<Map<String, Object>> {
+
+    }
+
+    private static class ListTypeReference extends TypeReference<List<Object>> {
+
     }
 
     private Json() {
