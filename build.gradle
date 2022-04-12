@@ -25,7 +25,6 @@ ext {
 }
 
 allprojects {
-    apply plugin: 'java'
     apply plugin: 'java-library'
 
     group 'com.f'
@@ -56,6 +55,7 @@ allprojects {
 // 应用于所有依赖的子项目
 subprojects {
     // 应用插件
+    apply plugin: 'java'
     apply plugin: "org.springframework.boot"
     apply plugin: "io.spring.dependency-management"
 
@@ -133,7 +133,7 @@ subprojects {
 
     configurations.all {
         exclude group: 'org.apache.tomcat.embed', module: 'tomcat-embed-websocket'
-        exclude group:'org.springframework.boot', module: 'spring-boot-starter-logging'
+        exclude group: 'org.springframework.boot', module: 'spring-boot-starter-logging'
         exclude module: 'logback-classic'
         exclude module: 'logback-core'
     }
