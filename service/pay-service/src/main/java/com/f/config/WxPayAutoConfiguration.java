@@ -32,7 +32,7 @@ import org.springframework.context.annotation.Configuration;
  */
 @Configuration
 @ConditionalOnProperty(
-        prefix = "sunway.wxpay",
+        prefix = "wxpay",
         name = {"enabled"},
         havingValue = "true"
 )

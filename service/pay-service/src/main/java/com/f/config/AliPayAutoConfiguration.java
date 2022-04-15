@@ -32,7 +32,7 @@ import org.springframework.context.annotation.Configuration;
  */
 @Configuration
 @ConditionalOnProperty(
-        prefix = "sunway.alipay",
+        prefix = "alipay",
         name = {"enabled"},
         havingValue = "true"
 )
