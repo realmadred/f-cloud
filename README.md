@@ -1,5 +1,7 @@
 # f-cloud
 
+![](doc/f-cloud架构图.png)
+
 ### 介绍
 简单、高效 spring cloud 快速开发前后端分离项目
 
@@ -30,7 +32,6 @@
 - message 18081
 - file 18082
 - sell 18083
-- order 18084
 - pay 18085
 
 ### 集成前端项目
