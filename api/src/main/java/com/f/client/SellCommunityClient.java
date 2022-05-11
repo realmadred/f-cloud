@@ -15,6 +15,7 @@
  */
 package com.f.client;
 
+import com.f.exception.ServiceException;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -38,7 +39,7 @@ public interface SellCommunityClient {
 
         @Override
         public void test() {
-            System.out.println("test Fallback");
+            throw ServiceException.of("test Fallback");
         }
 
     }
