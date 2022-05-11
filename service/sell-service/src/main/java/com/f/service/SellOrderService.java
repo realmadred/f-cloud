@@ -14,23 +14,19 @@
  * limitations under the License.
  */
 
-package com.f.service.impl;
+package com.f.service;
 
-import com.f.entity.CellOrderItem;
-import com.f.mapper.CellOrderItemMapper;
-import com.f.service.BaseServiceImpl;
-import com.f.service.CellOrderItemService;
-import org.springframework.stereotype.Service;
+import com.f.entity.SellOrder;
+import com.f.service.BaseService;
 
 /**
  * <p>
- * 订单明细 服务实现类
+ * 订单 服务类
  * </p>
  *
  * @author liuf
- * @date 2022-04-08
+ * @date 2022-05-11
  */
-@Service
-public class CellOrderItemServiceImpl extends BaseServiceImpl<CellOrderItemMapper, CellOrderItem> implements CellOrderItemService {
+public interface SellOrderService extends BaseService<SellOrder> {
 
 }

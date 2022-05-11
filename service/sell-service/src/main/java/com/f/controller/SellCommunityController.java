@@ -13,51 +13,39 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.f.controller.app;
 
-import com.f.base.Result;
-import com.f.client.MessageClient;
-import com.f.service.SysLogService;
+package com.f.controller;
+
+import com.f.entity.SellCommunity;
+import com.f.service.SellCommunityService;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * app 接口
+ * 小区  接口
  *
  * @author liuf
- * @date 2021/12/3 14:51
+ * @date 2022-05-11
  */
 @RestController
-@RequestMapping("/app")
+@RequestMapping("/sellCommunity")
 @RequiredArgsConstructor
-public class AppController {
+@Getter
+public class SellCommunityController extends BaseController<SellCommunity, SellCommunityService> {
 
-    private final MessageClient messageClient;
+    private final SellCommunityService service;
 
-    private final SysLogService sysLogService;
-
-    /**
-     * 获取app最新版本
-     *
-     * @return 字符串
-     */
-    @GetMapping("/version")
-    public Result<String> version() {
-        messageClient.sendEmail();
-        return Result.success("1.0.0");
-    }
-
-    /**
-     * 获取app最新版本
-     *
-     * @return 字符串
-     */
-    @GetMapping("/seata")
-    public Result<String> seata() {
-        sysLogService.seataTest();
-        return Result.success("seata");
+    @PostMapping("/test")
+    public void test() {
+        final SellCommunity community = new SellCommunity();
+        community.setName("test");
+        community.setAddress("beijing");
+        community.setHouseNumber(1000);
+        service.insert(community);
     }
 
 }
+

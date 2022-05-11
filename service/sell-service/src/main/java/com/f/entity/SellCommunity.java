@@ -14,19 +14,43 @@
  * limitations under the License.
  */
 
-package com.f.mapper;
+package com.f.entity;
 
-import com.f.entity.CellOrder;
-import com.f.injector.MyBaseMapper;
+import com.baomidou.mybatisplus.annotation.TableName;
+import com.f.base.BaseEntity;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.experimental.Accessors;
 
 /**
  * <p>
- * 订单 Mapper 接口
+ * 小区
  * </p>
  *
  * @author liuf
- * @date 2022-04-08
+ * @date 2022-05-11
  */
-public interface CellOrderMapper extends MyBaseMapper<CellOrder> {
+@EqualsAndHashCode(callSuper = true)
+@Data
+@Accessors(chain = true)
+@TableName("sell_community")
+public class SellCommunity extends BaseEntity {
+
+    private static final long serialVersionUID = 1L;
+
+    /**
+     * 小区名称
+     */
+    private String name;
+
+    /**
+     * 地址
+     */
+    private String address;
+
+    /**
+     * 户数
+     */
+    private Integer houseNumber;
 
 }

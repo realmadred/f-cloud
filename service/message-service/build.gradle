@@ -65,7 +65,7 @@ jib {
     }
 
     container {
-        jvmFlags = ['-server','-Djava.security.egd=file:/dev/./urandom"', '-Xmx512m', '-Xms512m']
+        jvmFlags = ['-server','-Djava.security.egd=file:/dev/./urandom"', '-Xmx512m', '-Xms512m', '-XX:+HeapDumpOnOutOfMemoryError', '-XX:HeapDumpPath="/logs/message.hprof']
         ports = ["18081"]
         creationTime = ZonedDateTime.now().format(DateTimeFormatter.ISO_DATE_TIME)
     }

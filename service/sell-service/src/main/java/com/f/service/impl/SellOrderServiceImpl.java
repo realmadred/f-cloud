@@ -14,19 +14,23 @@
  * limitations under the License.
  */
 
-package com.f.mapper;
+package com.f.service.impl;
 
-import com.f.entity.CellOrderItem;
-import com.f.injector.MyBaseMapper;
+import com.f.entity.SellOrder;
+import com.f.mapper.SellOrderMapper;
+import com.f.service.BaseServiceImpl;
+import com.f.service.SellOrderService;
+import org.springframework.stereotype.Service;
 
 /**
  * <p>
- * 订单明细 Mapper 接口
+ * 订单 服务实现类
  * </p>
  *
  * @author liuf
- * @date 2022-04-08
+ * @date 2022-05-11
  */
-public interface CellOrderItemMapper extends MyBaseMapper<CellOrderItem> {
+@Service
+public class SellOrderServiceImpl extends BaseServiceImpl<SellOrderMapper, SellOrder> implements SellOrderService {
 
 }

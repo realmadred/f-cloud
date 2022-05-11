@@ -14,23 +14,19 @@
  * limitations under the License.
  */
 
-package com.f.service.impl;
+package com.f.mapper;
 
-import com.f.entity.CellOrder;
-import com.f.mapper.CellOrderMapper;
-import com.f.service.BaseServiceImpl;
-import com.f.service.CellOrderService;
-import org.springframework.stereotype.Service;
+import com.f.entity.SellCommunity;
+import com.f.injector.MyBaseMapper;
 
 /**
  * <p>
- * 订单 服务实现类
+ * 小区 Mapper 接口
  * </p>
  *
  * @author liuf
- * @date 2022-04-08
+ * @date 2022-05-11
  */
-@Service
-public class CellOrderServiceImpl extends BaseServiceImpl<CellOrderMapper, CellOrder> implements CellOrderService {
+public interface SellCommunityMapper extends MyBaseMapper<SellCommunity> {
 
 }

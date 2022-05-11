@@ -28,13 +28,13 @@ import lombok.experimental.Accessors;
  * </p>
  *
  * @author liuf
- * @date 2022-04-08
+ * @date 2022-05-11
  */
 @EqualsAndHashCode(callSuper = true)
 @Data
 @Accessors(chain = true)
-@TableName("cell_order_item")
-public class CellOrderItem extends BaseEntity {
+@TableName("sell_order_item")
+public class SellOrderItem extends BaseEntity {
 
     private static final long serialVersionUID = 1L;
 

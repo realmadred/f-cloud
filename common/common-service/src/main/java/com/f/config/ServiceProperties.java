@@ -27,7 +27,7 @@ import org.springframework.context.annotation.Configuration;
  * @date 2022/02/14 17:04
  */
 @Data
-@Configuration
+@Configuration(value = "fServiceProperties", proxyBeanMethods = false)
 @RefreshScope
 @ConfigurationProperties(prefix = "service")
 public class ServiceProperties {

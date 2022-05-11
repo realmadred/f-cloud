@@ -53,7 +53,7 @@ public class Generator {
 
     public static void main(String[] args) {
         // 需要生成的表数组
-        final String[] tables = {"cell_order_item", "cell_order"};
+        final String[] tables = {"sell_order_item", "sell_order", "sell_community"};
 
         Map<OutputFile, String> pathInfo = getInfo();
         FastAutoGenerator.create("jdbc:mysql://127.0.0.1:13306/" + DB + "?serverTimezone=Asia/Shanghai&useSSL=false&useUnicode=true&characterEncoding=utf8&allowPublicKeyRetrieval=true",

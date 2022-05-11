@@ -16,26 +16,28 @@
 
 package com.f.controller;
 
-import com.f.entity.CellCommunity;
-import com.f.service.CellCommunityService;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
+import com.f.entity.SellOrder;
+import com.f.service.SellOrderService;
 import org.springframework.web.bind.annotation.RequestMapping;
+import lombok.RequiredArgsConstructor;
+import lombok.Getter;
+
 import org.springframework.web.bind.annotation.RestController;
+import com.f.controller.BaseController;
 
 /**
- * 小区  接口
+ * 订单  接口
  *
  * @author liuf
- * @date 2022-04-08
+ * @date 2022-05-11
  */
 @RestController
-@RequestMapping("/cellCommunity")
+@RequestMapping("/sellOrder")
 @RequiredArgsConstructor
 @Getter
-public class CellCommunityController extends BaseController<CellCommunity, CellCommunityService> {
+public class SellOrderController extends BaseController<SellOrder, SellOrderService> {
 
-    private final CellCommunityService service;
+    private final SellOrderService service;
 
 }
 

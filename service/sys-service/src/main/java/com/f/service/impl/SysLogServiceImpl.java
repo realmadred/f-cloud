@@ -19,9 +19,14 @@ import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.f.base.PageRequest;
+import com.f.client.SellCommunityClient;
 import com.f.entity.SysLog;
+import com.f.enums.sys.SysLogTypeEnum;
 import com.f.mapper.SysLogMapper;
 import com.f.service.SysLogService;
+import com.f.utils.IdUtils;
+import io.seata.spring.annotation.GlobalTransactional;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 /**
@@ -33,10 +38,28 @@ import org.springframework.stereotype.Service;
  * @date 2022-01-14
  */
 @Service
+@RequiredArgsConstructor
 public class SysLogServiceImpl extends ServiceImpl<SysLogMapper, SysLog> implements SysLogService {
+
+    private final SellCommunityClient communityClient;
 
     @Override
     public Page<SysLog> selectPage(PageRequest<SysLog> page) {
         return page(page.toPlusPage(), Wrappers.query(page.getEntity()));
+    }
+
+    @GlobalTransactional(timeoutMills = 30000, name = "seataTest")
+    @Override
+    public void seataTest() {
+        final SysLog sysLog = new SysLog();
+        sysLog.setId(IdUtils.id());
+        sysLog.setType(SysLogTypeEnum.INFO.getType());
+        sysLog.setClassName("SysLogServiceImpl");
+        sysLog.setMethodName("seataTest");
+        sysLog.setRequestUri("/seata");
+        sysLog.setParams("");
+        sysLog.setRequestIp("");
+        save(sysLog);
+        communityClient.test();
     }
 }

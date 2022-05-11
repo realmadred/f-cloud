@@ -14,19 +14,19 @@
  * limitations under the License.
  */
 
-package com.f.mapper;
+package com.f.service;
 
-import com.f.entity.CellCommunity;
-import com.f.injector.MyBaseMapper;
+import com.f.entity.SellOrderItem;
+import com.f.service.BaseService;
 
 /**
  * <p>
- * 小区 Mapper 接口
+ * 订单明细 服务类
  * </p>
  *
  * @author liuf
- * @date 2022-04-08
+ * @date 2022-05-11
  */
-public interface CellCommunityMapper extends MyBaseMapper<CellCommunity> {
+public interface SellOrderItemService extends BaseService<SellOrderItem> {
 
 }

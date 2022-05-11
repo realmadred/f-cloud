@@ -13,44 +13,33 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+package com.f.client;
 
-package com.f.entity;
-
-import com.baomidou.mybatisplus.annotation.TableName;
-import com.f.base.BaseEntity;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.experimental.Accessors;
+import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.stereotype.Component;
+import org.springframework.web.bind.annotation.PostMapping;
 
 /**
- * <p>
- * 小区
- * </p>
- *
+ * 小区client
  * @author liuf
- * @date 2022-04-08
+ * @date 2022/5/11 19:56
  */
-@EqualsAndHashCode(callSuper = true)
-@Data
-@Accessors(chain = true)
-@TableName("cell_community")
-public class CellCommunity extends BaseEntity {
-
-    private static final long serialVersionUID = 1L;
+@FeignClient(value = "sell", path = "/sellCommunity", fallback = SellCommunityClient.Fallback.class)
+public interface SellCommunityClient {
 
     /**
-     * 小区名称
+     * 测试分布式事务
      */
-    private String name;
+    @PostMapping("/test")
+    void test();
 
-    /**
-     * 地址
-     */
-    private String address;
+    @Component
+    class Fallback implements SellCommunityClient {
 
-    /**
-     * 户数
-     */
-    private Integer houseNumber;
+        @Override
+        public void test() {
+            System.out.println("test Fallback");
+        }
 
+    }
 }

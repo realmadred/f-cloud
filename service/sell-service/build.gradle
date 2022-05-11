@@ -18,5 +18,6 @@ dependencies {
     // 负载均衡缓存 Caffeine
     implementation 'org.springframework:spring-context-support'
     implementation 'com.alibaba.cloud:spring-cloud-starter-alibaba-sentinel'
+    implementation 'com.alibaba.cloud:spring-cloud-starter-alibaba-seata'
     implementation 'com.alibaba.csp:sentinel-datasource-nacos'
 }

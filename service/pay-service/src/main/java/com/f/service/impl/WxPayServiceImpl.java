@@ -45,12 +45,14 @@ import org.jetbrains.annotations.Nullable;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.security.PrivateKey;
@@ -91,7 +93,7 @@ public class WxPayServiceImpl implements WxPayService {
     public void init() {
         LOGGER.info("wx pay init ...");
         // 加载商户私钥（privateKey：私钥字符串）
-        try (InputStream inputStream = new FileInputStream(wxPayProperties.getPrivateKeyPath())) {
+        try (InputStream inputStream = Files.newInputStream(Paths.get(wxPayProperties.getPrivateKeyPath()), StandardOpenOption.READ)) {
             privateKey = PemUtil.loadPrivateKey(inputStream);
             // 获取证书管理器实例
             CertificatesManager certificatesManager = CertificatesManager.getInstance();
@@ -194,7 +196,7 @@ public class WxPayServiceImpl implements WxPayService {
 
     @Override
     public String queryOrderByTransactionId(String transactionId) {
-        return get(String.format("%s/v3/pay/transactions/id/%s?mchid=%s", HOST, transactionId, wxPayProperties.getMchId()));
+        return get(HOST+"/v3/pay/transactions/id/"+transactionId+"?mchid="+wxPayProperties.getMchId());
     }
 
     @Override
@@ -207,7 +209,7 @@ public class WxPayServiceImpl implements WxPayService {
         LOGGER.info("closeOrder:{}", outTradeNo);
         final Map<String, Object> jsonObject = new HashMap<>(8);
         jsonObject.put("mchid", wxPayProperties.getMchId());
-        post(String.format("%s/v3/pay/transactions/out-trade-no/%s/close", HOST, outTradeNo), Json.json(jsonObject));
+        post(HOST+"/v3/pay/transactions/out-trade-no/"+outTradeNo+"/close", Json.json(jsonObject));
     }
 
     @Override
@@ -233,7 +235,7 @@ public class WxPayServiceImpl implements WxPayService {
 
     @Override
     public String queryRefundByOutRefundNo(String outRefundNo) {
-        return get(String.format("%s/v3/refund/domestic/refunds/%s", HOST, outRefundNo));
+        return get(HOST + "/v3/refund/domestic/refunds/" + outRefundNo);
     }
 
     @Override

@@ -14,28 +14,19 @@
  * limitations under the License.
  */
 
-package com.f.controller;
+package com.f.service;
 
-import com.f.entity.CellOrderItem;
-import com.f.service.CellOrderItemService;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.f.entity.SellCommunity;
+import com.f.service.BaseService;
 
 /**
- * 订单明细  接口
+ * <p>
+ * 小区 服务类
+ * </p>
  *
  * @author liuf
- * @date 2022-04-08
+ * @date 2022-05-11
  */
-@RestController
-@RequestMapping("/cellOrderItem")
-@RequiredArgsConstructor
-@Getter
-public class CellOrderItemController extends BaseController<CellOrderItem, CellOrderItemService> {
-
-    private final CellOrderItemService service;
+public interface SellCommunityService extends BaseService<SellCommunity> {
 
 }
-

@@ -36,4 +36,11 @@ public interface SysLogService extends IService<SysLog> {
      * @return 分页数据
      */
     Page<SysLog> selectPage(PageRequest<SysLog> page);
+
+    /**
+     * 测试分布式事务
+     */
+    void seataTest();
+
+
 }
