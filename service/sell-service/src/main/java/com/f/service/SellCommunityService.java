@@ -17,7 +17,6 @@
 package com.f.service;
 
 import com.f.entity.SellCommunity;
-import com.f.service.BaseService;
 
 /**
  * <p>
@@ -28,5 +27,10 @@ import com.f.service.BaseService;
  * @date 2022-05-11
  */
 public interface SellCommunityService extends BaseService<SellCommunity> {
+
+    /**
+     * 测试seata
+     */
+    void testSeata();
 
 }

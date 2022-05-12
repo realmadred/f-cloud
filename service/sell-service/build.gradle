@@ -19,5 +19,8 @@ dependencies {
     implementation 'org.springframework:spring-context-support'
     implementation 'com.alibaba.cloud:spring-cloud-starter-alibaba-sentinel'
     implementation 'com.alibaba.cloud:spring-cloud-starter-alibaba-seata'
+    implementation 'com.esotericsoftware:kryo'
+    implementation 'de.javakaffee:kryo-serializers'
+    implementation 'com.esotericsoftware.kryo:kryo'
     implementation 'com.alibaba.csp:sentinel-datasource-nacos'
 }

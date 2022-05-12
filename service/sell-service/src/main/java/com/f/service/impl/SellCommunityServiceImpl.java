@@ -21,6 +21,7 @@ import com.f.mapper.SellCommunityMapper;
 import com.f.service.BaseServiceImpl;
 import com.f.service.SellCommunityService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * <p>
@@ -33,4 +34,14 @@ import org.springframework.stereotype.Service;
 @Service
 public class SellCommunityServiceImpl extends BaseServiceImpl<SellCommunityMapper, SellCommunity> implements SellCommunityService {
 
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public void testSeata() {
+        final SellCommunity community = new SellCommunity();
+        community.setName("test");
+        community.setAddress("beijing");
+        community.setHouseNumber(1000);
+        insert(community);
+//        System.out.println(1/0);
+    }
 }

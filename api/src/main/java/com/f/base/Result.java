@@ -115,4 +115,8 @@ public class Result<T> implements Serializable {
         return fail(resultEnum.getCode(), resultEnum.getMsg());
     }
 
+    public boolean isFail(){
+        return this.code != ResultEnum.SUCCESS.getCode();
+    }
+
 }

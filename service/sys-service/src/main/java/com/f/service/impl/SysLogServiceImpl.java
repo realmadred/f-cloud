@@ -22,6 +22,7 @@ import com.f.base.PageRequest;
 import com.f.client.SellCommunityClient;
 import com.f.entity.SysLog;
 import com.f.enums.sys.SysLogTypeEnum;
+import com.f.exception.ServiceException;
 import com.f.mapper.SysLogMapper;
 import com.f.service.SysLogService;
 import com.f.utils.IdUtils;
@@ -48,7 +49,7 @@ public class SysLogServiceImpl extends ServiceImpl<SysLogMapper, SysLog> impleme
         return page(page.toPlusPage(), Wrappers.query(page.getEntity()));
     }
 
-    @GlobalTransactional(timeoutMills = 30000, name = "seataTest")
+    @GlobalTransactional(timeoutMills = 30000, name = "seataTest", rollbackFor = Exception.class)
     @Override
     public void seataTest() {
         final SysLog sysLog = new SysLog();
@@ -60,6 +61,8 @@ public class SysLogServiceImpl extends ServiceImpl<SysLogMapper, SysLog> impleme
         sysLog.setParams("");
         sysLog.setRequestIp("");
         save(sysLog);
-        communityClient.test();
+        if (communityClient.test().isFail()) {
+            throw ServiceException.of("client fail");
+        }
     }
 }

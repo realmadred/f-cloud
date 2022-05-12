@@ -16,6 +16,7 @@
 
 package com.f.controller;
 
+import com.f.base.Result;
 import com.f.entity.SellCommunity;
 import com.f.service.SellCommunityService;
 import lombok.Getter;
@@ -39,12 +40,9 @@ public class SellCommunityController extends BaseController<SellCommunity, SellC
     private final SellCommunityService service;
 
     @PostMapping("/test")
-    public void test() {
-        final SellCommunity community = new SellCommunity();
-        community.setName("test");
-        community.setAddress("beijing");
-        community.setHouseNumber(1000);
-        service.insert(community);
+    public Result<Void> test() {
+        service.testSeata();
+        return Result.success();
     }
 
 }

@@ -15,31 +15,39 @@
  */
 package com.f.client;
 
-import com.f.exception.ServiceException;
+import com.f.base.Result;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.cloud.openfeign.FallbackFactory;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.PostMapping;
 
 /**
  * 小区client
+ *
  * @author liuf
  * @date 2022/5/11 19:56
  */
-@FeignClient(value = "sell", path = "/sellCommunity", fallback = SellCommunityClient.Fallback.class)
+@FeignClient(value = "sell", path = "/sellCommunity", fallbackFactory = SellCommunityClient.Fallback.class)
 public interface SellCommunityClient {
 
     /**
      * 测试分布式事务
      */
     @PostMapping("/test")
-    void test();
+    Result<Void> test();
 
     @Component
-    class Fallback implements SellCommunityClient {
+    @Slf4j
+    class Fallback implements FallbackFactory<SellCommunityClient> {
 
         @Override
-        public void test() {
-            throw ServiceException.of("test Fallback");
+        public SellCommunityClient create(Throwable cause) {
+            log.error("异常原因:{}", cause.getMessage(), cause);
+            return () -> {
+                System.out.println("------test Fallback------");
+                return Result.fail("Fallback");
+            };
         }
 
     }
