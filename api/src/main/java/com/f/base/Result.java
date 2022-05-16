@@ -16,6 +16,7 @@
 package com.f.base;
 
 import com.f.enums.ResultEnum;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -115,6 +116,11 @@ public class Result<T> implements Serializable {
         return fail(resultEnum.getCode(), resultEnum.getMsg());
     }
 
+    /**
+     * 是否失败
+     * @return true 失败
+     */
+    @JsonIgnore
     public boolean isFail(){
         return this.code != ResultEnum.SUCCESS.getCode();
     }

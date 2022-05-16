@@ -74,10 +74,6 @@ public class Constant {
      */
     public static final String LIMIT = " LIMIT 1";
 
-    /**
-     * 空白byte数组
-     */
-    public static final byte[] EMPTY_BYTES = new byte[0];
 
     /**
      * 数字常量 0-10

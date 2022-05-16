@@ -24,7 +24,7 @@ import com.f.base.BaseEntity;
 import com.f.base.PageRequest;
 import com.f.constant.Constant;
 import com.f.injector.MyBaseMapper;
-import com.f.utils.CommonUtils;
+import com.f.utils.ApiUtils;
 import com.f.utils.ServiceUtils;
 import lombok.SneakyThrows;
 import org.springframework.transaction.annotation.Transactional;
@@ -41,12 +41,12 @@ public class BaseServiceImpl<M extends MyBaseMapper<T>, T extends BaseEntity> ex
 
     @Override
     public Long selectId(LambdaQueryChainWrapper<T> queryWrapper) {
-        return CommonUtils.getId(getBaseMapper().selectOne(queryWrapper.select(T::getId).last(Constant.LIMIT)));
+        return ApiUtils.getId(getBaseMapper().selectOne(queryWrapper.select(T::getId).last(Constant.LIMIT)));
     }
 
     @Override
     public Long selectId(QueryChainWrapper<T> queryWrapper) {
-        return CommonUtils.getId(getBaseMapper().selectOne(queryWrapper.select(Constant.ID).last(Constant.LIMIT)));
+        return ApiUtils.getId(getBaseMapper().selectOne(queryWrapper.select(Constant.ID).last(Constant.LIMIT)));
     }
 
     @Override

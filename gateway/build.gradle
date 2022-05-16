@@ -2,6 +2,7 @@ import java.time.ZonedDateTime
 import java.time.format.DateTimeFormatter
 
 dependencies {
+    implementation(project(':api'))
     implementation(project(':common:common-core'))
     implementation(project(':common:common-cache'))
     implementation "org.apache.commons:commons-lang3"

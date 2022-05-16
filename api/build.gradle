@@ -9,7 +9,6 @@ dependencies {
     compileOnly 'com.baomidou:mybatis-plus-extension'
     compileOnly 'com.fasterxml.jackson.core:jackson-annotations'
     compileOnly 'org.springframework:spring-web'
-    compileOnly 'org.springframework.cloud:spring-cloud-openfeign-core'
 }
 
 bootJar{

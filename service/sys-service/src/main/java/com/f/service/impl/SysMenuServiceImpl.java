@@ -26,7 +26,7 @@ import com.f.entity.SysMenu;
 import com.f.mapper.SysMenuMapper;
 import com.f.service.BaseServiceImpl;
 import com.f.service.SysMenuService;
-import com.f.utils.CommonUtils;
+import com.f.utils.ApiUtils;
 import com.f.utils.IdUtils;
 import com.f.utils.ServiceUtils;
 import com.google.common.base.Joiner;
@@ -67,7 +67,7 @@ public class SysMenuServiceImpl extends BaseServiceImpl<SysMenuMapper, SysMenu> 
         }
         log.info("循环处理菜单数据");
         Joiner joiner = Joiner.on(Constant.COMMA).skipNulls();
-        List<SysMenuDto> dtoList = CommonUtils.flatTree(treeList, (dto, level) -> {
+        List<SysMenuDto> dtoList = ApiUtils.flatTree(treeList, (dto, level) -> {
             long id = IdUtils.id();
             dto.setId(id);
             dto.setLevel(level);
@@ -135,7 +135,7 @@ public class SysMenuServiceImpl extends BaseServiceImpl<SysMenuMapper, SysMenu> 
         }
 
         log.info("开始构建树");
-        List<SysMenuDto> list = CommonUtils.buildTreeDto(result, 0L);
+        List<SysMenuDto> list = ApiUtils.buildTreeDto(result, 0L);
         list.sort(Comparator.comparing(SysMenuDto::getSort));
         return Result.success(list);
     }

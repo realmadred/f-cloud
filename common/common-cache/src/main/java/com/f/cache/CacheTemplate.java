@@ -18,7 +18,6 @@ package com.f.cache;
 import com.alicp.jetcache.Cache;
 import com.alicp.jetcache.anno.CacheType;
 import com.alicp.jetcache.anno.CreateCache;
-import com.f.thread.NamedThreadFactory;
 import io.lettuce.core.RedisClient;
 import io.lettuce.core.api.StatefulRedisConnection;
 import io.lettuce.core.api.async.RedisAsyncCommands;
@@ -78,7 +77,7 @@ public class CacheTemplate {
 
     @PostConstruct
     public void pingRedis() {
-        new ScheduledThreadPoolExecutor(1, new NamedThreadFactory("redis-ping")).scheduleAtFixedRate(() -> log.debug("ping:{}", sync.ping()), 15, 150, TimeUnit.SECONDS);
+        new ScheduledThreadPoolExecutor(1).scheduleAtFixedRate(() -> log.debug("ping:{}", sync.ping()), 15, 150, TimeUnit.SECONDS);
     }
 
     @CreateCache(name = "common", expire = 30, cacheType = CacheType.REMOTE)

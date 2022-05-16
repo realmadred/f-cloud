@@ -15,27 +15,16 @@
  */
 package com.f.utils;
 
-import com.f.base.BaseEntity;
-import com.f.base.BaseTreeDto;
-import com.f.base.BaseTreeEntity;
-import com.f.base.TreeDto;
-import com.f.constant.Constant;
 import com.f.thread.CommonThreadUtils;
 import lombok.NonNull;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.util.CollectionUtils;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
-import java.nio.ByteBuffer;
 import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
 import java.util.concurrent.CountDownLatch;
-import java.util.function.BiConsumer;
 
 /**
  * 通用工具类
@@ -45,25 +34,6 @@ import java.util.function.BiConsumer;
  */
 @Slf4j
 public final class CommonUtils {
-
-    public static final byte MAX_LEVEL = 20;
-
-    /**
-     * ByteBuffer -> byte[]
-     *
-     * @param buffer ByteBuffer
-     * @return byte[]
-     */
-    public static byte[] getBytes(final ByteBuffer buffer) {
-        int remaining = buffer.remaining();
-        if (remaining == 0) {
-            return Constant.EMPTY_BYTES;
-        } else {
-            byte[] bytes = new byte[remaining];
-            buffer.get(bytes);
-            return bytes;
-        }
-    }
 
     /**
      * 多线程并发执行
@@ -92,136 +62,6 @@ public final class CommonUtils {
         if (afterExecute != null) {
             afterExecute.run();
         }
-    }
-
-    /**
-     * 获取实体的id
-     *
-     * @param entity 实体
-     * @return id
-     */
-    public static Long getId(BaseEntity entity) {
-        return LambdaUtils.getOrElse(entity, BaseEntity::getId, null);
-    }
-
-    /**
-     * 列表转化为树结构
-     *
-     * @param <T>    泛型树对象
-     * @param list   实体列表
-     * @param rootId 根节点id
-     * @return 树结构
-     */
-    public static <T extends BaseTreeEntity> List<TreeDto<T>> buildTree(List<T> list, Long rootId) {
-        List<TreeDto<T>> tree = new ArrayList<>();
-        for (T node : list) {
-            TreeDto<T> treeDto = new TreeDto<>();
-            treeDto.setNode(node);
-            if (Objects.equals(rootId, node.getPid())) {
-                tree.add(treeDto);
-            }
-            // 寻找下级节点
-            for (T children : list) {
-                if (Objects.equals(children.getPid(), node.getId())) {
-                    TreeDto<T> childrenDto = new TreeDto<>();
-                    childrenDto.setNode(children);
-                    if (treeDto.getChildren() == null) {
-                        treeDto.setChildren(new ArrayList<>());
-                    }
-                    treeDto.getChildren().add(childrenDto);
-                }
-            }
-        }
-        return tree;
-    }
-
-    /**
-     * 列表转化为树结构
-     *
-     * @param <T>    泛型树对象
-     * @param list   实体列表
-     * @param rootId 根节点id
-     * @return 树结构
-     */
-    public static <T extends BaseTreeDto<T>> List<T> buildTreeDto(List<T> list, Long rootId) {
-        List<T> result = new ArrayList<>();
-        for (T parent : list) {
-            if (Objects.equals(rootId, parent.getPid())) {
-                result.add(parent);
-            }
-            // 寻找下级节点
-            for (T children : list) {
-                if (Objects.equals(children.getPid(), parent.getId())) {
-                    if (parent.getChildren() == null) {
-                        parent.setChildren(new ArrayList<>());
-                    }
-                    parent.getChildren().add(children);
-                }
-            }
-        }
-        return result;
-    }
-
-    /**
-     * 递归 树结构 转 列表
-     * 最大深度 ${MAX_LEVEL}
-     *
-     * @param <T>      泛型树对象
-     * @param tree     树
-     * @param consumer 处理节点回调
-     * @param level    递归的层级
-     * @return 列表
-     */
-    private static <T extends BaseTreeDto<T>> List<T> recursiveFlatTree(List<T> tree, BiConsumer<T, Integer> consumer, int level) {
-        log.info("执行层级:{}", level);
-        if (CollectionUtils.isEmpty(tree) || level > MAX_LEVEL) {
-            return new ArrayList<>(0);
-        }
-        List<T> resultList = new ArrayList<>(tree.size() << 2);
-        for (T treeDto : tree) {
-            if (treeDto == null) {
-                continue;
-            }
-
-            // 回调自定义处理函数
-            if (consumer != null) {
-                consumer.accept(treeDto, level);
-            }
-
-            List<T> children = treeDto.getChildren();
-            resultList.add(treeDto);
-            if (CollectionUtils.isEmpty(children)) {
-                continue;
-            }
-            // 递归处理子节点
-            resultList.addAll(recursiveFlatTree(children, consumer, level + 1));
-        }
-        return resultList;
-    }
-
-    /**
-     * 递归 树结构 转 列表
-     * 最大深度 MAX_LEVEL
-     *
-     * @param <T>      泛型树对象
-     * @param tree     树
-     * @param consumer 处理节点回调
-     * @return 列表
-     */
-    public static <T extends BaseTreeDto<T>> List<T> flatTree(List<T> tree, BiConsumer<T, Integer> consumer) {
-        return recursiveFlatTree(tree, consumer, 1);
-    }
-
-    /**
-     * 递归 树结构 转 列表
-     * 最大深度 MAX_LEVEL
-     *
-     * @param <T>  泛型树对象
-     * @param tree 树
-     * @return 列表
-     */
-    public static <T extends BaseTreeDto<T>> List<T> flatTree(List<T> tree) {
-        return flatTree(tree, null);
     }
 
     /**

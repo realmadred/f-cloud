@@ -19,13 +19,13 @@ import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.f.base.PageRequest;
-import com.f.client.SellCommunityClient;
 import com.f.entity.SysLog;
 import com.f.enums.sys.SysLogTypeEnum;
 import com.f.exception.ServiceException;
 import com.f.mapper.SysLogMapper;
 import com.f.service.SysLogService;
 import com.f.utils.IdUtils;
+import com.f.client.SellCommunityClient;
 import io.seata.spring.annotation.GlobalTransactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -64,5 +64,6 @@ public class SysLogServiceImpl extends ServiceImpl<SysLogMapper, SysLog> impleme
         if (communityClient.test().isFail()) {
             throw ServiceException.of("client fail");
         }
+//        System.out.println(1/0);
     }
 }

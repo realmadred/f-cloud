@@ -1,0 +1,8 @@
+dependencies {
+    api project(':api')
+    compileOnly 'org.springframework.cloud:spring-cloud-openfeign-core'
+}
+
+bootJar{
+    enabled(false)
+}

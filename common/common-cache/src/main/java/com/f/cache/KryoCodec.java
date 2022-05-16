@@ -17,7 +17,6 @@ package com.f.cache;
 
 import com.alicp.jetcache.support.KryoValueDecoder;
 import com.alicp.jetcache.support.KryoValueEncoder;
-import com.f.utils.CommonUtils;
 import io.lettuce.core.codec.RedisCodec;
 
 import java.nio.ByteBuffer;
@@ -36,6 +35,11 @@ public enum KryoCodec implements RedisCodec<String, Object> {
      */
     INSTANCE;
 
+    /**
+     * 空白byte数组
+     */
+    private static final byte[] EMPTY_BYTES = new byte[0];
+
     @Override
     public ByteBuffer encodeKey(final String key) {
         return StandardCharsets.UTF_8.encode(key);
@@ -53,7 +57,24 @@ public enum KryoCodec implements RedisCodec<String, Object> {
 
     @Override
     public Object decodeValue(final ByteBuffer bytes) {
-        return KryoValueDecoder.INSTANCE.doApply(CommonUtils.getBytes(bytes));
+        return KryoValueDecoder.INSTANCE.doApply(getBytes(bytes));
+    }
+
+    /**
+     * ByteBuffer -> byte[]
+     *
+     * @param buffer ByteBuffer
+     * @return byte[]
+     */
+    private byte[] getBytes(final ByteBuffer buffer) {
+        int remaining = buffer.remaining();
+        if (remaining == 0) {
+            return EMPTY_BYTES;
+        } else {
+            byte[] bytes = new byte[remaining];
+            buffer.get(bytes);
+            return bytes;
+        }
     }
 
 }

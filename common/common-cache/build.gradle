@@ -1,4 +1,3 @@
 dependencies {
-    implementation(project(':common:common-core'))
     api "com.alicp.jetcache:jetcache-starter-redis-lettuce"
 }

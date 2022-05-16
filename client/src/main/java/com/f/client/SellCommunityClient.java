@@ -45,7 +45,7 @@ public interface SellCommunityClient {
         public SellCommunityClient create(Throwable cause) {
             log.error("异常原因:{}", cause.getMessage(), cause);
             return () -> {
-                System.out.println("------test Fallback------");
+                log.info("------test Fallback------");
                 return Result.fail("Fallback");
             };
         }

@@ -1,5 +1,4 @@
 dependencies {
-    api project(':api')
     implementation 'org.apache.commons:commons-lang3'
     implementation 'com.google.guava:guava'
     implementation 'com.fasterxml.jackson.core:jackson-databind'

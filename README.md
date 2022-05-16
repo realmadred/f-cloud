@@ -10,6 +10,7 @@
 - spring cloud alibaba
 - spring cloud Gateway
 - nacos 
+- seata
 - sentinel
 - jwt
 - mybatis-plus

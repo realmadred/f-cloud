@@ -16,8 +16,8 @@
 package com.f.controller.app;
 
 import com.f.base.Result;
-import com.f.client.MessageClient;
 import com.f.service.SysLogService;
+import com.f.client.MessageClient;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;

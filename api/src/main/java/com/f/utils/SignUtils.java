@@ -16,7 +16,6 @@
 package com.f.utils;
 
 import com.f.base.SignDto;
-import com.f.constant.Constant;
 import com.f.enums.ResultEnum;
 import com.f.exception.BaseException;
 
@@ -39,6 +38,7 @@ public final class SignUtils {
      * 时间相差2分钟
      */
     private static final int MINUTES_TIME_OUT = 2;
+    private static final String EMPTY = "";
 
     /**
      * 签名
@@ -99,12 +99,12 @@ public final class SignUtils {
             throw BaseException.of(ResultEnum.SIGN_ERROR);
         }
         // 生成签名
-        return md5(String.join(Constant.EMPTY,
+        return md5(String.join(EMPTY,
                 signDto.getAppId(),
                 signDto.getData(),
                 signDto.getNonce(),
                 secret,
-                signDto.getTimestamp() + Constant.EMPTY));
+                signDto.getTimestamp() + EMPTY));
     }
 
     /**

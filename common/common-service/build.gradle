@@ -1,5 +1,6 @@
 dependencies {
     api(project(':common:common-core'))
+    api project(':client')
     compileOnly 'com.baomidou:mybatis-plus-extension'
     compileOnly "org.springframework.boot:spring-boot-starter-validation"
     compileOnly 'org.springframework.boot:spring-boot-starter-web'
