@@ -2,6 +2,8 @@ import java.time.ZonedDateTime
 import java.time.format.DateTimeFormatter
 
 dependencies {
+    annotationProcessor 'org.mapstruct:mapstruct-processor'
+    testAnnotationProcessor 'org.mapstruct:mapstruct-processor'
     implementation(project(':common:common-cache'))
     implementation(project(':common:common-db'))
     implementation(project(':client'))

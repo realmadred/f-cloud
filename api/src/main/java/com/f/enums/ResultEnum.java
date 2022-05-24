@@ -47,7 +47,7 @@ public enum ResultEnum {
     /**
      * 未授权
      */
-    NOT_FOUND(404, "未找到接口"),
+    NOT_FOUND(404, "未找到服务"),
 
     /**
      * 请求太频繁
