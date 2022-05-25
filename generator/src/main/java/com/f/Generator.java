@@ -44,7 +44,12 @@ public class Generator {
     /**
      * 模块(*自己修改*)
      */
-    private static final String MODEL = "sell-service";
+    private static final String MODULE = "sell";
+
+    /**
+     * 模块(*自己修改*)
+     */
+    private static final String MODEL = MODULE + "-service";
 
     /**
      * 数据库(*自己修改*)
@@ -118,11 +123,11 @@ public class Generator {
      */
     private static Map<String, String> customFile() {
         final HashMap<String, String> map = new HashMap<>(8);
-        map.put("index.vue","templates/index.vue.vm");
-        map.put("add.vue","templates/add.vue.vm");
-        map.put("edit.vue","templates/edit.vue.vm");
-        map.put("rule.ts","templates/rule.ts.vm");
-        map.put("api.ts","templates/api.ts.vm");
+        map.put("index.vue", "templates/index.vue.vm");
+        map.put("add.vue", "templates/add.vue.vm");
+        map.put("edit.vue", "templates/edit.vue.vm");
+        map.put("rule.ts", "templates/rule.ts.vm");
+        map.put("api.ts", "templates/api.ts.vm");
         return map;
     }
 
@@ -131,7 +136,7 @@ public class Generator {
      */
     private static Map<String, Object> customMap() {
         final HashMap<String, Object> map = new HashMap<>(0);
-        map.put("module","sell");
+        map.put("module", MODULE);
         return map;
     }
 
