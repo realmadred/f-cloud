@@ -1,0 +1,15 @@
+export const rule = {
+    ## ----------  BEGIN 字段循环遍历  ----------
+    #foreach($field in ${table.fields})
+    ${field.propertyName}: [
+        {
+            type: #if($field.propertyType == 'String' || $field.propertyType == 'LocalDateTime' || $field.propertyType == 'LocalDate')'string' #else 'number' #end,
+            min: 2,
+            max: 15,
+            required: true,
+            message: '请输入2-15位${field.comment}',
+            trigger: 'change',
+        },
+    ],
+    #end
+}

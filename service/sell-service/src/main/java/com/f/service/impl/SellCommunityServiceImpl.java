@@ -16,10 +16,15 @@
 
 package com.f.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.f.base.PageRequest;
 import com.f.entity.SellCommunity;
 import com.f.mapper.SellCommunityMapper;
 import com.f.service.BaseServiceImpl;
 import com.f.service.SellCommunityService;
+import com.google.common.base.Strings;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -43,5 +48,17 @@ public class SellCommunityServiceImpl extends BaseServiceImpl<SellCommunityMappe
         community.setHouseNumber(1000);
         insert(community);
 //        System.out.println(1/0);
+    }
+
+    @Override
+    public Page<SellCommunity> selectPage(PageRequest<SellCommunity> page) {
+        LambdaQueryWrapper<SellCommunity> lambdaQuery = Wrappers.lambdaQuery(SellCommunity.class);
+        SellCommunity entity = page.getEntity();
+        if (entity != null) {
+            if (!Strings.isNullOrEmpty(entity.getName())) {
+                lambdaQuery.like(SellCommunity::getName, entity.getName());
+            }
+        }
+        return page(page.toPlusPage(), lambdaQuery);
     }
 }

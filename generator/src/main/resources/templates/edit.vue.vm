@@ -1,0 +1,76 @@
+<template>
+	<div class="add-${entity}-container">
+		<el-dialog title="编辑${table.comment}" v-model="isShowDialog" width="756px">
+			<el-form :model="ruleForm" :rules="rules" ref="form" size="small" label-width="120px">
+				<el-row :gutter="35">
+                    ## ----------  BEGIN 字段循环遍历  ----------
+                    #foreach($field in ${table.fields})
+					<el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12" class="mb20">
+                        <el-form-item label="${field.comment}" prop="${field.propertyName}">
+                            <el-input v-model="ruleForm.${field.propertyName}" placeholder="请输入${field.comment}" maxlength="32" clearable/>
+                        </el-form-item>
+					</el-col>
+                    #end
+                    ## ----------  END 字段循环遍历  ----------
+				</el-row>
+			</el-form>
+			<template #footer>
+				<span class="dialog-footer">
+					<el-button @click="onCancel" size="small">取 消</el-button>
+                    <el-button type="primary" @click="submitForm(form, onSubmit)" size="small">保 存</el-button>
+                </span>
+            </template>
+		</el-dialog>
+	</div>
+</template>
+
+<script lang="ts">
+import { reactive, toRefs, ref } from 'vue';
+import { update, ${entity} } from '/@/api/${module}/${table.entityPath}';
+import { submitForm } from '/@/utils/form';
+import { rule } from './rule';
+export default {
+	name: 'edit${entity}',
+	setup() {
+		const form = ref();
+		const state = reactive({
+			isShowDialog: false,
+            ruleForm: {
+            #foreach($field in ${table.fields})
+                $field.propertyName: #if($field.propertyType == 'String' || $field.propertyType == 'LocalDateTime' || $field.propertyType == 'LocalDate')'' #else 0 #end, // ${field.comment}
+            #end
+            } as ${entity},
+			rules: rule
+		});
+		// 打开弹窗
+		const openDialog = (row: any) => {
+			state.ruleForm = row;
+			state.isShowDialog = true;
+		};
+		// 关闭弹窗
+		const closeDialog = () => {
+			state.isShowDialog = false;
+		};
+		// 取消
+		const onCancel = () => {
+			closeDialog();
+		};
+		// 新增
+		const onSubmit = () => {
+			update(state.ruleForm).then(() => {
+				closeDialog();
+			})
+		};
+
+		return {
+			openDialog,
+			closeDialog,
+			onCancel,
+			onSubmit,
+			submitForm,
+			form,
+			...toRefs(state),
+		};
+	},
+};
+</script>

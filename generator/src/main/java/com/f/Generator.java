@@ -53,14 +53,14 @@ public class Generator {
 
     public static void main(String[] args) {
         // 需要生成的表数组
-        final String[] tables = {"sell_order_item", "sell_order", "sell_community"};
+        final String[] tables = {"sell_order", "sell_community"};
 
         Map<OutputFile, String> pathInfo = getInfo();
         FastAutoGenerator.create("jdbc:mysql://127.0.0.1:13306/" + DB + "?serverTimezone=Asia/Shanghai&useSSL=false&useUnicode=true&characterEncoding=utf8&allowPublicKeyRetrieval=true",
                         "root", "feng")
                 .globalConfig(builder -> {
                     builder.author("liuf") // 设置作者
-                            .fileOverride() // 覆盖已生成文件
+//                            .fileOverride() // 覆盖已生成文件
                             .disableOpenDir()
                             .outputDir(ROOT_PATH); // 指定输出目录
                 })
@@ -83,7 +83,9 @@ public class Generator {
                         .mapperBuilder().superClass("com.f.injector.MyBaseMapper")
                         .controllerBuilder().superClass("com.f.controller.BaseController").enableRestStyle())
                 .templateConfig(template())
-                .injectionConfig(builder -> builder.beforeOutputFile((tab, map) -> tab.getImportPackages().removeIf("java.io.Serializable"::equals)))
+                .injectionConfig(builder -> builder.beforeOutputFile((tab, map) -> tab.getImportPackages().removeIf("java.io.Serializable"::equals))
+                        .customFile(customFile())
+                        .customMap(customMap()))
                 .execute();
         String path = StringUtils.replace(ROOT_PATH, "//", "/") + "service/" + MODEL;
         System.out.println("文件生成成功:" + StringUtils.replace(path, "/", "\\"));
@@ -110,6 +112,29 @@ public class Generator {
                 .mapperXml("templates/mapper.xml.vm");
     }
 
+    /**
+     * 自定义文件
+     * 文件名->模板名称
+     */
+    private static Map<String, String> customFile() {
+        final HashMap<String, String> map = new HashMap<>(8);
+        map.put("index.vue","templates/index.vue.vm");
+        map.put("add.vue","templates/add.vue.vm");
+        map.put("edit.vue","templates/edit.vue.vm");
+        map.put("rule.ts","templates/rule.ts.vm");
+        map.put("api.ts","templates/api.ts.vm");
+        return map;
+    }
+
+    /**
+     * 自定义map数据
+     */
+    private static Map<String, Object> customMap() {
+        final HashMap<String, Object> map = new HashMap<>(0);
+        map.put("module","sell");
+        return map;
+    }
+
     private static Map<OutputFile, String> getInfo() {
         Map<OutputFile, String> pathInfo = new HashMap<>(8);
         pathInfo.put(OutputFile.mapperXml, ROOT_PATH + "service/" + MODEL + "/src/main/resources/mapper/");
@@ -118,6 +143,7 @@ public class Generator {
         pathInfo.put(OutputFile.service, ROOT_PATH + "service/" + MODEL + "/src/main/java/com/f/service/");
         pathInfo.put(OutputFile.serviceImpl, ROOT_PATH + "service/" + MODEL + "/src/main/java/com/f/service/impl/");
         pathInfo.put(OutputFile.controller, ROOT_PATH + "service/" + MODEL + "/src/main/java/com/f/controller/");
+        pathInfo.put(OutputFile.other, ROOT_PATH + "web/");
         return pathInfo;
     }
 }

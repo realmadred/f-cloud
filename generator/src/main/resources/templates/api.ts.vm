@@ -1,0 +1,54 @@
+import { request } from '/@/utils/request';
+import { ${module.toUpperCase()}_API } from '/@/api/constant';
+
+
+export interface ${entity} {
+#foreach($field in ${table.fields})
+	${field.propertyName}: #if($field.propertyType == 'String' || $field.propertyType == 'LocalDateTime' || $field.propertyType == 'LocalDate')string #else number #end, // ${field.comment}
+#end
+}
+
+/**
+ * 添加
+ * @param data 数据
+ * @returns 实体
+ */
+export function add(data: ${entity}) {
+	return request.post(${module.toUpperCase()}_API + '/${table.entityPath}', data);
+}
+
+/**
+ * 修改
+ * @param data 数据
+ * @returns 修改数量
+ */
+export function update(data: ${entity}) {
+	return request.put(${module.toUpperCase()}_API + '/${table.entityPath}', data);
+}
+
+/**
+ * 根据id删除
+ * @param id 字典id
+ * @returns 修改数量
+ */
+export function deleteById(id: number) {
+	return request.delete(${module.toUpperCase()}_API + '/${table.entityPath}', { data: { id } });
+}
+
+/**
+ * 详情
+ * @param id id必传
+ * @returns 返回详情
+ */
+export function selectById(id: number) {
+	return request.get(${module.toUpperCase()}_API + '/${table.entityPath}?id=' + id);
+}
+
+/**
+ * 列表查询
+ * @param params 要传的参数值，非必传
+ * @returns 返回接口数据
+ */
+export function selectPage(params: object) {
+	return request.post(${module.toUpperCase()}_API + '/${table.entityPath}/page', { ...params, searchCount: true });
+}
