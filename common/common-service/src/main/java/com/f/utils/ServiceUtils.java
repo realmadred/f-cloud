@@ -45,7 +45,7 @@ import java.util.Optional;
 public final class ServiceUtils {
 
     /**
-     * 加盟盐
+     * 加密盐
      */
     private static final String SALT = "yu_aW7!9L#p$czo_1G";
     private static final byte[] UNAUTHORIZED = Json.jsonBytes(Result.fail(ResultEnum.UNAUTHORIZED));
@@ -54,7 +54,7 @@ public final class ServiceUtils {
     private static final byte[] SENTINEL_BLOCK = Json.jsonBytes(Result.fail(ResultEnum.SENTINEL_BLOCK));
 
     /**
-     * 加盟工具
+     * 加密工具
      */
     private static final PasswordEncoder PASSWORD_ENCODER = new BCryptPasswordEncoder();
 
@@ -195,7 +195,7 @@ public final class ServiceUtils {
     }
 
     /**
-     * 加盟密码
+     * 加密密码
      *
      * @param password 原始密码
      * @return 加密后密码
