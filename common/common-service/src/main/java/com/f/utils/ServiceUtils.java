@@ -73,10 +73,10 @@ public final class ServiceUtils {
     public static SysUserVo getSysUser() {
         final HttpServletRequest request = getCurrentRequest();
         final String userName = request.getHeader(Constant.USER_NAME);
-        final String userId = getCurrentRequest().getHeader(Constant.USER_ID);
+        final String userId = request.getHeader(Constant.USER_ID);
         final SysUserVo sysUserVo = new SysUserVo();
         sysUserVo.setId(LambdaUtils.getOrElse(userId, Long::parseLong, ANONYMOUS.getId()));
-        sysUserVo.setJid(getCurrentRequest().getHeader(Constant.JWT_ID));
+        sysUserVo.setJid(request.getHeader(Constant.JWT_ID));
         sysUserVo.setName(Optional.ofNullable(userName).orElse(ANONYMOUS.getName()));
         return sysUserVo;
     }
