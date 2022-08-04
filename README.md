@@ -21,6 +21,7 @@
 - mapstruct
 - disruptor
 - minIO
+- flowable
 
 ### 软件架构
 - api 实体和基础类定义
@@ -32,11 +33,12 @@
 
 ### 使用端口
 - gateway 8000
-- file 18082
-- message 18081
-- pay 18085
-- sell 18083
 - sys 18080
+- message 18081
+- file 18082
+- sell 18083
+- flow 18084
+- pay 18085
 
 ### 集成前端项目
 

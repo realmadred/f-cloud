@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration>
+	<Properties>
+		<Property name="LOG_HOME">./logs</Property> <!-- 日志根目录 -->
+		<!--_TRACE_ID，业务自定义变量-->
+		<property name="ALL_PATTERN">%d %level [%thread] %msg %n</property>
+		<property name="ERROR_PATTERN">%d %level -- [%thread] %msg %l%n</property>
+		<property name="CHARSET">UTF-8</property>
+		<property name="FILE_SIZE">100MB</property>
+		<property name="FILE_INDEX_MAX">10</property>
+	</Properties>
+	<Appenders>
+		<!--全部日志-->
+		<RollingRandomAccessFile name="allFiles"
+                                 fileName="${LOG_HOME}/flow.log"
+                                 filePattern="${LOG_HOME}/back/flow-%d{yyyyMMdd}-%i.log.gz">
+            <!--PatternLayout，日志输出的格式-->
+            <PatternLayout>
+                <Pattern>${ALL_PATTERN}</Pattern>
+            </PatternLayout>
+            <!--Policies，日志文件滚动的策略-->
+            <Policies>
+                <TimeBasedTriggeringPolicy interval="1" modulate="true"/>
+                <SizeBasedTriggeringPolicy size="${FILE_SIZE}"/>
+            </Policies>
+            <!--DefaultRolloverStrategy，默认滚动策略，max-日志文件保存的最多个数 多余文件自动删除-->
+            <DefaultRolloverStrategy max="${FILE_INDEX_MAX}">
+                <Delete basePath="${LOG_HOME}/back/" maxDepth="1">
+                    <IfFileName glob="*.log.gz"/>/>
+                    <IfLastModified age="30d"/>
+                </Delete>
+            </DefaultRolloverStrategy>
+        </RollingRandomAccessFile>
+
+		<!--错误日志-->
+		<RollingRandomAccessFile name="errorFiles"
+								 fileName="${LOG_HOME}/flow-error.log"
+								 filePattern="${LOG_HOME}/back/flow-error-%d{yyyyMMdd}-%i.log.gz">
+            <!--Filters，决定日志事件能否被输出：ACCEPT(接受)，DENY(拒绝)，NEUTRAL(中立)；
+            onMatch-该级别及以上，onMismatch-该级别以下-->
+            <ThresholdFilter level="ERROR" onMatch="ACCEPT" onMismatch="DENY"/>
+            <PatternLayout>
+                <Pattern>${ERROR_PATTERN}</Pattern>
+            </PatternLayout>
+            <Policies>
+                <TimeBasedTriggeringPolicy interval="1" modulate="true"/>
+                <SizeBasedTriggeringPolicy size="${FILE_SIZE}"/>
+            </Policies>
+            <!--DefaultRolloverStrategy，默认滚动策略，max-日志文件保存的最多个数 多余文件自动删除-->
+            <DefaultRolloverStrategy max="${FILE_INDEX_MAX}">
+                <Delete basePath="${LOG_HOME}/back/" maxDepth="1">
+                    <IfFileName glob="*.log.gz"/>/>
+                    <IfLastModified age="30d"/>
+                </Delete>
+            </DefaultRolloverStrategy>
+        </RollingRandomAccessFile>
+
+		<!--控制台日志-->
+		<Console name="console" target="SYSTEM_OUT">
+			<PatternLayout pattern="${ALL_PATTERN}" />
+		</Console>
+	</Appenders>
+
+	<Loggers>
+		<AsyncRoot level="INFO" additivity="false">
+			<AppenderRef ref="console" />
+			<AppenderRef ref="allFiles" />
+			<AppenderRef ref="errorFiles" />
+		</AsyncRoot>
+
+        <AsyncLogger name="com.f.mapper" level="debug" additivity="false">
+            <AppenderRef ref="console" />
+        </AsyncLogger>
+	</Loggers>
+</Configuration>

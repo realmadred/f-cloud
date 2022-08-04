@@ -44,7 +44,7 @@ public class Generator {
     /**
      * 模块(*自己修改*)
      */
-    private static final String MODULE = "sell";
+    private static final String MODULE = "flow";
 
     /**
      * 模块(*自己修改*)
@@ -54,11 +54,11 @@ public class Generator {
     /**
      * 数据库(*自己修改*)
      */
-    private static final String DB = "f-sell";
+    private static final String DB = "f-flow";
 
     public static void main(String[] args) {
         // 需要生成的表数组
-        final String[] tables = {"sell_order", "sell_community"};
+        final String[] tables = {"flow_design"};
 
         Map<OutputFile, String> pathInfo = getInfo();
         FastAutoGenerator.create("jdbc:mysql://127.0.0.1:13306/" + DB + "?serverTimezone=Asia/Shanghai&useSSL=false&useUnicode=true&characterEncoding=utf8&allowPublicKeyRetrieval=true",

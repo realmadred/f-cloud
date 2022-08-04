@@ -23,4 +23,6 @@ include 'service:sell-service'
 findProject(':service:sell-service')?.name = 'sell-service'
 include 'generator'
 include 'client'
+include 'service:flow-service'
+findProject(':service:flow-service')?.name = 'flow-service'
 
