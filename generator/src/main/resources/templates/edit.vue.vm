@@ -55,7 +55,7 @@ export default {
 		const onCancel = () => {
 			closeDialog();
 		};
-		// 新增
+		// 保存
 		const onSubmit = () => {
 			update(state.ruleForm).then(() => {
 				closeDialog();
